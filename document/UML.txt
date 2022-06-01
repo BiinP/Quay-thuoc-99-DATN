@@ -1,0 +1,2 @@
+USE CASE, ERD, CLASS DIAGRAM: sử dụng lucidchart
+https://lucid.app/documents#/documents?folder_id=294706649
