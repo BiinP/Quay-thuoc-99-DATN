@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sản phẩm yêu thích</title>
+</head>
+
+<body>
+	<!--Body Content-->
+    <div id="page-content">
+    	<!--Page Title-->
+    	<div class="page section-header text-center mt-5">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Sản phẩm yêu thích</h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+        
+        <div class="container">
+        	<div class="row">
+                <!--Sidebar-->
+				<div th:replace="~{account/_aside ::_aside}"></div>
+				<!--End Sidebar-->
+                <div class="col-md-9 main-col">
+                	<div class="grid-products grid--view-items">
+						<div class="row">
+							<div class="col-md-3 item">
+								<!-- start product image -->
+								<div class="product-image">
+									<!-- start product image -->
+									<a href="/product/1"> 
+										<!-- image --> 
+										<img class="product primary blur-up lazyload" 
+											data-src="/images/product/fba867db.jpg"
+											src="/images/product/73104d40.jpg" alt="" title=""> 
+										<!-- End image --> 
+										<!-- Hover image -->
+										<img class="product hover blur-up lazyload"
+											data-src="/images/product/c753c0ae.jpg"
+											src="/images/product/c753c0ae.jpg" alt=" " title=" "> 
+										<!-- End hover image -->
+									</a>
+									<!-- end product image -->
+	
+									<!-- Start product button -->
+									<form class="variants add">
+										<button class="btn btn-addto-cart" type="button">Add To Cart</button>
+									</form>
+									<div class="button-set">
+										<div class="wishlist-btn">
+											<a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"> 
+												<i class="icon anm anm-heart-l"></i>
+											</a>
+										</div>
+									</div>
+									<!-- end product button -->
+								</div>
+								<!-- end product image -->
+	
+								<!--start product details -->
+								<div class="product-details text-center">
+									<!-- product name -->
+									<div class="product-name">
+										<a href="#">Tonner Zakka</a>
+									</div>
+									<!-- End product name -->
+									<!-- product price -->
+									<div class="product-price">
+										<span class="price">350000</span>
+									</div>
+									<!-- End product price -->
+								</div>
+								<!-- End product details -->
+							</div>
+							
+							<div class="col-md-3 item">
+								<!-- start product image -->
+								<div class="product-image">
+									<!-- start product image -->
+									<a href="/product/1"> 
+										<!-- image --> 
+										<img class="product primary blur-up lazyload" 
+											data-src="/images/product/fba867db.jpg"
+											src="/images/product/73104d40.jpg" alt="" title=""> 
+										<!-- End image --> 
+										<!-- Hover image -->
+										<img class="product hover blur-up lazyload"
+											data-src="/images/product/c753c0ae.jpg"
+											src="/images/product/c753c0ae.jpg" alt=" " title=" "> 
+										<!-- End hover image -->
+									</a>
+									<!-- end product image -->
+	
+									<!-- Start product button -->
+									<form class="variants add">
+										<button class="btn btn-addto-cart" type="button">Add To Cart</button>
+									</form>
+									<div class="button-set">
+										<div class="wishlist-btn">
+											<a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"> 
+												<i class="icon anm anm-heart-l"></i>
+											</a>
+										</div>
+									</div>
+									<!-- end product button -->
+								</div>
+								<!-- end product image -->
+	
+								<!--start product details -->
+								<div class="product-details text-center">
+									<!-- product name -->
+									<div class="product-name">
+										<a href="#">Tonner Zakka</a>
+									</div>
+									<!-- End product name -->
+									<!-- product price -->
+									<div class="product-price">
+										<span class="price">350000</span>
+									</div>
+									<!-- End product price -->
+								</div>
+								<!-- End product details -->
+							</div>
+							
+							<div class="col-md-3 item">
+								<!-- start product image -->
+								<div class="product-image">
+									<!-- start product image -->
+									<a href="/product/1"> 
+										<!-- image --> 
+										<img class="product primary blur-up lazyload" 
+											data-src="/images/product/fba867db.jpg"
+											src="/images/product/73104d40.jpg" alt="" title=""> 
+										<!-- End image --> 
+										<!-- Hover image -->
+										<img class="product hover blur-up lazyload"
+											data-src="/images/product/c753c0ae.jpg"
+											src="/images/product/c753c0ae.jpg" alt=" " title=" "> 
+										<!-- End hover image -->
+									</a>
+									<!-- end product image -->
+	
+									<!-- Start product button -->
+									<form class="variants add">
+										<button class="btn btn-addto-cart" type="button">Add To Cart</button>
+									</form>
+									<div class="button-set">
+										<div class="wishlist-btn">
+											<a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"> 
+												<i class="icon anm anm-heart-l"></i>
+											</a>
+										</div>
+									</div>
+									<!-- end product button -->
+								</div>
+								<!-- end product image -->
+	
+								<!--start product details -->
+								<div class="product-details text-center">
+									<!-- product name -->
+									<div class="product-name">
+										<a href="#">Tonner Zakka</a>
+									</div>
+									<!-- End product name -->
+									<!-- product price -->
+									<div class="product-price">
+										<span class="price">350000</span>
+									</div>
+									<!-- End product price -->
+								</div>
+								<!-- End product details -->
+							</div>
+						</div>
+					</div>
+               	</div>
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->
+</body>
+
+</html>

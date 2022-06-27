@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đơn hàng của tôi</title>
+</head>
+
+<body>
+	<!--Body Content-->
+    <div id="page-content">
+    	<!--Page Title-->
+    	<div class="page section-header text-center mt-5">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Đơn hàng của tôi</h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+        
+        <div class="container">
+        	<div class="row">
+                <!--Sidebar-->
+				<div th:replace="~{account/_aside ::_aside}"></div>
+				<!--End Sidebar-->
+                <div class="col-md-9 main-col">
+                	<form action="#">
+                        <div class="wishlist-table table-content table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                    	<th class="product-name text-center alt-font">Mã đơn hàng</th>
+                                        <th class="product-name alt-font">Ngày mua</th>
+                                        <th class="product-price text-center alt-font">Tổng tiền</th>
+                                        <th class="product-subtotal text-center alt-font"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+	                                <th:block th:each="o : ${orders}">
+	                                    <tr>
+	                                        <td class="product-name"><h4 class="no-margin"><a href="">[[${o.order.id}]] </a></h4></td>
+	                                        <td class="product-name"><h4 class="no-margin"><a href="">[[${o.order.createDate}]] </a></h4></td>
+	                                        <td class="product-price text-center"><span class="amount">[[${#numbers.formatDecimal(o.total,0,'COMMA',0,'POINT')}]]</span></td>
+	                                        <td class="product-subtotal text-center"><a th:href="@{|/order/detail/${o.order.id}|}" class="btn btn-small text-white">Xem chi tiết</a></td>
+	                                    </tr>
+	                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>                   
+               	</div>
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->
+</body>
+
+</html>

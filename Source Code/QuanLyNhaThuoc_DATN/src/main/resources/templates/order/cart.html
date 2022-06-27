@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+</head>
+
+<body>
+	<div id="page-content">
+            <!--Page Title-->
+            <div class="page section-header text-center mt-5">
+                <div class="page-title">
+                    <div class="wrapper">
+                        <h1 class="page-width">Giỏ hàng</h1>
+                    </div>
+                </div>
+            </div>
+            <!--End Page Title-->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
+                        <form action="#" method="post" class="cart style2">
+                            <table>
+                                <thead class="cart__row cart__header">
+                                    <tr>
+                                        <th colspan="2" class="text-center">Sản phẩm</th>
+                                        <th class="text-center">Giá</th>
+                                        <th class="text-center">Số lượng</th>
+                                        <th class="text-right">Tổng cộng</th>
+                                        <th class="action">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="i in cart.items" class="cart__row border-bottom line1 cart-flex border-top">
+                                        <td class="cart__image-wrapper cart-flex-item">
+                                            <a href="/product/detail/{{i.id}}"><img class="cart__image"
+                                                    ng-src="/images/product/{{convertImage(i.images)}}"
+                                                    alt="{{i.name}}"></a>
+                                        </td>
+                                        <td class="cart__meta small--text-left cart-flex-item">
+                                            <div class="list-view-item__title">
+                                                <a href="/product/detail/{{i.id}}">{{i.name}}</a>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price-wrapper cart-flex-item">
+                                            <span class="money">{{i.price | number: 0}}</span>
+                                        </td>
+                                        <td class="cart__update-wrapper cart-flex-item text-right">
+                                            <div class="cart__qty text-center">
+                                                <div class="qtyField">
+                                                    <a ng-click="cart.minus(i.id)" class="qtyBtn minus" href="#"><i
+                                                            class="icon icon-minus"></i></a>
+                                                    <input ng-change="cart.saveToLocalStorage()" ng-model="i.qty" class="cart__qty-input qty" type="number" name="updates[]"
+                                                        id="qty" value="1" pattern="[0-9]*">
+                                                    <a ng-click="cart.add(i.id)" class="qtyBtn plus" href="#"><i
+                                                            class="icon icon-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-right small--hide cart-price">
+                                            <div><span class="money">{{cart.priceItem(i.id) | number: 0}}</span></div>
+                                        </td>
+                                        <td class="text-center small--hide"><a href="#"
+                                                class="btn btn--secondary cart__remove" title="Remove tem"><i
+                                                    class="icon icon anm anm-times-l"></i></a></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" class="text-left"><a href="/product/list"
+                                                class="btn--link cart-continue"><i
+                                                    class="icon icon-arrow-circle-left"></i> Tiếp tục mua sắm</a></td>
+                                        <td colspan="3" class="text-right"><button ng-click="cart.clear()" type="submit" name="update"
+                                                class="btn--link cart-update"><i class="fa fa-refresh"></i> Cập
+                                                nhật</button></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <div class="currencymsg">Miễn phí vận chuyển đơn hàng từ 200K nội thành TPHCM, ngoại thành
+                                chịu phí ship sẽ được cập nhật ở bước thanh toán</div>
+                            <hr>
+
+
+                        </form>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                        <div class="solid-border">
+                            <div class="row">
+                                <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng hóa đơn</strong></span>
+                                <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
+                                        class="money">{{cart.amount | number: 0}}</span></span>
+                            </div>
+                            <form action="/cart/checkout">
+                            	<input type="submit" id="cartCheckout" class=" mt-3 btn btn--small-wide checkout"
+                                value="Thanh toán">
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--End Body Content-->
+</body>
+
+</html>

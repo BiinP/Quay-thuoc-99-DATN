@@ -1,0 +1,186 @@
+		<!--Search Form Drawer-->
+        <div class="search">
+            <div class="search__form">
+                <form class="search-bar__form" action="/product/list">
+                    <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
+                    <input class="search__input" type="search" name="kw" th:value="${session.keywords}" placeholder="Search entire store..."
+                        aria-label="Search" autocomplete="off">
+                </form>
+                <button type="button" class="search-trigger close-btn"><i class="anm anm-times-l"></i></button>
+            </div>
+        </div>
+        <!--End Search Form Drawer-->
+        <!--Top Header-->
+        <div class="top-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="language-dropdown">
+                            <span class="language-dd">English</span>
+                            <ul id="language">
+                                <li class="">Việt Nam</li>
+                            </ul>
+                        </div>
+                        <p class="phone-no"><i class="anm anm-phone-s"></i> +8438 123 4567</p>
+                    </div>
+                    <div class="col-md-1 d-none d-lg-none d-md-block d-lg-block">
+                    </div>
+                    <div class="col-md-8 text-right">
+                        <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
+                                aria-hidden="true"></i></span>
+                        <ul class="customer-links list-inline">
+                        <th:block th:if="${#request.remoteUser}">
+                        	<li><a href="#">Welcome [[${#request.remoteUser}]]</a></li>
+                        	<li><a href="/security/logout">Logout</a></li>
+                        	<li><a href="/order/list">Your Order</a></li>
+                            <li><a href="#">Sản phẩm yêu thích</a></li>
+                        </th:block>
+                        <th:block th:unless="${#request.remoteUser}">
+                            <li><a href="/security/login/form">Login</a></li>
+                            <li><a href="/register">Tạo tài khoản</a></li>
+                        </th:block>
+                        	<li th:if="${#request.isUserInRole('director')} OR ${#request.isUserInRole('staff')}"><a href="/admin/index">Admin Tool</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Top Header-->
+        <!--Header-->
+        <div class="header-wrap classicHeader animated d-flex">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <!--Desktop Logo-->
+                    <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
+                        <a href="/">
+                            <img src="./assets/images/logo.svg" alt="Belle Multipurpose Html Template" />
+                        </a>
+                    </div>
+                    <!--End Desktop Logo-->
+                    <div class="col-2 col-sm-3 col-md-3 col-lg-8">
+                        <div class="d-block d-lg-none">
+                            <button type="button"
+                                class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                                <i class="icon anm anm-times-l"></i>
+                                <i class="anm anm-bars-r"></i>
+                            </button>
+                        </div>
+                        <!--Desktop Menu-->
+                        <nav class="grid__item" id="AccessibleNav">
+                            <!-- for mobile -->
+                            <ul id="siteNav" class="site-nav medium right hidearrow">
+                                <li class="lvl1 parent megamenu"><a href="/">Trang chủ <i
+                                            class="anm anm-angle-down-l"></i></a>
+                                </li>
+                                <li class="lvl1 parent megamenu"><a href="/product/list?kw=">Sản phẩm <i
+                                            class="anm anm-angle-down-l"></i></a>
+                                    <div class="megamenu style4">
+                                        <ul class="grid grid--uniform mmWrapper">
+                                            <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                            	<a href="#" class="site-nav lvl-1">Chăm sóc da mặt</a>
+                                               	<ul th:each="cate,state : ${cates}" th:if="${state.index}<5" class="subLinks">
+                                                    <li class="lvl-2">
+                                                    	<a th:text="${cate.name}" th:href="@{|/product/list?cid=${cate.id}|}"
+                                                         class="site-nav lvl-2"></a>
+                                                     </li>
+                                                </ul>
+                                            </li>
+                                            <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                            	<a href="#" class="site-nav lvl-1"></a>
+                                                <ul class="subLinks">
+                                                	<li class="lvl-2">
+                                                    	<a href="#" class="site-nav lvl-2"></a>
+                                                     </li>
+                                                     <th:block th:each="cate,state : ${cates}" th:if="${state.index}>=5">
+	                                                	<li class="lvl-2">
+	                                                    	<a th:text="${cate.name}" th:href="@{|/product/list?cid=${cate.id}|}"
+	                                                          class="site-nav lvl-2"></a>
+	                                                     </li>
+                                                     </th:block>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="lvl1 parent megamenu"><a href="/brand/list">Thương hiệu <i
+                                            class="anm anm-angle-down-l"></i></a>
+                                    <div class="megamenu style2">
+                                        <ul class="grid mmWrapper">
+                                            <li class="grid__item one-whole">
+                                                <ul class="grid">
+                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                            			<a href="#" class="site-nav lvl-1">Thương hiệu</a>
+                                               			<ul th:each="brand,state : ${brands}" th:if="${state.index}<5" class="subLinks">
+                                                    		<li class="lvl-2">
+                                                    		<a th:text="${brand.name}" th:href="@{|/product/list?bid=${brand.id}|}"
+                                                         		class="site-nav lvl-2"></a>
+                                                     		</li>
+                                                		</ul>
+                                            		</li>
+                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                                    	<a href="#" class="site-nav lvl-1"></a>
+                                               			<ul th:each="brand,state : ${brands}" th:if="${state.index}>=5" class="subLinks">
+                                                    		<li class="lvl-2">
+                                                    		<a th:text="${brand.name}" th:href="@{|/product/list?bid=${brand.id}|}"
+                                                         		class="site-nav lvl-2"></a>
+                                                     		</li>
+                                                		</ul>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="lvl1"><a href="#"><b>Buy Now!</b> <i class="anm anm-angle-down-l"></i></a></li>
+                            </ul>
+                        </nav>
+                        <!--End Desktop Menu-->
+                    </div>
+                    <!--Mobile Logo-->
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="./assets/images/logo.svg" alt="Belle Multipurpose Html Template"
+                                    title="Belle Multipurpose Html Template" />
+                            </a>
+                        </div>
+                    </div>
+                    <!--Mobile Logo-->
+                 	<div th:replace="~{/layout/_cart.html ::_cart}"></div>
+                </div>
+            </div>
+        </div>
+        <!--End Header-->
+        <!--Mobile Menu-->
+        <div class="mobile-nav-wrapper" role="navigation">
+            <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Đóng Menu</div>
+            <ul id="MobileNav" class="mobile-nav">
+                <li class="lvl1 parent megamenu"><a href="/home/index">trang chủ </a>
+                </li>
+                <li class="lvl1 parent megamenu">
+                	<a href="#">sản phẩm <i class="anm anm-plus-l"></i></a>
+                    <ul>
+                        <li><a href="product-layout-1.html" class="site-nav"> </a></li>
+                        <th:block th:each="cate : ${categories}">
+                        	<li><a th:text="${cate.name}" th:href="@{|/product/list?cate=${cate.id}|}" class="site-nav"></a></li>
+                        </th:block>
+                    </ul>
+                </li>
+                <li class="lvl1 parent megamenu">
+                	<a href="product-layout-1.html">Thương hiệu <i class="anm anm-plus-l"></i></a>
+                    <ul>
+                        <li><a href="product-layout-1.html" class="site-nav"> </a></li>
+                        <th:block th:each="brand : ${brands}">
+                        	<li><a th:text="${brand.name}" th:href="@{|/product/list?brand=${brand.id}|}" class="site-nav"></a></li>
+                        </th:block>
+                    </ul>
+                </li>
+                <li class="lvl1"><a href="#"><b>Buy Now!</b></a>
+                </li>
+            </ul>
+        </div>
+        <!--End Mobile Menu-->
+	</div>
+</body>
+</html>

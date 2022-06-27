@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" >
+
+
+<head>
+    <title>Admin</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Admin template that can be used to build dashboards for CRM, CMS, etc." />
+    <meta name="author" content="Potenza Global Solutions" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" />
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <!-- plugin stylesheets -->
+    <link rel="stylesheet" type="text/css" href="/admin/assets/css/vendors.css" />
+    <!-- app style -->
+    <link rel="stylesheet" type="text/css" href="/admin/assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/assets/css/custom.css" />
+    <!-- angularjs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" />
+    <!-- chartjs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body ng-app="admin-app">
+    <!-- begin app -->
+    <div class="app">
+        <!-- begin app-wrap -->
+        <div class="app-wrap">
+            <!-- begin pre-loader -->
+            <div class="loader">
+                <div class="h-100 d-flex justify-content-center">
+                    <div class="align-self-center">
+                        <img src="/admin/assets/img/loader/loader.svg" alt="loader">
+                    </div>
+                </div>
+            </div>
+            <!-- end pre-loader -->
+            
+            <!-- begin app-header -->
+            
+            <!-- end app-header -->
+            <div th:replace="~{admin/layout/_header.html ::_header}"></div>
+            <!-- begin app-container -->
+            <div class="app-container">
+            
+                <!-- begin app-nabar -->
+                
+                <!-- end app-navbar -->
+                <div th:replace="~{admin/layout/_aside.html ::_aside}"></div>
+                <!-- begin app-main -->
+                
+                <div class="app-main" id="main">
+                    <!-- begin container-fluid -->
+                    <div ng-view class="container-fluid">
+                        <!-- begin row -->
+                        
+                        <!-- end row -->
+                    </div>
+                    <!-- end container-fluid -->
+                </div>
+                <!-- end app-main -->
+            </div>
+            <!-- end app-container -->
+        </div>
+        <!-- end app-wrap -->
+    </div>
+    <!-- end app -->
+
+    <!-- plugins -->
+    <script src="/admin/assets/js/vendors.js"></script>
+
+    <!-- custom app -->
+    <script src="/admin/assets/js/app.js"></script>
+    <script src="/admin/assets/js/ctrl/admin-app.js"></script>
+    <script src="/admin/assets/js/ctrl/brand-ctrl.js"></script>
+    <script src="/admin/assets/js/ctrl/category-ctrl.js"></script>
+    <script src="/admin/assets/js/ctrl/product-ctrl.js"></script>
+    <script src="/admin/assets/js/ctrl/user-ctrl.js"></script>
+    <script src="/admin/assets/js/ctrl/authenticate-ctrl.js"></script>
+    <script src="/admin/assets/js/ctrl/dashboard-ctrl.js"></script>
+</body>
+
+
+</html>

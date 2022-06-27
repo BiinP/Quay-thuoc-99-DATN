@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+<meta charset="UTF-8">
+<title>BHA Obagi</title>
+</head>
+
+<body>
+	<!--Body Content-->
+	<div class="mt-5" id="page-content">
+            <!--MainContent-->
+            <div id="MainContent" class="main-content" role="main">
+                <!--Breadcrumb-->
+                <div class="bredcrumbWrap">
+                    <div class="container breadcrumbs" role="navigation" aria-label="breadcrumbs">
+                        <a href="/" title="Back to the home page">Home</a><span
+                            aria-hidden="true">›</span><span>BHA Obagi</span>
+                    </div>
+                </div>
+                <!--End Breadcrumb-->
+
+                <div id="ProductSection-product-template" class="product-template__container prstyle1 container">
+                    <!--product-single-->
+                    <div class="product-single">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-details-img">
+                                    <div class="zoompro-wrap product-zoom-right pl-20">
+                                        <div class="zoompro-span">
+                                            <img class="blur-up lazyload zoompro"
+                                                data-zoom-image="/images/product/7202c86a.png"
+                                                alt=""
+                                                src="/images/product/7202c86a.png" />
+                                        </div>
+                                    </div>
+                                    <div class="lightboximages">
+	                                    <!-- <th:block th:each="i : ${product.images}"> -->
+	                                        <a href="/images/product/7202c86a.png"
+	                                            data-size="1462x2048"></a>
+	                                        <a href="/images/product/d14d6f27.png"
+	                                            data-size="1462x2048"></a>
+	                                    <!-- </th:block> -->
+                                    </div>
+                                    <div class="product-thumb">
+                                        <div id="gallery" class="product-dec-slider-2 product-tab-left">
+                                        	<!-- <th:block th:each="i : ${product.images}"> -->
+	                                            <a data-image="/images/product/7202c86a.png"
+	                                                data-zoom-image="/images/product/7202c86a.png"
+	                                                class="slick-slide slick-cloned" data-slick-index="-4"
+	                                                aria-hidden="true" tabindex="-1">
+	                                                <img class="blur-up lazyload"
+	                                                    src="/images/product/d14d6f27.png"
+	                                                    alt="" />
+	                                            </a>
+                                        	<!-- </th:block> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product-single__meta">
+                                    <h1 class="product-single__title">BHA Obagi</h1>
+                                    <div class="product-nav clearfix">
+                                        <a href="#" class="next" title="Next"><i class="fa fa-angle-right"
+                                                aria-hidden="true"></i></a>
+                                    </div>
+                                    <div class="prInfoRow">
+                                        <div class="product-stock"> <span class="instock ">In Stock</span> </div>
+                                    </div>
+                                    <p class="product-single__price product-single__price-product-template">
+                                        <span class="product-price__price product-price__price-product-template">
+                                            <span id="ProductPrice-product-template"><span
+                                                    class="money">550000</span></span>
+                                        </span>
+                                    </p>
+                                    <div class="product-single__description rte">
+                                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure
+                                            and praising pain was born and I will give you a complete account of the
+                                            system, and expound the actual teachings of the great explorer of the truth,
+                                            the master-builder of human happiness.</p>
+                                    </div>
+                                    <!-- countdown start -->
+                                    <div class="saleTime product-countdown" data-countdown="2022/07/01"></div>
+                                    <!-- countdown end -->
+                                    <form method="post" action="http://annimexweb.com/cart/add"
+                                        id="product_form_10508262282" accept-charset="UTF-8"
+                                        class="product-form product-form-product-template hidedropdown"
+                                        enctype="multipart/form-data">
+
+                                        <!-- Product Action -->
+                                        <div class="product-action clearfix">
+                                            <div class="product-form__item--submit">
+                                                <button   type="button" name="add" class="btn btn-product-detail product-form__cart-submit">
+                                                    <span id="AddToCartText-product-template">Thêm vào giỏ hàng</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- End Product Action -->
+                                    </form>
+                                    <div class="display-table shareRow">
+                                        <div class="display-table-cell medium-up--one-third">
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"><i
+                                                        class="icon anm anm-heart-l" aria-hidden="true"></i> <span>Thêm
+                                                        Vào Yêu Thích</span></a>
+                                            </div>
+                                        </div>
+                                        <div class="display-table-cell text-right">
+                                            <div class="social-sharing">
+                                                <a target="_blank" href="#"
+                                                    class="btn btn--small btn--secondary btn--share share-facebook"
+                                                    title="Share on Facebook">
+                                                    <i class="fa fa-facebook-square" aria-hidden="true"></i> <span
+                                                        class="share-title" aria-hidden="true">Facebook</span>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <p class="product-type"><span class="lbl">Loại hàng:</span> 
+                                    	<!-- <th:block th:each="c : ${product.product.productCategories}"> -->
+                                    		<a href="#" title="Women's">Toner</a></p>
+                                    	<!-- </th:block> -->
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--End-product-single-->
+                        <!--Product Tabs-->
+                        <ul class="nav mt-3 mb-3 nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mô tả</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Bảng thành phần</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Hướng dẫn sử dụng</a>
+                            </li>
+                          </ul>
+                          <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Mô tả</div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...Bảng thành phần</div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...Hướng dẫn sử dụng</div>
+                          </div>
+                        <!--End Product Tabs-->
+
+                        <!--Related Product Slider-->
+                        <div class="related-product grid-products">
+                            <header class="section-header">
+                                <h2 class="section-header__title text-center h2"><span>Sản phẩm liên quan</span></h2>
+                                
+                            </header>
+                            <div class="productPageSlider">
+                                <!-- <th:block th:each="p : ${productsRcm}"> -->
+                                	<div class="col-md-12 item">
+                                    <!-- start product image -->
+                                    <div class="product-image">
+                                        <!-- start product image -->
+                                        <a href="#">
+                                            <!-- image -->
+                                            <img class="product-rcm primary blur-up lazyload"
+                                                data-src="/images/product/fba867db.jpg"
+                                                src="/images/product/fba867db.jpg" alt="${p.product.name}"
+                                                title="${p.product.name}">
+                                            <!-- End image -->
+                                            <!-- Hover image -->
+                                            <img class="product-rcm hover blur-up lazyload"
+                                                data-src="/images/product/c753c0ae.jpg"
+                                                src="/images/product/c753c0ae.jpg" alt="${p.product.name}"
+                                                title="${p.product.name}">
+                                            <!-- End hover image -->
+                                        </a>
+                                        <!-- end product image -->
+
+                                        <!-- Start product button -->
+                                        <form class="variants add">
+                                            <button class="btn btn-addto-cart" type="button" tabindex="0">ADD TO CART</button>
+                                        </form>
+                                        <div class="button-set">
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                    <i class="icon anm anm-heart-l"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- end product button -->
+                                    </div>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details text-center">
+                                        <!-- product name -->
+                                        <div class="product-name">
+                                            <a href="#">Toner Zakka</a>
+                                        </div>
+                                        <!-- End product name -->
+                                        <!-- product price -->
+                                        <div class="product-price">
+                                            <span class="price">350000</span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                    </div>
+                                    <!-- End product details -->
+                                </div>
+                                	<div class="col-md-12 item">
+                                    <!-- start product image -->
+                                    <div class="product-image">
+                                        <!-- start product image -->
+                                        <a href="#">
+                                            <!-- image -->
+                                            <img class="product-rcm primary blur-up lazyload"
+                                                data-src="/images/product/fba867db.jpg"
+                                                src="/images/product/fba867db.jpg" alt="${p.product.name}"
+                                                title="${p.product.name}">
+                                            <!-- End image -->
+                                            <!-- Hover image -->
+                                            <img class="product-rcm hover blur-up lazyload"
+                                                data-src="/images/product/c753c0ae.jpg"
+                                                src="/images/product/c753c0ae.jpg" alt="${p.product.name}"
+                                                title="${p.product.name}">
+                                            <!-- End hover image -->
+                                        </a>
+                                        <!-- end product image -->
+
+                                        <!-- Start product button -->
+                                        <form class="variants add">
+                                            <button class="btn btn-addto-cart" type="button" tabindex="0">ADD TO CART</button>
+                                        </form>
+                                        <div class="button-set">
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                    <i class="icon anm anm-heart-l"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- end product button -->
+                                    </div>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details text-center">
+                                        <!-- product name -->
+                                        <div class="product-name">
+                                            <a href="#">Toner Zakka</a>
+                                        </div>
+                                        <!-- End product name -->
+                                        <!-- product price -->
+                                        <div class="product-price">
+                                            <span class="price">350000</span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                    </div>
+                                    <!-- End product details -->
+                                </div>
+                                	<div class="col-md-12 item">
+                                    <!-- start product image -->
+                                    <div class="product-image">
+                                        <!-- start product image -->
+                                        <a href="#">
+                                            <!-- image -->
+                                            <img class="product-rcm primary blur-up lazyload"
+                                                data-src="/images/product/fba867db.jpg"
+                                                src="/images/product/fba867db.jpg" alt="${p.product.name}"
+                                                title="${p.product.name}">
+                                            <!-- End image -->
+                                            <!-- Hover image -->
+                                            <img class="product-rcm hover blur-up lazyload"
+                                                data-src="/images/product/c753c0ae.jpg"
+                                                src="/images/product/c753c0ae.jpg" alt="${p.product.name}"
+                                                title="${p.product.name}">
+                                            <!-- End hover image -->
+                                        </a>
+                                        <!-- end product image -->
+
+                                        <!-- Start product button -->
+                                        <form class="variants add">
+                                            <button class="btn btn-addto-cart" type="button" tabindex="0">ADD TO CART</button>
+                                        </form>
+                                        <div class="button-set">
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                    <i class="icon anm anm-heart-l"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- end product button -->
+                                    </div>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details text-center">
+                                        <!-- product name -->
+                                        <div class="product-name">
+                                            <a href="#">Toner Zakka</a>
+                                        </div>
+                                        <!-- End product name -->
+                                        <!-- product price -->
+                                        <div class="product-price">
+                                            <span class="price">350000</span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                    </div>
+                                    <!-- End product details -->
+                                </div>
+                                <!-- </th:block> -->
+                            </div>
+                        </div>
+                        <!--End Related Product Slider-->
+
+                       
+                    </div>
+                    <!--#ProductSection-product-template-->
+                </div>
+                <!--MainContent-->
+            </div>
+            <!--End Body Content-->
+        </div>
+</body>
+
+</html>
