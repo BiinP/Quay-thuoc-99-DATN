@@ -1,0 +1,240 @@
+
+<div class="row">
+	<div class="col-md-12 m-b-30">
+		<!-- begin page title -->
+		<div class="d-block d-lg-flex flex-nowrap align-items-center">
+			<div class="page-title mr-4 pr-4 border-right">
+				<h1>Quản lý tài khoản</h1>
+			</div>
+
+			<div
+				class="ml-auto d-flex align-items-center secondary-menu text-center">
+				<button type="button" class="btn btn-primary" ng-click="reset()"
+					data-toggle="modal" data-target="#largeModal">Thêm tài
+					khoản</button>
+			</div>
+		</div>
+		<!-- end page title -->
+	</div>
+</div>
+<!-- end row -->
+<!-- begin row -->
+<div class="row">
+	<div class="col-md-12 ">
+		<div class="card card-statistics">
+			<div class="card-header">
+				<div class="card-heading">
+					<div class="row">
+						<div class="col-md-6 text-left">
+							<h4 class="card-title">Danh sách tài khoản</h4>
+						</div>
+						<div class="col-md-6">
+							<form class="justify-content-end">
+								<div class="form-group">
+									<input ng-model="keyword"
+										oninput="angular.element(this).scope().search(this.value)"
+										type="text" class="form-control" placeholder="Search">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Email</th>
+								<th scope="col">Họ tên</th>
+								<th scope="col">Giới tính</th>
+								<th scope="col">Ngày sinh</th>
+								<th scope="col">Sdt</th>
+								<th scope="col">Ngày tạo</th>
+								<th scope="col">Điểm</th>
+								<th scope="col">Vai trò</th>
+								<th scope="col">Hoạt động</th>
+								<th scope="col">Ghi chú</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="acc in accounts">
+								<th scope="row">{{$index+1}}</th>
+								<td><a data-toggle="modal" data-target="#largeModal" ng-click="edit(acc.email)" href="">{{acc.email}}</a></td>
+								<td>{{acc.hoTen}}</td>
+								<td>{{acc.gioiTinh}}</td>
+								<td>{{acc.ngaySinh | date: 'yyyy-MM-dd'}}</td>
+								<td>{{acc.sdt}}</td>
+								<td>{{acc.ngayTao | date: 'yyyy-MM-dd'}}</td>
+								<td>{{acc.diem}}</td>
+								<td>{{acc.role.name}}</td>
+								<td>{{acc.active?'Yes':'No'}}</td>
+								<td>{{acc.ghiChu}}</td>
+								<td class="text-right">
+									<button ng-click="edit(acc.email)" class="btn btn-primary"
+										data-toggle="modal" data-target="#largeModal">
+										<i class="fa-solid fa-pen"></i>
+									</button>
+									<button ng-click="delete(acc.email)" class="btn btn-dark">
+										<i class="fa-solid fa-circle-xmark"></i>
+									</button>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<nav aria-label="...">
+					<ul class="mt-2 pagination justify-content-center">
+						<li id="first" ng-click="first()" class="page-item"><a class="page-link" href=""><i
+								class="fa-solid fa-backward-step"></i></a></li>
+						<li id="prev" ng-click="prev()" class="page-item"><a class="page-link" href=""><i
+								class="fa-solid fa-angles-left"></i></a></li>
+						<li class="page-item"><a class="page-link" href="">{{start+1}}/{{totalPage}}</a></li>
+						<li id="next" ng-click="next()" class="page-item"><a class="page-link" href=""><i
+								class="fa-solid fa-angles-right"></i></a></li>
+						<li id="last" ng-click="last()" class="page-item"><a class="page-link" href=""><i
+								class="fa-solid fa-forward-step"></i></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Large Modal -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
+	aria-labelledby="largeModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin tài khoản</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4 text-center">
+						<label> <img ng-src="/images/account/{{account.avatar}}"
+							class="logo" alt="">
+						</label>
+					</div>
+					<div class="col-md-8">
+						<form name="frmAccount">
+							<div class="row mt-2">
+								<div class="col">
+									<label>Email</label> <input name="email"
+										ng-model="account.email" required type="email" ng-disabled="chon == true"
+										class="form-control">
+									<div ng-show="frmAccount.email.$invalid"
+										class="badge badge-danger m-2">Email không đúng</div>
+								</div>
+								<div class="col">
+									<label>Họ tên</label> <input name="hoTen"
+										ng-model="account.hoTen" required type="text"
+										class="form-control">
+									<div ng-show="frmAccount.hoTen.$invalid"
+										class="badge badge-danger m-2">Họ tên không được để trống</div>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Ngày sinh</label> <input name="ngaySinh"
+										ng-model="account.ngaySinh" required type="text"
+										class="form-control" placeholder="yyyy-mm-dd" validate_day>
+									<div ng-show="frmAccount.ngaySinh.$invalid"
+										class="badge badge-danger m-2">Ngày sinh phải có dạng yyyy-mm-dd</div>
+								</div>
+								<div class="col">
+									<label>Sđt</label> <input name="sdt" ng-model="account.sdt"
+										required type="text" class="form-control" validate_sdt>
+									<div ng-show="frmAccount.sdt.$invalid"
+										class="badge badge-danger m-2">Sdt không đúng</div>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Ngày tạo</label> <input name="ngayTao"
+										ng-model="account.ngayTao" required type="text"
+										class="form-control" placeholder="yyyy-mm-dd" validate_day>
+									<div ng-show="frmAccount.ngayTao.$invalid"
+										class="badge badge-danger m-2">Ngày tạo phải có dạng yyyy-mm-dd</div>
+								</div>
+								<div class="col">
+									<label>Điểm tích lũy</label> <input name="diem"
+										ng-model="account.diem" ng-min="0" required type="number"
+										class="form-control">
+									<div ng-show="frmAccount.diem.$invalid"
+										class="badge badge-danger m-2">Điểm phải lớn hơn hoặc bằng 0</div>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Mật khẩu</label> <input name="matKhau"
+										ng-model="account.matKhau" required type="password"
+										class="form-control">
+								</div>
+								<div class="col">
+									<label>Avatar</label>
+									<div class="custom-file">
+										<input type="file" accept="image/*" class="custom-file-input"
+											onchange="angular.element(this).scope().imageChanged(this.files)" />
+										<label class="custom-file-label">Choose file</label>
+									</div>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Vai trò</label> <select ng-model="account.role.id"
+										class="form-control">
+										<option ng-repeat="role in roles" ng-value="role.id">{{role.name}}
+										</option>
+									</select>
+								</div>
+								<div class="col">
+									<label class="mr-2">Giới tính</label> <br>
+									<div class="form-check-inline">
+										<input ng-model="account.gioiTinh" class="form-check-input"
+											type="radio" name="gioiTinh" ng-value="true"> <label
+											class="form-check-label"> Nam </label>
+									</div>
+									<div class="form-check-inline">
+										<input ng-model="account.gioiTinh" class="form-check-input"
+											type="radio" name="gioiTinh" ng-value="false"> <label
+											class="form-check-label">Nữ </label>
+									</div>
+								</div>
+								<div class="col">
+									<label class="mr-2">Hoạt động</label> <br>
+									<div class="form-check-inline">
+										<input ng-model="account.active" class="form-check-input"
+											type="radio" name="active" ng-value="true"> <label
+											class="form-check-label"> Yes </label>
+									</div>
+									<div class="form-check-inline">
+										<input ng-model="account.active" class="form-check-input"
+											type="radio" name="active" ng-value="false"> <label
+											class="form-check-label">No </label>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button ng-disabled="frmAccount.$invalid || chon == true"
+					ng-click="create()" class="btn btn-primary">Create</button>
+				<button
+					ng-disabled="frmAccount.$invalid || chon == false"
+					ng-click="update(account.email)" class="btn btn-info">Update</button>
+				<button ng-click="reset()" class="btn btn-secondary">Reset</button>
+				<button ng-disabled="chon == false" ng-click="delete(account.email)"
+					class="btn btn-dark">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
