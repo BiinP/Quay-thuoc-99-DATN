@@ -6,8 +6,12 @@ app.config(function($routeProvider){
             controller:"account-ctrl"
         })
         .when("/category",{
-            templateUrl:"/admin/assets/layout/category.html",
-            controller:"category-ctrl"
+        	templateUrl:"/admin/assets/layout/category.html",
+        	controller:"category-ctrl"
+        })
+        .when("/sub-category",{
+            templateUrl:"/admin/assets/layout/sub-category.html",
+            controller:"subCategory-ctrl"
         })
         .when("/brand",{
             templateUrl:"/admin/assets/layout/brand.html",

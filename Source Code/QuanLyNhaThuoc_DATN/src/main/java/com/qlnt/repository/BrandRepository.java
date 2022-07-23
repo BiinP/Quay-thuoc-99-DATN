@@ -8,16 +8,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.qlnt.model.SubCategory;
+import com.qlnt.model.Account;
+import com.qlnt.model.Brand;
 
 @Repository
-public interface SubCategoryRepository extends JpaRepository<SubCategory, String>{
-	@Query("SELECT o FROM SubCategory o WHERE o.id LIKE ?1 OR o.name LIKE ?1 ORDER BY o.name ASC")
-	public Page<SubCategory> findAll(String kw, Pageable currentPage);
+public interface BrandRepository extends JpaRepository<Brand, String>{
+	@Query("SELECT o FROM Brand o WHERE o.id LIKE ?1 OR o.name LIKE ?1 ORDER BY o.name ASC")
+	public Page<Brand> findAll(String kw, Pageable currentPage);
 	@Query("SELECT COUNT(o) "
-			+ "FROM Product o INNER JOIN SubCategory s "
-			+ "ON o.subCategory.id = s.id "
-			+ "GROUP BY s.id "
-			+ "HAVING s.id = ?1")
+			+ "FROM Product o INNER JOIN Brand b"
+			+ "	ON o.brand.id = b.id "
+			+ "GROUP BY b.id "
+			+ "HAVING b.id = ?1")
 	public Optional<Integer> existInProduct(String id);
 }

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ public class Category {
 	private String id;
 	private String name;
 	private Boolean active = true;
+	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<SubCategory> subCategories;
 }

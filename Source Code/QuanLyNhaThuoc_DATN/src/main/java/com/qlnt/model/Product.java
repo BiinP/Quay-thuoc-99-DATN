@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,7 @@ public class Product {
 	private Integer id;
 	private String name;
 	private String soDangKy;
-	private String donviGoc;
+	private String donViGoc;
 	private Boolean rx = false;
 	private Boolean active= true;
 	private String ghiChu;
@@ -35,10 +37,13 @@ public class Product {
 	private SubCategory subCategory;
 	@ManyToOne @JoinColumn(name = "brand_id")
 	private Brand brand;
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<Goods> goods;
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<PromotionDetail> promotionDetails;
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<InputDetail> inputDetails;
 }

@@ -62,7 +62,8 @@
 						<tbody>
 							<tr ng-repeat="acc in accounts">
 								<th scope="row">{{$index+1}}</th>
-								<td><a data-toggle="modal" data-target="#largeModal" ng-click="edit(acc.email)" href="">{{acc.email}}</a></td>
+								<td><a data-toggle="modal" data-target="#largeModal"
+									ng-click="edit(acc.email)" href="">{{acc.email}}</a></td>
 								<td>{{acc.hoTen}}</td>
 								<td>{{acc.gioiTinh}}</td>
 								<td>{{acc.ngaySinh | date: 'yyyy-MM-dd'}}</td>
@@ -88,15 +89,16 @@
 				</div>
 				<nav aria-label="...">
 					<ul class="mt-2 pagination justify-content-center">
-						<li id="first" ng-click="first()" class="page-item"><a class="page-link" href=""><i
+						<li id="first" ng-click="first()" class="page-item disabled"><a
+							class="page-link" href=""><i
 								class="fa-solid fa-backward-step"></i></a></li>
-						<li id="prev" ng-click="prev()" class="page-item"><a class="page-link" href=""><i
-								class="fa-solid fa-angles-left"></i></a></li>
+						<li id="prev" ng-click="prev()" class="page-item disabled"><a
+							class="page-link" href=""><i class="fa-solid fa-angles-left"></i></a></li>
 						<li class="page-item"><a class="page-link" href="">{{start+1}}/{{totalPage}}</a></li>
-						<li id="next" ng-click="next()" class="page-item"><a class="page-link" href=""><i
-								class="fa-solid fa-angles-right"></i></a></li>
-						<li id="last" ng-click="last()" class="page-item"><a class="page-link" href=""><i
-								class="fa-solid fa-forward-step"></i></a></li>
+						<li id="next" ng-click="next()" class="page-item"><a
+							class="page-link" href=""><i class="fa-solid fa-angles-right"></i></a></li>
+						<li id="last" ng-click="last()" class="page-item"><a
+							class="page-link" href=""><i class="fa-solid fa-forward-step"></i></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -109,7 +111,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Thông tin tài khoản</h5>
+				<h5 class="modal-title">Thông tin tài khoản {{account.email}}</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -127,8 +129,8 @@
 							<div class="row mt-2">
 								<div class="col">
 									<label>Email</label> <input name="email"
-										ng-model="account.email" required type="email" ng-disabled="chon == true"
-										class="form-control">
+										ng-model="account.email" required type="email"
+										ng-disabled="chon == true" class="form-control">
 									<div ng-show="frmAccount.email.$invalid"
 										class="badge badge-danger m-2">Email không đúng</div>
 								</div>
@@ -137,7 +139,8 @@
 										ng-model="account.hoTen" required type="text"
 										class="form-control">
 									<div ng-show="frmAccount.hoTen.$invalid"
-										class="badge badge-danger m-2">Họ tên không được để trống</div>
+										class="badge badge-danger m-2">Họ tên không được để
+										trống</div>
 								</div>
 							</div>
 							<div class="row mt-2">
@@ -146,7 +149,8 @@
 										ng-model="account.ngaySinh" required type="text"
 										class="form-control" placeholder="yyyy-mm-dd" validate_day>
 									<div ng-show="frmAccount.ngaySinh.$invalid"
-										class="badge badge-danger m-2">Ngày sinh phải có dạng yyyy-mm-dd</div>
+										class="badge badge-danger m-2">Ngày sinh phải có dạng
+										yyyy-mm-dd</div>
 								</div>
 								<div class="col">
 									<label>Sđt</label> <input name="sdt" ng-model="account.sdt"
@@ -161,14 +165,16 @@
 										ng-model="account.ngayTao" required type="text"
 										class="form-control" placeholder="yyyy-mm-dd" validate_day>
 									<div ng-show="frmAccount.ngayTao.$invalid"
-										class="badge badge-danger m-2">Ngày tạo phải có dạng yyyy-mm-dd</div>
+										class="badge badge-danger m-2">Ngày tạo phải có dạng
+										yyyy-mm-dd</div>
 								</div>
 								<div class="col">
 									<label>Điểm tích lũy</label> <input name="diem"
 										ng-model="account.diem" ng-min="0" required type="number"
 										class="form-control">
 									<div ng-show="frmAccount.diem.$invalid"
-										class="badge badge-danger m-2">Điểm phải lớn hơn hoặc bằng 0</div>
+										class="badge badge-danger m-2">Điểm phải lớn hơn hoặc
+										bằng 0</div>
 								</div>
 							</div>
 							<div class="row mt-2">
@@ -221,6 +227,11 @@
 									</div>
 								</div>
 							</div>
+							<div class="form-group">
+								<label>Ghi chú</label>
+								<textarea ng-model="account.ghiChu" class="form-control"
+									rows="3"></textarea>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -228,8 +239,7 @@
 			<div class="modal-footer">
 				<button ng-disabled="frmAccount.$invalid || chon == true"
 					ng-click="create()" class="btn btn-primary">Create</button>
-				<button
-					ng-disabled="frmAccount.$invalid || chon == false"
+				<button ng-disabled="frmAccount.$invalid || chon == false"
 					ng-click="update(account.email)" class="btn btn-info">Update</button>
 				<button ng-click="reset()" class="btn btn-secondary">Reset</button>
 				<button ng-disabled="chon == false" ng-click="delete(account.email)"

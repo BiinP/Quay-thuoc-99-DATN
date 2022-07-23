@@ -18,39 +18,44 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.qlnt.model.Category;
-import com.qlnt.service.CategoryService;
+import com.qlnt.model.SubCategory;
+import com.qlnt.service.SubCategoryService;
 import com.qlnt.service.UploadService;
 
 @RestController
-@RequestMapping("/api/categories")
-public class CategoryAPI {
-	@Autowired private CategoryService cateService;
-
+@RequestMapping("/api/sub-categories")
+public class SubCategoryAPI {
+	@Autowired private SubCategoryService subCateService;
+	@Autowired private UploadService uploadService;
+	
 	@GetMapping
-	public Page<Category> getAll(@RequestParam("kw") Optional<String> kw,
+	public Page<SubCategory> getAll(@RequestParam("kw") Optional<String> kw,
 			@RequestParam("currentPage") Optional<Integer> currentPage) {
-		return cateService.findAll(kw, currentPage);
+		return subCateService.findAll(kw, currentPage);
 	}
 
 	@GetMapping("/{id}")
-	public Category getById(@PathVariable("id") String id) {
-		return cateService.findById(id);
+	public SubCategory getById(@PathVariable("id") String id) {
+		return subCateService.findById(id);
 	}
 
 	@PostMapping
-	public ResponseEntity<Category> create(@RequestBody Category category) {
-		if (cateService.existById(category.getId())) {
+	public ResponseEntity<SubCategory> create(@RequestBody SubCategory subCategory) {
+		if (subCateService.existById(subCategory.getId())) {
 			return ResponseEntity.badRequest().build();
 		}else {
-			return ResponseEntity.ok(cateService.save(category));
+			return ResponseEntity.ok(subCateService.save(subCategory));
 		}
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Category> update(@PathVariable("id") String id, @RequestBody Category category){
-		if (cateService.existById(id)) {
-			return ResponseEntity.ok(cateService.save(category));
+	public ResponseEntity<SubCategory> update(@PathVariable("id") String id, @RequestBody SubCategory subCategory){
+		if (subCateService.existById(id)) {
+			String imgOld = subCateService.findById(id).getPhoto();
+			if(!subCategory.getPhoto().equals(imgOld) && !imgOld.equals("photo.png")) {
+				uploadService.delete("sub-category", imgOld);
+			}
+			return ResponseEntity.ok(subCateService.save(subCategory));
 		}else {
 			return ResponseEntity.notFound().build();
 		}
@@ -60,16 +65,19 @@ public class CategoryAPI {
 	public JsonNode delete(@PathVariable("id") String id){
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode node = mapper.createObjectNode();
-		if (cateService.existById(id)) {
-			Category category = cateService.findById(id);
-			if(cateService.existInSubCategory(id)) {
-				category.setActive(false);
-				cateService.save(category);
+		if (subCateService.existById(id)) {
+			SubCategory subCategory = subCateService.findById(id);
+			if(subCateService.existInProduct(id)) {
+				subCategory.setActive(false);
+				subCateService.save(subCategory);
 				node.put("isFound", true);
 				node.put("isExist", true);
 				return node;
 			}else {
-				cateService.deleteById(id);
+				subCateService.deleteById(id);
+				if(!subCategory.getPhoto().equals("photo.png")) {
+					uploadService.delete("sub-category", subCategory.getPhoto());
+				}
 				node.put("isFound", true);
 				node.put("isExist", false);
 				return node;

@@ -1,68 +1,46 @@
-let urlProduct = "/api/products";
-app.controller("product-ctrl", function ($scope, $http) {
-	$scope.products = [];
-	$scope.product = {};
-    $scope.pageSize = 10;
-    $scope.subCates = [];
-    $scope.brands = [];
+let urlSubCategory = "/api/sub-categories";
+app.controller("subCategory-ctrl",function($scope, $http){
+	$scope.subCategories = [];
+	$scope.subCategory = {};
 	$scope.chon = false;
 	$scope.start = 0;
 	$scope.totalPage = 0;
 	$scope.keyword = "";
-	
+	// GET DANH SACH SUBCATEGORIES
     $scope.getAll = function(keyword, page){
-    	var url = `${urlProduct}?kw=${keyword}&currentPage=${page}`;
+    	var url = `${urlSubCategory}?kw=${keyword}&currentPage=${page}`;
     	$http.get(url).then(resp => {
-        	$scope.products = resp.data.content;
+        	$scope.subCategories = resp.data.content;
         	$scope.totalPage = resp.data.totalPages;
     	});
-    };
-    
-    $http.get('/api/sub-categories').then(resp => {
-    	$scope.subCates = resp.data.content;
-    });
-    
-    $http.get('/api/brands').then(resp => {
-    	$scope.brands = resp.data.content;
-    });
-    
-    $scope.reset = function(){
-    	$scope.chon = false;
-    	$scope.product = {
-    		id: 'Mã tự động',
-    		name: null,
-    		soDangKy: null,
-    		donViGoc: null,
-    		rx: false,
-    		active: true,
-    		ghiChu: null,
-    		photo: 'photo.png',
-    		subCategory: {
-    			id: ''
-    		},
-    		brand: {
-    			id: 'OBG'
-    		}
-    	};
     }
-    
-    $scope.edit = function(id){
-    	let url = `${urlProduct}/${id}`;
-    	$http.get(url).then(resp => {
-    		$scope.product = resp.data;
-    		$scope.chon = true;
-    	});
-    };
-    
+    //GET DANH SACH CATEGORY
+    $http.get('/api/categories').then(resp => {
+    	$scope.categories = resp.data.content;
+    });
+ // TAO MOI SUBCATEGORY
+	$scope.reset = function(){
+		$scope.subCategory = {
+			id: null,
+			name: null,
+			photo:"photo.png",
+			category: {
+				id: "thuc-pham-chuc-nang"
+			},
+			active: true,
+		};
+		$scope.chon = false;
+	};
+	// UPLOAD AVATAR
 	$scope.imageChanged = function(files){
-        var urlUpload = "/api/upload/product";
+        var urlUpload = "/api/upload/sub-category";
         var form = new FormData();
         form.append("file",files[0]);
         $http.post(urlUpload, form, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).then(resp => {
-            $scope.product.photo = resp.data.fileName;
+            $scope.subCategory.photo = resp.data.fileName;
             swal({
 		        position: 'top-end',
 		        type: 'success',
@@ -80,18 +58,25 @@ app.controller("product-ctrl", function ($scope, $http) {
 		        timer: 1500
 		    })
         });
-    };
-    
-    $scope.create = function(){
-    	$scope.product.id = 0;
-		var data = angular.copy($scope.product);
-		$http.post(urlProduct, data).then(resp => {
-			$scope.products.push(resp.data);
+    }
+	// EDIT 1 SUBCATEGORY
+	$scope.edit = function(id){
+		var url = `${urlSubCategory}/${id}`;
+		$http.get(url).then(resp => {
+			$scope.subCategory = resp.data;
+		});	
+		$scope.chon = true;
+	}
+	//THEM SUBCATEGORY
+	$scope.create = function(){
+		var data = angular.copy($scope.subCategory);
+		$http.post(urlSubCategory, data).then(resp => {
+			$scope.subCategories.push(resp.data);
 			$scope.reset();
 			swal({
 		        position: 'top-end',
 		        type: 'success',
-		        title: 'Thêm sản phẩm thành công',
+		        title: 'Thêm danh mục thành công',
 		        showConfirmButton: false,
 		        timer: 1500
 		    });
@@ -99,17 +84,17 @@ app.controller("product-ctrl", function ($scope, $http) {
 			swal({
 		        position: 'top-end',
 		        type: 'error',
-		        title: 'Thêm sản phẩm thất bại',
+		        title: 'Thêm danh mục thất bại',
 		        showConfirmButton: false,
 		        timer: 1500
 		    });
 		});
-	};
-    
+	}
+	// XOA SUBCATEGORY
 	$scope.delete = function(id){
 		swal({
-	        title: `Bạn có muốn xóa sản phẩm ${id}?`,
-	        text: "Nếu sản phẩm đã có hàng hóa và phiếu nhập sẽ chuyển sang trạng thái ngừng hoạt động",
+	        title: `Bạn có muốn xóa danh mục ${id}?`,
+	        text: "Nếu danh mục có sản phẩm sẽ chuyển sang trạng thái ngừng hoạt động",
 	        type: 'warning',
 	        showCancelButton: true,
 	        confirmButtonColor: '#3085d6',
@@ -119,24 +104,24 @@ app.controller("product-ctrl", function ($scope, $http) {
 	        cancelButtonClass: 'btn btn-danger',
 	    }).then((result) => {
 	        if (result.value) {
-	        	var url = `${urlProduct}/${id}`;
+	        	var url = `${urlSubCategory}/${id}`;
 	        	$http.delete(url).then(resp => {
 	        		if(resp.data.isExist){
 	        			swal({
 		        			position: 'top-end',
 		        			type: 'success',
-		        			title: 'Sản phẩm đã ngừng hoạt động',
+		        			title: 'Danh mục đã ngừng hoạt động',
 		        			showConfirmButton: false,
 		        			timer: 1500
 		        		});
 	        			$scope.reset();
 	        		}else{
-	        			var index = $scope.products.findIndex(p => p.id == id);
-		        		$scope.products.splice(index,1);
+	        			var index = $scope.subCategories.findIndex(b => b.id == id);
+		        		$scope.subCategories.splice(index,1);
 		        		swal({
 		        			position: 'top-end',
 		        			type: 'success',
-		        			title: 'Xóa sản phẩm thành công',
+		        			title: 'Xóa danh mục thành công',
 		        			showConfirmButton: false,
 		        			timer: 1500
 		        		});
@@ -146,17 +131,18 @@ app.controller("product-ctrl", function ($scope, $http) {
 	        			swal({
 		        			position: 'top-end',
 		        			type: 'error',
-		        			title: 'Không tìm thấy sản phẩm',
+		        			title: 'Không tìm thấy danh mục',
 		        			showConfirmButton: false,
 		        			timer: 1500
 		        		});
 	        			$scope.reset();
 	        		}
 	        	}).catch(error => {
+	        		console.log(error);
 	        		swal({
 	        			position: 'top-end',
 	        			type: 'error',
-	        			title: 'Xóa sản phẩm thất bại',
+	        			title: 'Xóa danh mục thất bại',
 	        			showConfirmButton: false,
 	        			timer: 1500
 	        		});
@@ -164,19 +150,19 @@ app.controller("product-ctrl", function ($scope, $http) {
 	        	});
 	        }
 	    })
-	};
-	
+	}
+	//SƯA SUBCATEGORY
 	$scope.update = function(id){
-		var url = `${urlProduct}/${id}`;
-		var data = angular.copy($scope.product);
+		var url = `${urlSubCategory}/${id}`;
+		var data = angular.copy($scope.subCategory);
 		
 		$http.put(url,data).then(resp => {
-			var index = $scope.products.findIndex(p => p.id == id);
-			$scope.products[index] = resp.data;
+			var index = $scope.subCategories.findIndex(b => b.id == id);
+			$scope.subCategories[index] = resp.data;
 			swal({
     			position: 'top-end',
     			type: 'success',
-    			title: 'Cập nhật sản phẩm thành công',
+    			title: 'Cập nhật danh mục thành công',
     			showConfirmButton: false,
     			timer: 1500
     		});
@@ -184,19 +170,14 @@ app.controller("product-ctrl", function ($scope, $http) {
 			swal({
     			position: 'top-end',
     			type: 'error',
-    			title: 'Cập nhật sản phẩm thất bại',
+    			title: 'Cập nhật danh mục thất bại',
     			showConfirmButton: false,
     			timer: 1500
     		});
 		});
-	};
-	
-	$scope.search = function(keyword){
-		$scope.start = 0; 
-		$scope.getAll(keyword,$scope.start);
-	};
-	
+	}
 	$scope.updatePagination = function(start){
+		console.log(start);
 		if(start <= 0){
 			$('#first').addClass('disabled');
 			$('#prev').addClass('disabled');
@@ -216,7 +197,10 @@ app.controller("product-ctrl", function ($scope, $http) {
 			$('#next').removeClass('disabled');
 		}
 	}
-	
+	$scope.search = function(keyword){
+		$scope.start = 0; 
+		$scope.getAll(keyword,$scope.start);
+	}
 	$scope.next = function(){
 		var keyword = angular.copy($scope.keyword);
 		if($scope.start < $scope.totalPage-1){
@@ -245,7 +229,7 @@ app.controller("product-ctrl", function ($scope, $http) {
 		$scope.getAll(keyword, $scope.start);
 		$scope.updatePagination($scope.start);
 	}
-	
-    $scope.reset();
+    
+	$scope.reset();
     $scope.getAll("",0);
 });

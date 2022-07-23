@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class SubCategory {
 	private Boolean active = true;
 	@ManyToOne() @JoinColumn(name = "category_id")
 	private Category category;
+	@JsonIgnore
 	@OneToMany(mappedBy = "subCategory")
 	private List<Product> products;
 }

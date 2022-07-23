@@ -18,58 +18,67 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.qlnt.model.Category;
-import com.qlnt.service.CategoryService;
+import com.qlnt.model.Brand;
+import com.qlnt.model.Brand;
+import com.qlnt.service.BrandService;
 import com.qlnt.service.UploadService;
 
 @RestController
-@RequestMapping("/api/categories")
-public class CategoryAPI {
-	@Autowired private CategoryService cateService;
-
-	@GetMapping
-	public Page<Category> getAll(@RequestParam("kw") Optional<String> kw,
-			@RequestParam("currentPage") Optional<Integer> currentPage) {
-		return cateService.findAll(kw, currentPage);
-	}
-
-	@GetMapping("/{id}")
-	public Category getById(@PathVariable("id") String id) {
-		return cateService.findById(id);
-	}
-
-	@PostMapping
-	public ResponseEntity<Category> create(@RequestBody Category category) {
-		if (cateService.existById(category.getId())) {
-			return ResponseEntity.badRequest().build();
-		}else {
-			return ResponseEntity.ok(cateService.save(category));
-		}
-	}
+@RequestMapping("/api/brands")
+public class BrandAPI {
+	@Autowired private BrandService brandService;
+	@Autowired private UploadService uploadService;
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Category> update(@PathVariable("id") String id, @RequestBody Category category){
-		if (cateService.existById(id)) {
-			return ResponseEntity.ok(cateService.save(category));
+	@GetMapping
+	public Page<Brand> getAll(@RequestParam("kw") Optional<String> kw, 
+			@RequestParam("currentPage") Optional<Integer> currentPage){
+		return brandService.findAll(kw, currentPage);
+	}
+	@GetMapping("/{id}")
+	public ResponseEntity<Brand> getById(@PathVariable("id") String id) {
+		if(brandService.existById(id)) {
+			return ResponseEntity.ok(brandService.findById(id));
 		}else {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
+	@PostMapping
+	public ResponseEntity<Brand> create(@RequestBody Brand brand){
+		if(brandService.existById(brand.getId())) {
+			return ResponseEntity.badRequest().build();
+		}else {
+			return ResponseEntity.ok(brandService.save(brand));
+		}
+	}
+	@PutMapping("/{id}")
+	public ResponseEntity<Brand> update(@PathVariable("id") String id, @RequestBody Brand brand){
+		if (brandService.existById(id)) {
+			String imgOld = brandService.findById(id).getPhoto();
+			if(!brand.getPhoto().equals(imgOld) && !imgOld.equals("photo.png")) {
+				uploadService.delete("brand", imgOld);
+			}
+			return ResponseEntity.ok(brandService.save(brand));
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	@DeleteMapping("/{id}")
 	public JsonNode delete(@PathVariable("id") String id){
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode node = mapper.createObjectNode();
-		if (cateService.existById(id)) {
-			Category category = cateService.findById(id);
-			if(cateService.existInSubCategory(id)) {
-				category.setActive(false);
-				cateService.save(category);
+		if (brandService.existById(id)) {
+			Brand brand = brandService.findById(id);
+			if(brandService.existInProduct(id)) {
+				brand.setActive(false);
+				brandService.save(brand);
 				node.put("isFound", true);
 				node.put("isExist", true);
 				return node;
 			}else {
-				cateService.deleteById(id);
+				brandService.deleteById(id);
+				if(!brand.getPhoto().equals("photo.png")) {
+					uploadService.delete("brand", brand.getPhoto());
+				}
 				node.put("isFound", true);
 				node.put("isExist", false);
 				return node;

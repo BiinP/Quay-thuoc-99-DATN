@@ -43,4 +43,13 @@ public class CategoryServiceImpl implements CategoryService{
 		return cateRepo.existsById(id);
 	}
 
+	@Override
+	public Boolean existInSubCategory(String id) {
+		Integer existInSubCategory = cateRepo.existInSubCategory(id).orElse(0);
+		if(existInSubCategory >= 1) {
+			return true;
+		}
+		return false;
+	}
+	
 }

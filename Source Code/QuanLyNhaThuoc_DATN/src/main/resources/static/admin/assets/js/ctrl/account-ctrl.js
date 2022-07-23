@@ -79,7 +79,7 @@ app.controller('account-ctrl', function($scope, $http){
 		        timer: 1500
 		    });
 		});
-	}
+	};
 	// XOA ACCOUNT
 	$scope.delete = function(id){
 		swal({
@@ -139,7 +139,7 @@ app.controller('account-ctrl', function($scope, $http){
 	        	});
 	        }
 	    })
-	}
+	};
 	$scope.update = function(id){
 		var url = `${urlAccount}/${id}`;
 		var data = angular.copy($scope.account);
@@ -163,7 +163,7 @@ app.controller('account-ctrl', function($scope, $http){
     			timer: 1500
     		});
 		});
-	}
+	};
 	$scope.updatePagination = function(start){
 		if(start <= 0){
 			$('#first').addClass('disabled');
@@ -176,6 +176,12 @@ app.controller('account-ctrl', function($scope, $http){
 			$('#next').addClass('disabled');
 			$('#first').removeClass('disabled');
 			$('#prev').removeClass('disabled');
+		}
+		if(start > 0 && start < $scope.totalPage-1){
+			$('#first').removeClass('disabled');
+			$('#prev').removeClass('disabled');
+			$('#last').removeClass('disabled');
+			$('#next').removeClass('disabled');
 		}
 	}
 	$scope.search = function(keyword){
@@ -226,14 +232,14 @@ app.controller('account-ctrl', function($scope, $http){
 		var currentDate = `${yyyy}-${mm}-${dd}`; 
 		
 		$scope.account = {
-			email: "",
-			hoTen: "",
+			email: null,
+			hoTen: null,
 			gioiTinh: true,
 			ngaySinh: currentDate,
-			sdt: "",
+			sdt: null,
 			ngayTao: currentDate,
 			diem: 0.0,
-			matKhau: "",
+			matKhau: null,
 			avatar: "avatar.png",
 			ghiChu: null,
 			active: true,

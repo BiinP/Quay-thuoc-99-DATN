@@ -8,48 +8,49 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.qlnt.model.SubCategory;
-import com.qlnt.repository.SubCategoryRepository;
-import com.qlnt.service.SubCategoryService;
+import com.qlnt.model.Brand;
+import com.qlnt.repository.BrandRepository;
+import com.qlnt.service.BrandService;
 
 @Service
-public class SubCategoryServiceImpl implements SubCategoryService{
-	@Autowired SubCategoryRepository subCateRepo;
-	
+public class BrandServiceImpl implements BrandService{
+	@Autowired private BrandRepository brandRepository;
+
 	@Override
-	public SubCategory save(SubCategory T) {
-		return subCateRepo.save(T);
+	public Brand save(Brand T) {
+		return brandRepository.save(T);
 	}
 
 	@Override
 	public void deleteById(String id) {
-		subCateRepo.deleteById(id);
+		brandRepository.deleteById(id);
 	}
 
 	@Override
-	public Page<SubCategory> findAll(Optional<String> kw, Optional<Integer> currentPage) {
+	public Page<Brand> findAll(Optional<String> kw, Optional<Integer> currentPage) {
 		String keyword = kw.orElse("");
 		Pageable page = PageRequest.of(currentPage.orElse(0), 10);
-		return subCateRepo.findAll("%"+keyword+"%", page);
+		return brandRepository.findAll("%"+keyword+"%", page);
 	}
 
 	@Override
-	public SubCategory findById(String id) {
-		return subCateRepo.findById(id).get();
+	public Brand findById(String id) {
+		return brandRepository.findById(id).get();
 	}
 
 	@Override
 	public Boolean existById(String id) {
-		return subCateRepo.existsById(id);
+		return brandRepository.existsById(id);
 	}
 
 	@Override
 	public Boolean existInProduct(String id) {
-		Integer existInProduct = subCateRepo.existInProduct(id).orElse(0);
+		Integer existInProduct = brandRepository.existInProduct(id).orElse(0);
 		if(existInProduct >= 1) {
 			return true;
 		}
 		return false;
 	}
-
+	
+	
 }
