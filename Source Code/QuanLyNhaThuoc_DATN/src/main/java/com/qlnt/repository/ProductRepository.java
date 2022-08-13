@@ -1,5 +1,6 @@
 package com.qlnt.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -23,10 +24,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 			+ "GROUP BY a.id "
 			+ "HAVING a.id = ?1")
 	public Optional<Integer> existInGoods (Integer id);
+//	@Query("SELCT o FROM Product o WHERE o.active = true ")
+//	public 
 	@Query("SELECT COUNT(o) "
 			+ "FROM InputDetail o INNER JOIN Product a"
 			+ "	ON o.product.id = a.id "
 			+ "GROUP BY a.id "
 			+ "HAVING a.id = ?1")
 	public Optional<Integer> existInInputDetail (Integer id);
+//	@Query("SELECT o FROM Product o"
+//			+ " WHERE "
+//			+ "		(?1 IS NULL OR o.brand.id IN ?1)"
+//			+ "		AND"
+//			+ " 	AND (?2 IS NULL OR o.subCategory.id = ?2)")
+//	public List<Product> find(List<String> brandId, String subCateId);
+	
 }

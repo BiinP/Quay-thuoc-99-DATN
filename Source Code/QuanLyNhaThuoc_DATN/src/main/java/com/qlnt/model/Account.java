@@ -1,5 +1,6 @@
 package com.qlnt.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account {
+public class Account implements Serializable{
 	@Id
 	private String email;
 	private String hoTen;
@@ -38,6 +39,7 @@ public class Account {
 	private String avatar = "avatar.png";
 	private String ghiChu;
 	private Boolean active = true;
+	private String diaChi;
 	@ManyToOne @JoinColumn(name = "role_id")
 	private Role role;
 	@JsonIgnore
@@ -46,4 +48,7 @@ public class Account {
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")
 	private List<Input> inputs;
+	@JsonIgnore
+	@OneToMany(mappedBy = "account")
+	private List<Favorite> favorites;
 }

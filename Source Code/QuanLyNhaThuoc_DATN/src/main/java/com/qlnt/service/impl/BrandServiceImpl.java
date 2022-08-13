@@ -1,11 +1,16 @@
 package com.qlnt.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.qlnt.model.Brand;
@@ -50,6 +55,25 @@ public class BrandServiceImpl implements BrandService{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Brand> findAll() {
+		return brandRepository.findAllForListBrand();
+	}
+
+	@Override
+	public Map<String, Object> findBrandForListBrand(Integer page) {
+		// TODO Auto-generated method stub
+		Pageable pageable = PageRequest.of(page, 16);
+		Page<Brand> brandAsPage = brandRepository.findAllForListBrand(pageable);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("totalPage", brandAsPage.getTotalPages());
+		map.put("brands", brandAsPage.getContent());
+//		map.put("totalPage", brandAsPage.getTotalPages());
+//		map.put("totalPage", brandAsPage.getTotalPages());
+		
+		return map;
 	}
 	
 	

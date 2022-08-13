@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<header th:fragment="_header" class="app-header top-bar">
+	<header th:fragment="_header" class="app-header top-bar" ng-controller="header-ctrl">
                 <!-- begin navbar -->
                 <nav class="navbar navbar-expand-md">
 
@@ -42,21 +42,17 @@
                                 <li class="nav-item dropdown show">
                                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <i class="fe fe-bell"></i>
-                                        <span class="notify">
+                                        <span ng-if="orders.length > 0" class="notify">
                                                     <span class="blink"></span>
-                                        <span class="dot"></span>
+                                        <span ng-if="orders.length > 0" class="dot"></span>
                                         </span>
                                     </a>
                                     <div class="dropdown-menu extended animated fadeIn show" aria-labelledby="navbarDropdown">
                                         <ul>
-                                            <li class="dropdown-header bg-gradient p-4 text-white text-left">Thông báo đơn hàng
-                                                <a href="#" class="float-right btn btn-square btn-inverse-light btn-xs m-0">
-                                                    <span class="font-13"> Đánh dấu đã đọc</span></a>
-                                            </li>
                                             <li class="dropdown-body min-h-240 nicescroll">
                                                 <ul class="scrollbar scroll_dark max-h-240 mCustomScrollbar _mCS_2 mCS-autoHide" style="position: relative; overflow: visible;"><div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: 240px;"><div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                                                    <li>
-                                                        <a href="#">
+                                                    <li ng-repeat="order in orders" ng-if="order.doiXacNhan">
+                                                        <a href="#!order">
                                                             <div class="notification d-flex flex-row align-items-center">
                                                                 <div class="notify-icon bg-img align-self-center">
                                                                     <div class="bg-type bg-type-md">
@@ -64,38 +60,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="notify-message">
-                                                                    <p class="font-weight-bold">Đơn hàng abc cần được xác nhận</p>
-                                                                    <small>Ngày tạo: 01/06/2022</small>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">
-                                                            <div class="notification d-flex flex-row align-items-center">
-                                                                <div class="notify-icon bg-img align-self-center">
-                                                                    <div class="bg-type bg-type-md bg-success">
-                                                                        <span>SC</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="notify-message">
-                                                                    <p class="font-weight-bold">Đơn hàng abc đã giao thành công</p>
-                                                                    <small>Ngày tạo: 02/06/2022</small>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">
-                                                            <div class="notification d-flex flex-row align-items-center">
-                                                                <div class="notify-icon bg-img align-self-center">
-                                                                    <div class="bg-type bg-type-md bg-danger">
-                                                                        <span>CXL</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="notify-message">
-                                                                    <p class="font-weight-bold">Đơn hàng abc đã bị hủy</p>
-                                                                    <small>Ngày tạo: 01/06/2022</small>
+                                                                    <p class="font-weight-bold">Đơn hàng {{order.id}} cần được xác nhận</p>
+                                                                    <small>Ngày tạo: {{order.ngayTao}}</small>
                                                                 </div>
                                                             </div>
                                                         </a>

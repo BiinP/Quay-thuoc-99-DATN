@@ -37,10 +37,10 @@
                                 <tbody>
 	                                <th:block th:each="o : ${orders}">
 	                                    <tr>
-	                                        <td class="product-name"><h4 class="no-margin"><a href="">[[${o.order.id}]] </a></h4></td>
-	                                        <td class="product-name"><h4 class="no-margin"><a href="">[[${o.order.createDate}]] </a></h4></td>
-	                                        <td class="product-price text-center"><span class="amount">[[${#numbers.formatDecimal(o.total,0,'COMMA',0,'POINT')}]]</span></td>
-	                                        <td class="product-subtotal text-center"><a th:href="@{|/order/detail/${o.order.id}|}" class="btn btn-small text-white">Xem chi tiết</a></td>
+	                                        <td class="product-name"><h4 class="no-margin"><a th:href="@{|/account/order/detail/${o.id}|}">[[${o.id}]] </a></h4></td>
+	                                        <td class="product-name"><h4 class="no-margin"><a href="">[[${o.ngayTao}]] </a></h4></td>
+	                                        <td class="product-price text-center"><span class="amount">[[${#numbers.formatDecimal(o.thanhTien,0,'COMMA',0,'POINT')}]]</span></td>
+	                                        <td class="product-subtotal text-center"><a th:href="@{|/account/order/detail/${o.id}|}" class="btn btn-small text-white">Xem chi tiết</a></td>
 	                                    </tr>
 	                                </th:block>
                                 </tbody>

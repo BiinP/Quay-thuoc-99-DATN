@@ -1,0 +1,272 @@
+<div class="row">
+	<div class="col-md-12 m-b-30">
+		<!-- begin page title -->
+		<div class="d-block d-lg-flex flex-nowrap align-items-center">
+			<div class="page-title mr-4 pr-4 border-right">
+				<h1>Quản lý phiếu nhập</h1>
+			</div>
+
+			<div class="ml-auto d-flex align-items-center secondary-menu text-center">
+				<button type="button" class="btn btn-primary" ng-click="reset()" data-toggle="modal"
+					data-target="#largeModal">Thêm phiếu nhập</button>
+			</div>
+		</div>
+		<!-- end page title -->
+	</div>
+</div>
+<!-- end row -->
+<!-- begin row -->
+<div class="row">
+	<div class="col-md-12 ">
+		<div class="card card-statistics">
+			<div class="card-header">
+				<div class="card-heading">
+					<div class="row">
+						<div class="col-md-6 text-left">
+							<h4 class="card-title">Danh sách phiếu nhập</h4>
+						</div>
+						<div class="col-md-6">
+							<form class="justify-content-end">
+								<div class="form-group">
+									<input ng-model="keyword" oninput="angular.element(this).scope().search(this.value)"
+										type="date" class="form-control" placeholder="Search">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered ">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Mã PN</th>
+								<th scope="col">Ngày tạo</th>
+								<th scope="col">Tổng tiền</th>
+								<th scope="col">Tổng giảm giá</th>
+								<th scope="col">Tổng VAT</th>
+								<th scope="col">Thành tiền</th>
+								<th scope="col">Ghi chú</th>
+								<th scope="col">Người nhập</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="i in inputs">
+								<th scope="row">{{i.id}}</th>
+								<td>{{i.ngayTao | date: 'yyyy-MM-dd'}}</td>
+								<td>{{i.tongTien | number}}</td>
+								<td>{{i.tongGiamGia | number}}</td>
+								<td>{{i.tongVAT | number}}</td>
+								<td>{{i.thanhTien | number}}</td>
+								<td>{{i.ghiChu}}</td>
+								<td>{{i.nguoiNhap}}</td>
+								<td class="text-right">
+									<button ng-click="edit(i.id)" class="btn btn-primary" data-toggle="modal"
+										data-target="#largeModal">
+										<i class="fa-solid fa-pen"></i>
+									</button>
+									<!-- <button ng-click="delete(i.id)" class="btn btn-dark">
+										<i class="fa-solid fa-circle-xmark"></i>
+									</button> -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<nav aria-label="...">
+					<ul class="mt-2 pagination justify-content-center">
+						<li id="first" ng-click="first()" class="page-item disabled"><a class="page-link" href=""><i
+									class="fa-solid fa-backward-step"></i></a></li>
+						<li id="prev" ng-click="prev()" class="page-item disabled"><a class="page-link" href=""><i
+									class="fa-solid fa-angles-left"></i></a></li>
+						<li class="page-item"><a class="page-link" href="">{{start+1}}/{{totalPage}}</a></li>
+						<li id="next" ng-click="next()" class="page-item"><a class="page-link" href=""><i
+									class="fa-solid fa-angles-right"></i></a></li>
+						<li id="last" ng-click="last()" class="page-item"><a class="page-link" href=""><i
+									class="fa-solid fa-forward-step"></i></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-second" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin phiếu nhập {{input.id}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<form name="frmInput">
+							<div class="row mt-2">
+								<div class="col">
+									<label>Mã phiếu nhập</label> <input name="id" ng-model="input.id" required
+										type="text" disabled placeholder="Mã tự động" class="form-control">
+								</div>
+								<div class="col">
+									<label>Ngày tạo</label> <input name="ngayTao"
+										ng-model="input.ngayTao" required type="text"
+										class="form-control" validate_day>
+									<div ng-show="frmInput.ngayTao.$invalid" class="badge badge-danger m-2">Ngày tạo
+										phải có dạng yyyy-mm-dd</div>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Tổng tiền</label>
+									<input name="soDangKy" disabled ng-model="input.tongTien | number" type="text"
+										class="form-control">
+								</div>
+								<div class="col">
+									<label>Tổng giảm giá</label>
+									<input name="tongGiamGia" disabled ng-model="input.tongGiamGia | number" type="text"
+										class="form-control">
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Tổng VAT</label>
+									<input name="tongVAT" disabled ng-model="input.tongVAT | number" type="text"
+										class="form-control">
+								</div>
+								<div class="col">
+									<label>Thành tiền</label>
+									<input name="thanhTien" disabled ng-model="input.thanhTien | number" type="text"
+										class="form-control">
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Người nhập</label>
+									<input name="hoTen" disabled ng-model="input.account.hoTen" type="text"
+										class="form-control">
+								</div>
+								<div class="col">
+									<label>Ghi chú</label>
+									<textarea class="form-control" ng-model="input.ghiChu" name="ghiChu"
+										rows="3"></textarea>
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer-product">
+				<form name="frmInputDetail" id="formDonVi">
+					<h5 class="mt-2">CHI TIẾT PHIẾU NHẬP</h5>
+					<div class="row mt-2">
+						<div class="col">
+							<label>Mã HH</label>
+							<input ng-model="inputDetail.product.id" name="productId" list="lstProduct" required
+								type="text" class="form-control"
+								oninput="angular.element(this).scope().validExistProduct(this.value)">
+							<datalist id="lstProduct">
+								<option ng-repeat="p in products" ng-value="p.id">{{p.name}}</option>
+							</datalist>
+							<div ng-show="frmInputDetail.productId.$invalid" class="badge badge-danger m-2">Mã hàng hóa
+								không được để
+								trống</div>
+							<div ng-show="existProduct == true" class="badge badge-danger m-2">Hàng hóa đã tồn tại
+							</div>
+							<div ng-show="existInProduct == false" class="badge badge-danger m-2">Hàng hóa chưa được tạo
+							</div>
+						</div>
+						<div class="col">
+							<label>Tên HH</label>
+							<input ng-value="inputDetail.product.name" disabled required type="text"
+								class="form-control">
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col-md-6">
+							<label>Đơn giá</label> <input ng-model="inputDetail.donGia" name="donGia" required
+								type="number" class="form-control"
+								onchange="angular.element(this).scope().updateInput(this.value)">
+							<div ng-show="frmInputDetail.donGia.$invalid" class="badge badge-danger m-2">Đơn giá không
+								được để trống</div>
+						</div>
+						<div class="col-md-4">
+							<label>Số lượng</label>
+							<input ng-model="inputDetail.soLuong" required type="number" class="form-control"
+								onchange="angular.element(this).scope().updateInput(this.value)">
+							<div ng-show="frmInputDetail.soLuong.$invalid" class="badge badge-danger m-2">Số lượng không
+								được để
+								trống</div>
+						</div>
+						<div class="col-md-2">
+							<label>Đơn vị tính</label> <input disabled type="text"
+								ng-value="inputDetail.product.donViGoc" class="form-control"
+								onchange="angular.element(this).scope().updateInput(this.value)">
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col">
+							<label>Giảm giá</label> <input ng-model="inputDetail.giamGia" name="giamGia" required
+								type="number" class="form-control"
+								onchange="angular.element(this).scope().updateInput(this.value)">
+							<div ng-show="frmInputDetail.giaBan.$invalid" class="badge badge-danger m-2">Giảm giá không
+								được để trống</div>
+						</div>
+						<div class="col">
+							<label>VAT(%)</label> <input ng-model="inputDetail.vat" name="vat" required type="number"
+								class="form-control" onchange="angular.element(this).scope().updateInput(this.value)">
+							<div ng-show="frmInputDetail.giaBan.$invalid" class="badge badge-danger m-2">VAT không được
+								để trống</div>
+						</div>
+					</div>
+				</form>
+				<div class="text-right mt-2">
+					<button
+						ng-disabled="frmInputDetail.$invalid || chonInputDetail == true  || existProduct == true || existInProduct == false"
+						ng-click="createInputDetail()" class="btn btn-primary">Thêm sản phẩm</button>
+				</div>
+				<h5 class="mt-2 text-uppercase">DANH SÁCH HÀNG HÓA</h5>
+				<div class="table-responsive mt-2">
+					<table class="table table-hover table-bordered ">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Mã HH</th>
+								<th scope="col">Tên HH</th>
+								<th scope="col">Số lượng</th>
+								<th scope="col">Đơn giá</th>
+								<th scope="col">Giảm giá</th>
+								<th scope="col">VAT</th>
+								<th scope="col">Giá nhập</th>
+								<th scope="col">Thành tiền</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="i in inputDetails">
+								<th scope="row">{{i.product.id}}</th>
+								<td>{{i.product.name}}</td>
+								<td>{{i.soLuong | number}}</td>
+								<td>{{i.donGia | number}}</td>
+								<td>{{i.giamGia | number}}</td>
+								<td>{{i.vat}}</td>
+								<td>{{(i.donGia * (1 + i.vat/100)) | number : 0}}</td>
+								<td>{{(i.donGia * (1 + i.vat/100) * i.soLuong) | number : 0}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- <div class="form-group mt-2 text-right">
+					<button ng-disabled="frmInput.$invalid || frmInputDetail.$invalid " ng-click="create()"
+						class="btn btn-primary">Lưu phiếu nhập</button>
+					 <button ng-click="delete(input.id)"
+						class="btn btn-dark">Xóa phiếu nhập</button> 
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>

@@ -2,183 +2,101 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Sản phẩm yêu thích</title>
+	<meta charset="UTF-8">
+	<title>Sản phẩm yêu thích</title>
 </head>
 
 <body>
 	<!--Body Content-->
-    <div id="page-content">
-    	<!--Page Title-->
-    	<div class="page section-header text-center mt-5">
+	<div id="page-content">
+		<!--Page Title-->
+		<div class="page section-header text-center mt-5">
 			<div class="page-title">
-        		<div class="wrapper"><h1 class="page-width">Sản phẩm yêu thích</h1></div>
-      		</div>
+				<div class="wrapper">
+					<h1 class="page-width">Sản phẩm yêu thích</h1>
+				</div>
+			</div>
 		</div>
-        <!--End Page Title-->
-        
-        <div class="container">
-        	<div class="row">
-                <!--Sidebar-->
+		<!--End Page Title-->
+
+		<div class="container">
+			<div class="row">
+				<!--Sidebar-->
 				<div th:replace="~{account/_aside ::_aside}"></div>
 				<!--End Sidebar-->
-                <div class="col-md-9 main-col">
-                	<div class="grid-products grid--view-items">
+				<div class="col-md-9 main-col">
+					<div class="grid-products grid--view-items">
 						<div class="row">
-							<div class="col-md-3 item">
-								<!-- start product image -->
-								<div class="product-image">
+							<th:block th:each="fav : ${favorites}">
+								<div class="col-md-3 item">
 									<!-- start product image -->
-									<a href="/product/1"> 
-										<!-- image --> 
-										<img class="product primary blur-up lazyload" 
-											data-src="/images/product/fba867db.jpg"
-											src="/images/product/73104d40.jpg" alt="" title=""> 
-										<!-- End image --> 
-										<!-- Hover image -->
-										<img class="product hover blur-up lazyload"
-											data-src="/images/product/c753c0ae.jpg"
-											src="/images/product/c753c0ae.jpg" alt=" " title=" "> 
-										<!-- End hover image -->
-									</a>
+									<div class="product-image">
+										<!-- start product image -->
+										<a th:href="@{|/product/${fav.goodsId}|}">
+											<!-- product primary blur-up lazyloaded -->
+											<!-- image --> <img
+												class="product grid-view-item__image primary blur-up lazyloaded"
+												data-th:src="@{|/images/product/${fav.photo}|}"
+												th:src="@{|/images/product/${fav.photo}|}" th:alt="${fav.name}"
+												th:title="${fav.name}">
+											<!-- End image -->
+											<!-- Hover image -->
+											<img class="product grid-view-item__image hover blur-up lazyloaded"
+												data-th:src="@{|/images/product/${fav.photo}|}"
+												th:src="@{|/images/product/${fav.photo}|}" th:alt="${fav.name}"
+												th:title="${fav.name}">
+											<!-- End hover image -->
+											<div class="product-labels rectangular">
+												<span th:attr="ng-if=@{|${fav.discount} > 0|}"
+													class="lbl on-sale">-[[${fav.discount}]] %</span>
+												<span th:attr="ng-if=@{|${fav.rx} == true|}"
+													class="lbl pr-label1">Rx</span>
+												<span th:attr="ng-if=@{|${fav.conHang} == false|}"
+													class="lbl bg-warning">Hết hàng</span>
+												
+											</div>
+											<div th:if="${fav.ngayKetThuc != null}" class="saleTime desktop" th:data-countdown="${fav.ngayKetThuc}"></div>
+										</a>
+										<!-- end product image -->
+
+										<!-- Start product button -->
+										<form class="variants add">
+											<button th:if="${fav.conHang == true}"
+												th:attr=" ng-click=@{|cart.add(${fav.goodsId}, ${fav.discount})|}, ng-if=@{|${fav.rx} == false|}"
+												class="btn btn-addto-cart" type="button">Thêm vào giỏ hàng</button>
+											<button th:attr="ng-if=@{|${fav.rx} == true|}" class="btn btn-tu-van" disabled>Tư
+												vấn mua hàng</button>
+										</form>
+										<!-- end product button -->
+									</div>
 									<!-- end product image -->
-	
-									<!-- Start product button -->
-									<form class="variants add">
-										<button class="btn btn-addto-cart" type="button">Add To Cart</button>
-									</form>
-									<div class="button-set">
-										<div class="wishlist-btn">
-											<a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"> 
-												<i class="icon anm anm-heart-l"></i>
-											</a>
+
+									<!--start product details -->
+									<div class="product-details text-center">
+										<!-- product name -->
+										<div class="product-name">
+											<a th:href="@{|/product/${fav.goodsId}|}">[[${fav.name}]]</a>
 										</div>
-									</div>
-									<!-- end product button -->
-								</div>
-								<!-- end product image -->
-	
-								<!--start product details -->
-								<div class="product-details text-center">
-									<!-- product name -->
-									<div class="product-name">
-										<a href="#">Tonner Zakka</a>
-									</div>
-									<!-- End product name -->
-									<!-- product price -->
-									<div class="product-price">
-										<span class="price">350000</span>
-									</div>
-									<!-- End product price -->
-								</div>
-								<!-- End product details -->
-							</div>
-							
-							<div class="col-md-3 item">
-								<!-- start product image -->
-								<div class="product-image">
-									<!-- start product image -->
-									<a href="/product/1"> 
-										<!-- image --> 
-										<img class="product primary blur-up lazyload" 
-											data-src="/images/product/fba867db.jpg"
-											src="/images/product/73104d40.jpg" alt="" title=""> 
-										<!-- End image --> 
-										<!-- Hover image -->
-										<img class="product hover blur-up lazyload"
-											data-src="/images/product/c753c0ae.jpg"
-											src="/images/product/c753c0ae.jpg" alt=" " title=" "> 
-										<!-- End hover image -->
-									</a>
-									<!-- end product image -->
-	
-									<!-- Start product button -->
-									<form class="variants add">
-										<button class="btn btn-addto-cart" type="button">Add To Cart</button>
-									</form>
-									<div class="button-set">
-										<div class="wishlist-btn">
-											<a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"> 
-												<i class="icon anm anm-heart-l"></i>
-											</a>
+										<!-- End product name -->
+										<!-- product price -->
+										<div class="product-price">
+											<span th:attr="ng-if=@{|${fav.discount} > 0|}"
+												class="old-price">[[${#numbers.formatDecimal(fav.price,0,'COMMA',0,'POINT')}]]</span>
+											<span class="price">[[${#numbers.formatDecimal( fav.price - (fav.price * fav.discount/100) ,0,'COMMA',0,'POINT')}]]/[[${fav.util}]] </span>
 										</div>
+										<!-- End product price -->
 									</div>
-									<!-- end product button -->
+									<!-- End product details -->
 								</div>
-								<!-- end product image -->
-	
-								<!--start product details -->
-								<div class="product-details text-center">
-									<!-- product name -->
-									<div class="product-name">
-										<a href="#">Tonner Zakka</a>
-									</div>
-									<!-- End product name -->
-									<!-- product price -->
-									<div class="product-price">
-										<span class="price">350000</span>
-									</div>
-									<!-- End product price -->
-								</div>
-								<!-- End product details -->
-							</div>
-							
-							<div class="col-md-3 item">
-								<!-- start product image -->
-								<div class="product-image">
-									<!-- start product image -->
-									<a href="/product/1"> 
-										<!-- image --> 
-										<img class="product primary blur-up lazyload" 
-											data-src="/images/product/fba867db.jpg"
-											src="/images/product/73104d40.jpg" alt="" title=""> 
-										<!-- End image --> 
-										<!-- Hover image -->
-										<img class="product hover blur-up lazyload"
-											data-src="/images/product/c753c0ae.jpg"
-											src="/images/product/c753c0ae.jpg" alt=" " title=" "> 
-										<!-- End hover image -->
-									</a>
-									<!-- end product image -->
-	
-									<!-- Start product button -->
-									<form class="variants add">
-										<button class="btn btn-addto-cart" type="button">Add To Cart</button>
-									</form>
-									<div class="button-set">
-										<div class="wishlist-btn">
-											<a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"> 
-												<i class="icon anm anm-heart-l"></i>
-											</a>
-										</div>
-									</div>
-									<!-- end product button -->
-								</div>
-								<!-- end product image -->
-	
-								<!--start product details -->
-								<div class="product-details text-center">
-									<!-- product name -->
-									<div class="product-name">
-										<a href="#">Tonner Zakka</a>
-									</div>
-									<!-- End product name -->
-									<!-- product price -->
-									<div class="product-price">
-										<span class="price">350000</span>
-									</div>
-									<!-- End product price -->
-								</div>
-								<!-- End product details -->
-							</div>
+							</th:block>
 						</div>
 					</div>
-               	</div>
-            </div>
-        </div>
-        
-    </div>
-    <!--End Body Content-->
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!--End Body Content-->
 </body>
 
 </html>

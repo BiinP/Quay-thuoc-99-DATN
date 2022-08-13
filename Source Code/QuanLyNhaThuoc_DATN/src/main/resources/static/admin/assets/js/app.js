@@ -13527,7 +13527,7 @@ var checkin = $('.range-from').datepicker({
         if (summernote.length > 0) {
                 $('#summernote').summernote({
                     tabsize: 2,
-                    height: 250
+                    height: 500
                 });
         }
     });

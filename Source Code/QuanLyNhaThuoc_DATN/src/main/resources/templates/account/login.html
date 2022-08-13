@@ -7,60 +7,80 @@
 </head>
 
 <body>
-	<div id="page-content">
-    	<!--Page Title-->
-    	<div class="page section-header text-center mt-5">
-			<div class="page-title">
-        		<div class="wrapper"><h1 class="page-width">Đăng nhập</h1></div>
-      		</div>
-		</div>
-        <!--End Page Title-->
-        
-        <div class="container">
-        	<div class="row">
-                <div class="col-md-6 main-col offset-md-3">
-                	<div class="mb-4">
-                       <form method="post" action="/security/login" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">	
-                          <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label for="CustomerEmail">Email hoặc sđt</label>
-                                    <input type="text" name="username" placeholder="" id="CustomerEmail" class="" autocorrect="off" autocapitalize="off" autofocus="">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="CustomerPassword">Mật khẩu</label>
-                                    <input type="password" value="" name="password" placeholder="" id="CustomerPassword" class="">                        	
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Ghi nhớ</label>
-                                    <input type="checkbox" name="remember-me">                     	
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                	<i th:text="${message}" style="color: red; font-weight: bold"></i>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="text-center col-md-12">
-                                <input type="submit" class="btn mb-3" value="Đăng nhập">
-                                <p class="mb-4">
-									<a href="/account/forgot" id="RecoverPassword">Quên mật khẩu?</a> &nbsp; | &nbsp;
-								    <a href="/account/register" id="customer_register_link">Tạo tài khoản?</a>
-                                </p>
-                            </div>
-                         </div>
-                     </form>
-                    </div>
-               	</div>
+    <div id="page-content">
+        <!--Page Title-->
+        <div class="page section-header text-center mt-5">
+            <div class="page-title">
+                <div class="wrapper">
+                    <h1 class="page-width">Đăng nhập</h1>
+                </div>
             </div>
         </div>
-        
+        <!--End Page Title-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 main-col offset-md-3">
+                    <div class="mb-4">
+                        <form method="post" action="/process-login" id="CustomerLoginForm" accept-charset="UTF-8"
+                            class="contact-form">
+                            <div th:if="${success != null}" class="alert alert-primary alert-dismissible fade show"
+                                role="alert">
+                                <strong>[[${success}]]</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show font-custom"
+                                role="alert">
+                                <strong>[[${error}]]</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label for="CustomerEmail">Email hoặc sđt</label>
+                                        <input type="text" name="username" placeholder="" id="CustomerEmail" class=""
+                                            autocorrect="off" autocapitalize="off" autofocus="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="CustomerPassword">Mật khẩu</label>
+                                        <input type="password" value="" name="password" placeholder=""
+                                            id="CustomerPassword" class="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Ghi nhớ</label>
+                                        <input type="checkbox" name="remember-me">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <i th:text="${message}" style="color: red; font-weight: bold"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-center col-md-12">
+                                    <input type="submit" class="btn mb-3" value="Đăng nhập">
+                                    <p class="mb-4">
+                                        <a href="/forgot-password" id="RecoverPassword">Quên mật khẩu?</a> &nbsp; |
+                                        &nbsp;
+                                        <a href="/register" id="customer_register_link">Tạo tài khoản?</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 

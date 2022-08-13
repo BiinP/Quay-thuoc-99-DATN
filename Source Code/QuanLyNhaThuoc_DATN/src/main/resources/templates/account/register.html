@@ -24,24 +24,27 @@
 			<div class="row">
 				<div class="col-md-6 main-col offset-md-3">
 					<div class="mb-4">
-						<form  name="frmregister" method="post" action="/register"
+						<form th:object="${account}" name="frmregister" method="post" action="/process-register"
 							id="CustomerLoginForm" accept-charset="UTF-8"
 							class="contact-form">
-							<div class="row">
-								<div th:if="${error}" class="alert alert-danger alert-dismissible fade show"
-									role="alert">
-									<strong>[[${error}]] </strong> 
-									<button type="button" class="close" data-dismiss="alert"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-							</div>
+							<div th:if="${success != null}" class="alert alert-primary alert-dismissible fade show"
+                                role="alert">
+                                <strong>[[${success}]]</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show font-custom"
+                                role="alert">
+                                <strong>[[${error}]]</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="CustomerEmail">Email</label> <input type="email"
-											ng-model="email" name="email" required placeholder=""
+										<label for="CustomerEmail">Email</label> <input type="email" th:field="*{email}" name="email" ng-model="email" required placeholder=""
 											id="CustomerEmail" class="" autocorrect="off"
 											autocapitalize="off" autofocus="">
 										<div ng-show="frmregister.email.$invalid"
@@ -50,33 +53,30 @@
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="FirstName">Họ và tên</label> <input type="text"
-											ng-model="fullname" name="fullname" required placeholder=""
+										<label for="FirstName">Họ và tên</label> <input type="text" th:field="*{hoTen}" name="hoTen" ng-model="hoTen" required placeholder=""
 											id="FirstName" autofocus="">
-										<div ng-show="frmregister.fullname.$invalid"
+										<div ng-show="frmregister.hoTen.$invalid"
 											class="badge badge-danger m-2">Vui lòng nhập họ và tên</div>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="mr-2" for="gender">Giới tính</label>
-										<input type="radio" name="gender" id=""> <label class="mr-2" for="gender">Nam</label>
-										<input type="radio" name="gender" id=""> <label for="gender">Nữ</label>
+										<input type="radio" th:field="*{gioiTinh}" name="gioiTinh" value="true" id=""> <label class="mr-2" for="gender">Nam</label>
+										<input type="radio" th:field="*{gioiTinh}" name="gioiTinh" value="false" id=""> <label for="gender">Nữ</label>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="dob">Ngày sinh</label> <input type="date"
-											ng-model="dob" name="dob" required placeholder=""
+										<label for="dob">Ngày sinh</label> <input type="text" th:field="*{ngaySinh}" name="ngaySinh" ng-model="ngaySinh" validate_day required placeholder=""
 											id="dob" autofocus="">
-										<div ng-show="frmregister.dob.$invalid"
-											class="badge badge-danger m-2">Vui lòng nhập ngày sinh</div>
+										<div ng-show="frmregister.ngaySinh.$invalid"
+											class="badge badge-danger m-2">Vui lòng nhập ngày sinh (yyyy/mm/dd)</div>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="sdt">Sđt</label> <input type="text"
-											ng-model="sdt" name="sdt" required placeholder=""
+										<label for="sdt">Sđt</label> <input type="text" th:field="*{sdt}" name="sdt" ng-model="sdt" validate_sdt required placeholder=""
 											id="sdt" autofocus="">
 										<div ng-show="frmregister.sdt.$invalid"
 											class="badge badge-danger m-2">Vui lòng nhập sđt</div>
@@ -85,22 +85,21 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="CustomerPassword">Mật khẩu</label> <input
-											type="password" ng-model="password" value="" required
-											name="password" placeholder="" id="CustomerPassword" class="">
-										<div ng-show="frmregister.password.$invalid"
+											type="password" th:field="*{matKhau}" required
+											name="matKhau" ng-model="matKhau" placeholder="" id="CustomerPassword" class="">
+										<div ng-show="frmregister.matKhau.$invalid"
 											class="badge badge-danger m-2">Vui lòng nhập mật khẩu</div>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="CustomerPassword">Xác nhận mật khẩu</label> <input
-											type="password" ng-model="password1" value=""
-											name="password1" required placeholder=""
+											type="password" name="matKhau1" ng-model="matKhau1" required placeholder=""
 											id="CustomerPassword" class="">
-										<div ng-show="frmregister.password1.$invalid"
+										<div ng-show="frmregister.matKhau1.$invalid"
 											class="badge badge-danger m-2">Vui lòng nhập xác nhận
 											mật khẩu</div>
-										<div ng-show="password != password1"
+										<div ng-show="matKhau != matKhau1"
 											class="badge badge-danger m-2">Xác nhận mật khẩu không
 											đúng</div>
 									</div>

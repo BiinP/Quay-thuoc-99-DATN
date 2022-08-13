@@ -26,13 +26,30 @@
         				<div class="col-md-12 sm-margin-30px-bottom">
         					<div class="create-ac-content bg-light-gray padding-20px-all row">
 		        				<div class="col-md-12">
-	        						<form name="frmOrder">
+	        						<form name="frmChangepw" action="/account/change-password" method="POST">
+										<div th:if="${success != null}"
+											class="alert alert-primary alert-dismissible fade show font-custom" role="alert">
+											<strong>[[${success}]]</strong>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div th:if="${error != null}"
+											class="alert alert-danger alert-dismissible fade show font-custom"
+											role="alert">
+											<strong>[[${error}]]</strong>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
 		                                <fieldset>
 		                                    <h2 class="login-title mb-3">Đổi mật khẩu</h2>
 		                                    <div class="row">
 		                                        <div class="form-group col-md-12 required">
 		                                            <label for="input-email">Mật khẩu cũ <span class="required-f">*</span></label>
-		                                            <input disabled="disabled" name="email" value="${userDetail.email}" id="input-email" type="email">
+		                                            <input  ng-model="oldPassword" required name="oldPassword" id="input-email" type="password">
+													<div ng-show="frmChangepw.oldPassword.$invalid"
+														class="badge badge-danger m-2">Vui lòng nhập mật khẩu cũ</div>
 		                                        </div>
 		                                    </div>
 		                                </fieldset>
@@ -41,7 +58,9 @@
 		                                        <div class="form-group col-md-12 required">
 		                                            <label for="input-firstname">Mật khẩu mới<span
 		                                                    class="required-f">*</span></label>
-		                                            <input disabled="disabled" name="fullname" value="${userDetail.fullname}" id="input-firstname" type="text">
+		                                            <input ng-model="newPassword" required name="newPassword" id="input-firstname" type="password">
+													<div ng-show="frmChangepw.newPassword.$invalid"
+														class="badge badge-danger m-2">Vui lòng nhập mật khẩu mới</div>
 		                                        </div>
 		                                    </div>
 		                                </fieldset>
@@ -50,13 +69,17 @@
 		                                        <div class="form-group col-md-12 required">
 		                                            <label for="input-firstname">Xác nhận mật khẩu mới<span
 		                                                    class="required-f">*</span></label>
-		                                            <input disabled="disabled" name="fullname" value="${userDetail.fullname}" id="input-firstname" type="text">
+		                                            <input ng-model="newPassword1" required name="newPassword1" id="input-firstname" type="password">
+													<div ng-show="frmChangepw.newPassword1.$invalid"
+														class="badge badge-danger m-2">Vui lòng nhập xác nhận mật khẩu</div>
+													<div ng-show="newPassword != newPassword1"
+														class="badge badge-danger m-2">Xác nhận mật khẩu không đúng</div>
 		                                        </div>
 		                                    </div>
 		                                </fieldset>
 		                                <div class="row">
 											<div class="text-center col-md-12">
-												<button ng-disabled="frmregister.$invalid" type="submit" class="btn mb-3">Đổi mật khẩu</button>
+												<button ng-disabled="frmChangepw.$invalid" type="submit" class="btn mb-3">Đổi mật khẩu</button>
 											</div>
 										</div>
 	                            	</form>

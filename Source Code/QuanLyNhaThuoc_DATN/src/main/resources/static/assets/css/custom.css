@@ -13,6 +13,16 @@
 	width: 100%;
 	height: 320px;
 }
-.btn-product-detail{
-	background-color: #7BC4EC !important;
+.cusstom-checked{
+	font-weight: bolder;
+	color: blue;
+}
+.btn-tu-van:hover{
+	background-color: #01BAD4 !important; 
+}
+.custom-sort{
+	min-width: 100px;
+}
+.font-custom{
+	font-family: Arial !important;
 }

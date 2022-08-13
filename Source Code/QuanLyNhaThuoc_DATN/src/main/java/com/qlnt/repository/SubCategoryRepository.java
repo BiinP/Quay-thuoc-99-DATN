@@ -1,5 +1,6 @@
 package com.qlnt.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -20,4 +21,7 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, String
 			+ "GROUP BY s.id "
 			+ "HAVING s.id = ?1")
 	public Optional<Integer> existInProduct(String id);
+	@Query("SELECT o FROM SubCategory o "
+			+ "WHERE o.category.id = ?1")
+	public List<SubCategory> findByCategoryId(String id);
 }

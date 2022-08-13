@@ -35,9 +35,6 @@ public class InputDetail {
 	private Float giamGia;
 	@Column(name = "vat")
 	private Float VAT;
-	private String soLo;
-	@Temporal(TemporalType.DATE)
-	private Date hsd;
 	@ManyToOne @JoinColumn(name = "input_id")
 	private Input input;
 	@ManyToOne @JoinColumn(name = "product_id")

@@ -25,403 +25,74 @@
                             <div class="tab_container">
                                 <div id="tab1" class="tab_content grid-products">
                                     <div class="productSlider">
-                                        <div class="col-md-12 item">
-                                            <!-- start product image -->
-                                            <div class="product-image">
+                                        <th:block th:each="goods : ${goodsOnSale}">
+                                            <div class="col-md-12 item">
                                                 <!-- start product image -->
-                                                <a href="#">
-                                                    <!-- image -->
-                                                    <img class="primary blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End image -->
-                                                    <!-- Hover image -->
-                                                    <img class="hover blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End hover image -->
-                                                    <!-- product label -->
-                                                    <div class="product-labels rectangular"><span
-                                                            class="lbl on-sale">-16%</span> <span
-                                                            class="lbl pr-label1">new</span></div>
-                                                    <!-- End product label -->
-                                                </a>
-                                                <!-- end product image -->
-
-                                                <!-- countdown start -->
-                                                <div class="saleTime desktop" data-countdown="2022/07/01"></div>
-                                                <!-- countdown end -->
-
-                                                <!-- Start product button -->
-                                                <form class="variants add" action="#"
-                                                    onclick="window.location.href='cart.html'" method="post">
-                                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Thêm
-                                                        vào giỏ hàng</button>
-                                                </form>
-                                                <div class="button-set">
-                                                    <a href="javascript:void(0)" title="Quick View"
-                                                        class="quick-view-popup quick-view" data-toggle="modal"
-                                                        data-target="#content_quickview">
-                                                        <i class="icon anm anm-search-plus-r"></i>
+                                                <div class="product-image">
+                                                    <!-- start product image -->
+                                                    <a th:href="@{|/product/${goods.goodsId}|}">
+                                                        <!-- image -->
+                                                        <img class="primary blur-up lazyload"
+                                                            data-th:src="@{|/images/product/${goods.photo}|}"
+                                                            th:src="@{|/images/product/${goods.photo}|}"
+                                                            th:alt="${goods.name}" th:title="${goods.name}">
+                                                        <!-- End image -->
+                                                        <!-- Hover image -->
+                                                        <img class="hover blur-up lazyload"
+                                                            data-th:src="@{|/images/product/${goods.photo}|}"
+                                                            th:src="@{|/images/product/${goods.photo}|}"
+                                                            th:alt="${goods.name}" th:title="${goods.name}">
+                                                        <!-- End hover image -->
+                                                        <!-- product label -->
+                                                        <div class="product-labels rectangular">
+                                                            <span th:attr="ng-if=@{|${goods.discount} > 0|}"
+                                                                class="lbl on-sale">-[[${goods.discount}]] %</span>
+                                                            <span th:attr="ng-if=@{|${goods.rx} == true|}"
+                                                                class="lbl pr-label1">Rx</span>
+                                                            <span th:attr="ng-if=@{|${goods.conHang} == false|}"
+                                                                class="lbl bg-warning">Hết hàng</span>
+                                                        </div>
+                                                        <!-- End product label -->
+                                                        <div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop" th:data-countdown="${goods.ngayKetThuc}"></div>
                                                     </a>
-                                                    <div class="wishlist-btn">
-                                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                            <i class="icon anm anm-heart-l"></i>
-                                                        </a>
-                                                    </div>
+                                                    <!-- end product image -->
+
+                                                    <!-- countdown start -->
+                                                    <!-- <div class="saleTime desktop" data-countdown="2022/07/01"></div> -->
+                                                    <!-- countdown end -->
+
+                                                    <!-- Start product button -->
+                                                    <form class="variants add">
+                                                        <button th:if="${goods.conHang == true}"
+                                                            th:attr=" ng-click=@{|cart.add(${goods.goodsId}, ${goods.discount})|}, ng-if=@{|${goods.rx} == false|}"
+                                                            class="btn btn-addto-cart" type="button">Thêm vào giỏ
+                                                            hàng</button>
+                                                        <button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van"
+                                                            disabled>Tư
+                                                            vấn mua hàng</button>
+                                                    </form>
+                                                    <!-- end product button -->
                                                 </div>
-                                                <!-- end product button -->
-                                            </div>
-                                            <!-- end product image -->
-                                            <!--start product details -->
-                                            <div class="product-details text-center">
-                                                <!-- product name -->
-                                                <div class="product-name">
-                                                    <a href="#">Edna Dress</a>
-                                                </div>
-                                                <!-- End product name -->
-                                                <!-- product price -->
-                                                <div class="product-price">
-                                                    <span class="old-price">$500.00</span>
-                                                    <span class="price">$600.00</span>
-                                                </div>
-                                                <!-- End product price -->
-                                            </div>
-                                            <!-- End product details -->
-                                        </div>
-                                        <div class="col-md-12 item">
-                                            <!-- start product image -->
-                                            <div class="product-image">
-                                                <!-- start product image -->
-                                                <a href="#">
-                                                    <!-- image -->
-                                                    <img class="primary blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End image -->
-                                                    <!-- Hover image -->
-                                                    <img class="hover blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End hover image -->
-                                                    <!-- product label -->
-                                                    <div class="product-labels rectangular"><span
-                                                            class="lbl on-sale">-16%</span> <span
-                                                            class="lbl pr-label1">new</span></div>
-                                                    <!-- End product label -->
-                                                </a>
                                                 <!-- end product image -->
-
-                                                <!-- countdown start -->
-                                                <div class="saleTime desktop" data-countdown="2022/07/01"></div>
-                                                <!-- countdown end -->
-
-                                                <!-- Start product button -->
-                                                <form class="variants add" action="#"
-                                                    onclick="window.location.href='cart.html'" method="post">
-                                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Thêm
-                                                        vào giỏ hàng</button>
-                                                </form>
-                                                <div class="button-set">
-                                                    <a href="javascript:void(0)" title="Quick View"
-                                                        class="quick-view-popup quick-view" data-toggle="modal"
-                                                        data-target="#content_quickview">
-                                                        <i class="icon anm anm-search-plus-r"></i>
-                                                    </a>
-                                                    <div class="wishlist-btn">
-                                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                            <i class="icon anm anm-heart-l"></i>
-                                                        </a>
+                                                <!--start product details -->
+                                                <div class="product-details text-center">
+                                                    <!-- product name -->
+                                                    <div class="product-name">
+                                                        <a
+                                                            th:href="@{|/product/${goods.goodsId}|}">[[${goods.name}]]</a>
                                                     </div>
-                                                </div>
-                                                <!-- end product button -->
-                                            </div>
-                                            <!-- end product image -->
-                                            <!--start product details -->
-                                            <div class="product-details text-center">
-                                                <!-- product name -->
-                                                <div class="product-name">
-                                                    <a href="#">Edna Dress</a>
-                                                </div>
-                                                <!-- End product name -->
-                                                <!-- product price -->
-                                                <div class="product-price">
-                                                    <span class="old-price">$500.00</span>
-                                                    <span class="price">$600.00</span>
-                                                </div>
-                                                <!-- End product price -->
-                                            </div>
-                                            <!-- End product details -->
-                                        </div>
-                                        <div class="col-md-12 item">
-                                            <!-- start product image -->
-                                            <div class="product-image">
-                                                <!-- start product image -->
-                                                <a href="#">
-                                                    <!-- image -->
-                                                    <img class="primary blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End image -->
-                                                    <!-- Hover image -->
-                                                    <img class="hover blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End hover image -->
-                                                    <!-- product label -->
-                                                    <div class="product-labels rectangular"><span
-                                                            class="lbl on-sale">-16%</span> <span
-                                                            class="lbl pr-label1">new</span></div>
-                                                    <!-- End product label -->
-                                                </a>
-                                                <!-- end product image -->
-
-                                                <!-- countdown start -->
-                                                <div class="saleTime desktop" data-countdown="2022/07/01"></div>
-                                                <!-- countdown end -->
-
-                                                <!-- Start product button -->
-                                                <form class="variants add" action="#"
-                                                    onclick="window.location.href='cart.html'" method="post">
-                                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Thêm
-                                                        vào giỏ hàng</button>
-                                                </form>
-                                                <div class="button-set">
-                                                    <a href="javascript:void(0)" title="Quick View"
-                                                        class="quick-view-popup quick-view" data-toggle="modal"
-                                                        data-target="#content_quickview">
-                                                        <i class="icon anm anm-search-plus-r"></i>
-                                                    </a>
-                                                    <div class="wishlist-btn">
-                                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                            <i class="icon anm anm-heart-l"></i>
-                                                        </a>
+                                                    <!-- End product name -->
+                                                    <!-- product price -->
+                                                    <div class="product-price">
+                                                        <span th:attr="ng-if=@{|${goods.discount} > 0|}"
+                                                            class="old-price">[[${#numbers.formatDecimal(goods.price,0,'COMMA',0,'POINT')}]]</span>
+                                                        <span class="price">[[${#numbers.formatDecimal(goods.price - (goods.price * goods.discount/100),0,'COMMA',0,'POINT')}]]/[[${goods.util}]]</span>
                                                     </div>
+                                                    <!-- End product price -->
                                                 </div>
-                                                <!-- end product button -->
+                                                <!-- End product details -->
                                             </div>
-                                            <!-- end product image -->
-                                            <!--start product details -->
-                                            <div class="product-details text-center">
-                                                <!-- product name -->
-                                                <div class="product-name">
-                                                    <a href="#">Edna Dress</a>
-                                                </div>
-                                                <!-- End product name -->
-                                                <!-- product price -->
-                                                <div class="product-price">
-                                                    <span class="old-price">$500.00</span>
-                                                    <span class="price">$600.00</span>
-                                                </div>
-                                                <!-- End product price -->
-                                            </div>
-                                            <!-- End product details -->
-                                        </div>
-                                        <div class="col-md-12 item">
-                                            <!-- start product image -->
-                                            <div class="product-image">
-                                                <!-- start product image -->
-                                                <a href="#">
-                                                    <!-- image -->
-                                                    <img class="primary blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End image -->
-                                                    <!-- Hover image -->
-                                                    <img class="hover blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End hover image -->
-                                                    <!-- product label -->
-                                                    <div class="product-labels rectangular"><span
-                                                            class="lbl on-sale">-16%</span> <span
-                                                            class="lbl pr-label1">new</span></div>
-                                                    <!-- End product label -->
-                                                </a>
-                                                <!-- end product image -->
-
-                                                <!-- countdown start -->
-                                                <div class="saleTime desktop" data-countdown="2022/07/01"></div>
-                                                <!-- countdown end -->
-
-                                                <!-- Start product button -->
-                                                <form class="variants add" action="#"
-                                                    onclick="window.location.href='cart.html'" method="post">
-                                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Thêm
-                                                        vào giỏ hàng</button>
-                                                </form>
-                                                <div class="button-set">
-                                                    <a href="javascript:void(0)" title="Quick View"
-                                                        class="quick-view-popup quick-view" data-toggle="modal"
-                                                        data-target="#content_quickview">
-                                                        <i class="icon anm anm-search-plus-r"></i>
-                                                    </a>
-                                                    <div class="wishlist-btn">
-                                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                            <i class="icon anm anm-heart-l"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <!-- end product button -->
-                                            </div>
-                                            <!-- end product image -->
-                                            <!--start product details -->
-                                            <div class="product-details text-center">
-                                                <!-- product name -->
-                                                <div class="product-name">
-                                                    <a href="#">Edna Dress</a>
-                                                </div>
-                                                <!-- End product name -->
-                                                <!-- product price -->
-                                                <div class="product-price">
-                                                    <span class="old-price">$500.00</span>
-                                                    <span class="price">$600.00</span>
-                                                </div>
-                                                <!-- End product price -->
-                                            </div>
-                                            <!-- End product details -->
-                                        </div>
-                                        <div class="col-md-12 item">
-                                            <!-- start product image -->
-                                            <div class="product-image">
-                                                <!-- start product image -->
-                                                <a href="#">
-                                                    <!-- image -->
-                                                    <img class="primary blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End image -->
-                                                    <!-- Hover image -->
-                                                    <img class="hover blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End hover image -->
-                                                    <!-- product label -->
-                                                    <div class="product-labels rectangular"><span
-                                                            class="lbl on-sale">-16%</span> <span
-                                                            class="lbl pr-label1">new</span></div>
-                                                    <!-- End product label -->
-                                                </a>
-                                                <!-- end product image -->
-
-                                                <!-- countdown start -->
-                                                <div class="saleTime desktop" data-countdown="2022/07/01"></div>
-                                                <!-- countdown end -->
-
-                                                <!-- Start product button -->
-                                                <form class="variants add" action="#"
-                                                    onclick="window.location.href='cart.html'" method="post">
-                                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Thêm
-                                                        vào giỏ hàng</button>
-                                                </form>
-                                                <div class="button-set">
-                                                    <a href="javascript:void(0)" title="Quick View"
-                                                        class="quick-view-popup quick-view" data-toggle="modal"
-                                                        data-target="#content_quickview">
-                                                        <i class="icon anm anm-search-plus-r"></i>
-                                                    </a>
-                                                    <div class="wishlist-btn">
-                                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                            <i class="icon anm anm-heart-l"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <!-- end product button -->
-                                            </div>
-                                            <!-- end product image -->
-                                            <!--start product details -->
-                                            <div class="product-details text-center">
-                                                <!-- product name -->
-                                                <div class="product-name">
-                                                    <a href="#">Edna Dress</a>
-                                                </div>
-                                                <!-- End product name -->
-                                                <!-- product price -->
-                                                <div class="product-price">
-                                                    <span class="old-price">$500.00</span>
-                                                    <span class="price">$600.00</span>
-                                                </div>
-                                                <!-- End product price -->
-                                            </div>
-                                            <!-- End product details -->
-                                        </div>
-                                        <div class="col-md-12 item">
-                                            <!-- start product image -->
-                                            <div class="product-image">
-                                                <!-- start product image -->
-                                                <a href="#">
-                                                    <!-- image -->
-                                                    <img class="primary blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End image -->
-                                                    <!-- Hover image -->
-                                                    <img class="hover blur-up lazyload"
-                                                        data-src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        src="/assets/images/cosmetic-product/product-image1-1.jpg"
-                                                        alt="image" title="product">
-                                                    <!-- End hover image -->
-                                                    <!-- product label -->
-                                                    <div class="product-labels rectangular"><span
-                                                            class="lbl on-sale">-16%</span> <span
-                                                            class="lbl pr-label1">new</span></div>
-                                                    <!-- End product label -->
-                                                </a>
-                                                <!-- end product image -->
-
-                                                <!-- countdown start -->
-                                                <div class="saleTime desktop" data-countdown="2022/07/01"></div>
-                                                <!-- countdown end -->
-
-                                                <!-- Start product button -->
-                                                <form class="variants add" action="#"
-                                                    onclick="window.location.href='cart.html'" method="post">
-                                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Thêm
-                                                        vào giỏ hàng</button>
-                                                </form>
-                                                <div class="button-set">
-                                                    <a href="javascript:void(0)" title="Quick View"
-                                                        class="quick-view-popup quick-view" data-toggle="modal"
-                                                        data-target="#content_quickview">
-                                                        <i class="icon anm anm-search-plus-r"></i>
-                                                    </a>
-                                                    <div class="wishlist-btn">
-                                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                            <i class="icon anm anm-heart-l"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <!-- end product button -->
-                                            </div>
-                                            <!-- end product image -->
-                                            <!--start product details -->
-                                            <div class="product-details text-center">
-                                                <!-- product name -->
-                                                <div class="product-name">
-                                                    <a href="#">Edna Dress</a>
-                                                </div>
-                                                <!-- End product name -->
-                                                <!-- product price -->
-                                                <div class="product-price">
-                                                    <span class="old-price">$500.00</span>
-                                                    <span class="price">$600.00</span>
-                                                </div>
-                                                <!-- End product price -->
-                                            </div>
-                                            <!-- End product details -->
-                                        </div>
-                                        
+                                        </th:block>
                                     </div>
                                 </div>
                             </div>
@@ -432,8 +103,8 @@
         </div>
         <!--End Đang giảm giá-->
 
-         <!--Sản phẩm bán chạy-->
-         <div class="section">
+        <!--Sản phẩm bán chạy-->
+        <div class="section">
             <div class="hero hero--large hero__overlay bg-size">
                 <img class="bg-img blur-up" src="/assets/images/parallax-banners/parallax-banner2.jpg" alt="" />
                 <div class="hero__inner">
@@ -443,205 +114,200 @@
                             <!-- <div class="rte-setting mega-subtitle">Nhận biết loại da qua bộ câu hỏi của </br> Dr.
                                 Leslie Baumann</div>
                                 <a href="#" class="btn">Làm Skin Test ngay</a> -->
-                            </div> 
-                            <div class="row mt-5">
-                                <div class="col-md-3 item grid-view-item style2">
-                                    <div class="grid-view_image">
-        
-                                        <!-- start product image -->
-                                        <a href="#" class="grid-view-item__link">
-                                            <!-- image -->
-                                            <img class="product grid-view-item__image primary blur-up lazyload "
-                                                src="/images/product/7202c86a.png" alt=" " title="">
-                                            <!-- End image -->
-        
-                                            <!-- Hover image -->
-                                            <img class="product grid-view-item__image hover blur-up lazyload"
-                                                data-src="/images/product/d14d6f27.png"
-                                                src="/images/product/d14d6f27.png" alt="" title="">
-                                            <!-- End hover image  -->
-                                        </a>
-                                        <!-- end product image -->
-        
-                                        <!--start product details -->
-                                        <div class="product-details hoverDetails text-center mobile">
-                                            <!-- product name -->
-                                            <div class="product-name bg-white">
-                                                <a href="#">BHA Obagi</a>
-                                            </div>
-                                            <!-- End product name -->
-        
-                                            <!-- product price -->
-                                            <div class="product-price bg-white">
-                                                <span class="price">550000</span>
-                                            </div>
-                                            <!-- End product price -->
-        
-                                            <!-- product button -->
-                                            <div class="button-set">
-                                                <form class="variants add" action="#" method="post">
-                                                    <button class="btn cartIcon btn-addto-cart" type="button"
-                                                        tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                                </form>
-                                                <div class="wishlist-btn">
-                                                    <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                        <i class="icon anm anm-heart-l"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!-- end product button -->
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-md-3 item grid-view-item style2">
+                                <div class="grid-view_image">
+
+                                    <!-- start product image -->
+                                    <a href="#" class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="product grid-view-item__image primary blur-up lazyload "
+                                            src="/images/product/7202c86a.png" alt=" " title="">
+                                        <!-- End image -->
+
+                                        <!-- Hover image -->
+                                        <img class="product grid-view-item__image hover blur-up lazyload"
+                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
+                                            alt="" title="">
+                                        <!-- End hover image  -->
+                                    </a>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details hoverDetails text-center mobile">
+                                        <!-- product name -->
+                                        <div class="product-name bg-white">
+                                            <a href="#">BHA Obagi</a>
                                         </div>
-        
-                                    </div>
-                                </div>
-                                <div class="col-md-3 item grid-view-item style2">
-                                    <div class="grid-view_image">
-        
-                                        <!-- start product image -->
-                                        <a href="#" class="grid-view-item__link">
-                                            <!-- image -->
-                                            <img class="product grid-view-item__image primary blur-up lazyload "
-                                                src="/images/product/7202c86a.png" alt=" " title="">
-                                            <!-- End image -->
-        
-                                            <!-- Hover image -->
-                                            <img class="product grid-view-item__image hover blur-up lazyload"
-                                                data-src="/images/product/d14d6f27.png"
-                                                src="/images/product/d14d6f27.png" alt="" title="">
-                                            <!-- End hover image  -->
-                                        </a>
-                                        <!-- end product image -->
-        
-                                        <!--start product details -->
-                                        <div class="product-details hoverDetails text-center mobile">
-                                            <!-- product name -->
-                                            <div class="product-name bg-white">
-                                                <a href="#">BHA Obagi</a>
-                                            </div>
-                                            <!-- End product name -->
-        
-                                            <!-- product price -->
-                                            <div class="product-price bg-white">
-                                                <span class="price">550000</span>
-                                            </div>
-                                            <!-- End product price -->
-        
-                                            <!-- product button -->
-                                            <div class="button-set">
-                                                <form class="variants add" action="#" method="post">
-                                                    <button class="btn cartIcon btn-addto-cart" type="button"
-                                                        tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                                </form>
-                                                <div class="wishlist-btn">
-                                                    <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                        <i class="icon anm anm-heart-l"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!-- end product button -->
+                                        <!-- End product name -->
+
+                                        <!-- product price -->
+                                        <div class="product-price bg-white">
+                                            <span class="price">550000</span>
                                         </div>
-        
-                                    </div>
-                                </div>
-                                <div class="col-md-3 item grid-view-item style2">
-                                    <div class="grid-view_image">
-        
-                                        <!-- start product image -->
-                                        <a href="#" class="grid-view-item__link">
-                                            <!-- image -->
-                                            <img class="product grid-view-item__image primary blur-up lazyload "
-                                                src="/images/product/7202c86a.png" alt=" " title="">
-                                            <!-- End image -->
-        
-                                            <!-- Hover image -->
-                                            <img class="product grid-view-item__image hover blur-up lazyload"
-                                                data-src="/images/product/d14d6f27.png"
-                                                src="/images/product/d14d6f27.png" alt="" title="">
-                                            <!-- End hover image  -->
-                                        </a>
-                                        <!-- end product image -->
-        
-                                        <!--start product details -->
-                                        <div class="product-details hoverDetails text-center mobile">
-                                            <!-- product name -->
-                                            <div class="product-name bg-white">
-                                                <a href="#">BHA Obagi</a>
+                                        <!-- End product price -->
+
+                                        <!-- product button -->
+                                        <div class="button-set">
+                                            <form class="variants add" action="#" method="post">
+                                                <button class="btn cartIcon btn-addto-cart" type="button"
+                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
+                                            </form>
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                    <i class="icon anm anm-heart-l"></i>
+                                                </a>
                                             </div>
-                                            <!-- End product name -->
-        
-                                            <!-- product price -->
-                                            <div class="product-price bg-white">
-                                                <span class="price">550000</span>
-                                            </div>
-                                            <!-- End product price -->
-        
-                                            <!-- product button -->
-                                            <div class="button-set">
-                                                <form class="variants add" action="#" method="post">
-                                                    <button class="btn cartIcon btn-addto-cart" type="button"
-                                                        tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                                </form>
-                                                <div class="wishlist-btn">
-                                                    <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                        <i class="icon anm anm-heart-l"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!-- end product button -->
                                         </div>
-        
+                                        <!-- end product button -->
                                     </div>
-                                </div>
-                                <div class="col-md-3 item grid-view-item style2">
-                                    <div class="grid-view_image">
-        
-                                        <!-- start product image -->
-                                        <a href="#" class="grid-view-item__link">
-                                            <!-- image -->
-                                            <img class="product grid-view-item__image primary blur-up lazyload "
-                                                src="/images/product/7202c86a.png" alt=" " title="">
-                                            <!-- End image -->
-        
-                                            <!-- Hover image -->
-                                            <img class="product grid-view-item__image hover blur-up lazyload"
-                                                data-src="/images/product/d14d6f27.png"
-                                                src="/images/product/d14d6f27.png" alt="" title="">
-                                            <!-- End hover image  -->
-                                        </a>
-                                        <!-- end product image -->
-        
-                                        <!--start product details -->
-                                        <div class="product-details hoverDetails text-center mobile">
-                                            <!-- product name -->
-                                            <div class="product-name bg-white">
-                                                <a href="#">BHA Obagi</a>
-                                            </div>
-                                            <!-- End product name -->
-        
-                                            <!-- product price -->
-                                            <div class="product-price bg-white">
-                                                <span class="price">550000</span>
-                                            </div>
-                                            <!-- End product price -->
-        
-                                            <!-- product button -->
-                                            <div class="button-set">
-                                                <form class="variants add" action="#" method="post">
-                                                    <button class="btn cartIcon btn-addto-cart" type="button"
-                                                        tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                                </form>
-                                                <div class="wishlist-btn">
-                                                    <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                        <i class="icon anm anm-heart-l"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!-- end product button -->
-                                        </div>
-        
-                                    </div>
+
                                 </div>
                             </div>
+                            <div class="col-md-3 item grid-view-item style2">
+                                <div class="grid-view_image">
+
+                                    <!-- start product image -->
+                                    <a href="#" class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="product grid-view-item__image primary blur-up lazyload "
+                                            src="/images/product/7202c86a.png" alt=" " title="">
+                                        <!-- End image -->
+
+                                        <!-- Hover image -->
+                                        <img class="product grid-view-item__image hover blur-up lazyload"
+                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
+                                            alt="" title="">
+                                        <!-- End hover image  -->
+                                    </a>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details hoverDetails text-center mobile">
+                                        <!-- product name -->
+                                        <div class="product-name bg-white">
+                                            <a href="#">BHA Obagi</a>
+                                        </div>
+                                        <!-- End product name -->
+
+                                        <!-- product price -->
+                                        <div class="product-price bg-white">
+                                            <span class="price">550000</span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                        <!-- product button -->
+                                        <div class="button-set">
+                                            <form class="variants add" action="#" method="post">
+                                                <button class="btn cartIcon btn-addto-cart" type="button"
+                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
+                                            </form>
+                                        </div>
+                                        <!-- end product button -->
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 item grid-view-item style2">
+                                <div class="grid-view_image">
+
+                                    <!-- start product image -->
+                                    <a href="#" class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="product grid-view-item__image primary blur-up lazyload "
+                                            src="/images/product/7202c86a.png" alt=" " title="">
+                                        <!-- End image -->
+
+                                        <!-- Hover image -->
+                                        <img class="product grid-view-item__image hover blur-up lazyload"
+                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
+                                            alt="" title="">
+                                        <!-- End hover image  -->
+                                    </a>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details hoverDetails text-center mobile">
+                                        <!-- product name -->
+                                        <div class="product-name bg-white">
+                                            <a href="#">BHA Obagi</a>
+                                        </div>
+                                        <!-- End product name -->
+
+                                        <!-- product price -->
+                                        <div class="product-price bg-white">
+                                            <span class="price">550000</span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                        <!-- product button -->
+                                        <div class="button-set">
+                                            <form class="variants add" action="#" method="post">
+                                                <button class="btn cartIcon btn-addto-cart" type="button"
+                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
+                                            </form>
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                    <i class="icon anm anm-heart-l"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- end product button -->
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 item grid-view-item style2">
+                                <div class="grid-view_image">
+
+                                    <!-- start product image -->
+                                    <a href="#" class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="product grid-view-item__image primary blur-up lazyload "
+                                            src="/images/product/7202c86a.png" alt=" " title="">
+                                        <!-- End image -->
+
+                                        <!-- Hover image -->
+                                        <img class="product grid-view-item__image hover blur-up lazyload"
+                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
+                                            alt="" title="">
+                                        <!-- End hover image  -->
+                                    </a>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details hoverDetails text-center mobile">
+                                        <!-- product name -->
+                                        <div class="product-name bg-white">
+                                            <a href="#">BHA Obagi</a>
+                                        </div>
+                                        <!-- End product name -->
+
+                                        <!-- product price -->
+                                        <div class="product-price bg-white">
+                                            <span class="price">550000</span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                        <!-- product button -->
+                                        <div class="button-set">
+                                            <form class="variants add" action="#" method="post">
+                                                <button class="btn cartIcon btn-addto-cart" type="button"
+                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
+                                            </form>
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                    <i class="icon anm anm-heart-l"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- end product button -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -661,300 +327,75 @@
                 <div class="grid-products">
                     <div class="row">
                         <!--lstPeoduct.html-->
-                        <div class="col-md-3 item grid-view-item style2">
-                            <div class="grid-view_image">
+                        <th:block th:each="goods : ${goodsNewest}">
+                            <div class="col-md-3 item grid-view-item style2">
+                                <div class="grid-view_image">
 
-                                <!-- start product image -->
-                                <a href="#" class="grid-view-item__link">
-                                    <!-- image -->
-                                    <img class="product grid-view-item__image primary blur-up lazyload "
-                                        src="/images/product/7202c86a.png" alt=" " title="">
-                                    <!-- End image -->
+                                    <!-- start product image -->
+                                    <a th:href="@{|/product/${goods.goodsId}|}" class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="product grid-view-item__image primary blur-up lazyload "
+                                            th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+                                            th:title="${goods.name}">
+                                        <!-- End image -->
 
-                                    <!-- Hover image -->
-                                    <img class="product grid-view-item__image hover blur-up lazyload"
-                                        data-src="/images/product/d14d6f27.png"
-                                        src="/images/product/d14d6f27.png" alt="" title="">
-                                    <!-- End hover image  -->
-                                </a>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details hoverDetails text-center mobile">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">BHA Obagi</a>
-                                    </div>
-                                    <!-- End product name -->
-
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">550000</span>
-                                    </div>
-                                    <!-- End product price -->
-
-                                    <!-- product button -->
-                                    <div class="button-set">
-                                        <form class="variants add" action="#" method="post">
-                                            <button class="btn cartIcon btn-addto-cart" type="button"
-                                                tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                        </form>
-                                        <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
+                                        <!-- Hover image -->
+                                        <img class="product grid-view-item__image hover blur-up lazyload"
+                                            data-th:src="@{|/images/product/${goods.photo}|}"
+                                            th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+                                            th:title="${goods.name}">
+                                        <!-- End hover image  -->
+                                        <div class="product-labels rectangular">
+                                            <span th:attr="ng-if=@{|${goods.discount} > 0|}"
+                                                class="lbl on-sale">-[[${goods.discount}]] %</span>
+                                            <span th:attr="ng-if=@{|${goods.rx} == true|}"
+                                                class="lbl pr-label1">Rx</span>
+                                                <span th:attr="ng-if=@{|${goods.conHang} == false|}"
+                                                class="lbl bg-warning">Hết hàng</span>
                                         </div>
-                                    </div>
-                                    <!-- end product button -->
-                                </div>
+                                        <div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop" th:data-countdown="${goods.ngayKetThuc}"></div>
+                                    </a>
+                                    <!-- end product image -->
 
-                            </div>
-                        </div>
-                        <div class="col-md-3 item grid-view-item style2">
-                            <div class="grid-view_image">
-
-                                <!-- start product image -->
-                                <a href="#" class="grid-view-item__link">
-                                    <!-- image -->
-                                    <img class="product grid-view-item__image primary blur-up lazyload "
-                                        src="/images/product/7202c86a.png" alt=" " title="">
-                                    <!-- End image -->
-
-                                    <!-- Hover image -->
-                                    <img class="product grid-view-item__image hover blur-up lazyload"
-                                        data-src="/images/product/d14d6f27.png"
-                                        src="/images/product/d14d6f27.png" alt="" title="">
-                                    <!-- End hover image  -->
-                                </a>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details hoverDetails text-center mobile">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">BHA Obagi</a>
-                                    </div>
-                                    <!-- End product name -->
-
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">550000</span>
-                                    </div>
-                                    <!-- End product price -->
-
-                                    <!-- product button -->
-                                    <div class="button-set">
-                                        <form class="variants add" action="#" method="post">
-                                            <button class="btn cartIcon btn-addto-cart" type="button"
-                                                tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                        </form>
-                                        <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
+                                    <!--start product details -->
+                                    <div class="product-details hoverDetails text-center mobile">
+                                        <!-- product name -->
+                                        <div class="product-name">
+                                            <a th:href="@{|/product/${goods.goodsId}|}">[[${goods.name}]]</a>
                                         </div>
+                                        <!-- End product name -->
+
+                                        <!-- product price -->
+                                        <div class="product-price">
+                                            <span th:attr="ng-if=@{|${goods.discount} > 0|}"
+                                                class="old-price">[[${#numbers.formatDecimal(goods.price,0,'COMMA',0,'POINT')}]]</span>
+                                            <span class="price">[[${#numbers.formatDecimal(goods.price - (goods.price * goods.discount/100),0,'COMMA',0,'POINT')}]]/[[${goods.util}]]</span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                        <!-- product button -->
+                                        <div class="button-set">
+                                            <form class="variants add" action="#" method="post">
+                                                <button th:if="${goods.conHang == true}"
+                                                    th:attr=" ng-click=@{|cart.add(${goods.goodsId}, ${goods.discount})|}, ng-if=@{|${goods.rx} == false|}"
+                                                    class="btn cartIcon btn-addto-cart" type="button" tabindex="0"><i
+                                                        class="icon anm anm-bag-l"></i></button>
+                                                <button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van" disabled><i
+                                                        class="fa-regular fa-comment"></i></button>
+                                            </form>
+                                        </div>
+                                        <!-- end product button -->
                                     </div>
-                                    <!-- end product button -->
+
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 item grid-view-item style2">
-                            <div class="grid-view_image">
-
-                                <!-- start product image -->
-                                <a href="#" class="grid-view-item__link">
-                                    <!-- image -->
-                                    <img class="product grid-view-item__image primary blur-up lazyload "
-                                        src="/images/product/7202c86a.png" alt=" " title="">
-                                    <!-- End image -->
-
-                                    <!-- Hover image -->
-                                    <img class="product grid-view-item__image hover blur-up lazyload"
-                                        data-src="/images/product/d14d6f27.png"
-                                        src="/images/product/d14d6f27.png" alt="" title="">
-                                    <!-- End hover image  -->
-                                </a>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details hoverDetails text-center mobile">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">BHA Obagi</a>
-                                    </div>
-                                    <!-- End product name -->
-
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">550000</span>
-                                    </div>
-                                    <!-- End product price -->
-
-                                    <!-- product button -->
-                                    <div class="button-set">
-                                        <form class="variants add" action="#" method="post">
-                                            <button class="btn cartIcon btn-addto-cart" type="button"
-                                                tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                        </form>
-                                        <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- end product button -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 item grid-view-item style2">
-                            <div class="grid-view_image">
-
-                                <!-- start product image -->
-                                <a href="#" class="grid-view-item__link">
-                                    <!-- image -->
-                                    <img class="product grid-view-item__image primary blur-up lazyload "
-                                        src="/images/product/7202c86a.png" alt=" " title="">
-                                    <!-- End image -->
-
-                                    <!-- Hover image -->
-                                    <img class="product grid-view-item__image hover blur-up lazyload"
-                                        data-src="/images/product/d14d6f27.png"
-                                        src="/images/product/d14d6f27.png" alt="" title="">
-                                    <!-- End hover image  -->
-                                </a>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details hoverDetails text-center mobile">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">BHA Obagi</a>
-                                    </div>
-                                    <!-- End product name -->
-
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">550000</span>
-                                    </div>
-                                    <!-- End product price -->
-
-                                    <!-- product button -->
-                                    <div class="button-set">
-                                        <form class="variants add" action="#" method="post">
-                                            <button class="btn cartIcon btn-addto-cart" type="button"
-                                                tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                        </form>
-                                        <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- end product button -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 item grid-view-item style2">
-                            <div class="grid-view_image">
-
-                                <!-- start product image -->
-                                <a href="#" class="grid-view-item__link">
-                                    <!-- image -->
-                                    <img class="product grid-view-item__image primary blur-up lazyload "
-                                        src="/images/product/7202c86a.png" alt=" " title="">
-                                    <!-- End image -->
-
-                                    <!-- Hover image -->
-                                    <img class="product grid-view-item__image hover blur-up lazyload"
-                                        data-src="/images/product/d14d6f27.png"
-                                        src="/images/product/d14d6f27.png" alt="" title="">
-                                    <!-- End hover image  -->
-                                </a>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details hoverDetails text-center mobile">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">BHA Obagi</a>
-                                    </div>
-                                    <!-- End product name -->
-
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">550000</span>
-                                    </div>
-                                    <!-- End product price -->
-
-                                    <!-- product button -->
-                                    <div class="button-set">
-                                        <form class="variants add" action="#" method="post">
-                                            <button class="btn cartIcon btn-addto-cart" type="button"
-                                                tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                        </form>
-                                        <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- end product button -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 item grid-view-item style2">
-                            <div class="grid-view_image">
-
-                                <!-- start product image -->
-                                <a href="#" class="grid-view-item__link">
-                                    <!-- image -->
-                                    <img class="product grid-view-item__image primary blur-up lazyload "
-                                        src="/images/product/7202c86a.png" alt=" " title="">
-                                    <!-- End image -->
-
-                                    <!-- Hover image -->
-                                    <img class="product grid-view-item__image hover blur-up lazyload"
-                                        data-src="/images/product/d14d6f27.png"
-                                        src="/images/product/d14d6f27.png" alt="" title="">
-                                    <!-- End hover image  -->
-                                </a>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details hoverDetails text-center mobile">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">BHA Obagi</a>
-                                    </div>
-                                    <!-- End product name -->
-
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">550000</span>
-                                    </div>
-                                    <!-- End product price -->
-
-                                    <!-- product button -->
-                                    <div class="button-set">
-                                        <form class="variants add" action="#" method="post">
-                                            <button class="btn cartIcon btn-addto-cart" type="button"
-                                                tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                        </form>
-                                        <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- end product button -->
-                                </div>
-                            </div>
-                        </div>
+                        </th:block>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="section-header text-center">
-                        <a href="/product/list?kw=" class="btn" style="vertical-align: middle;    text-align: center; ">TẤT CẢ SẢN
+                        <a href="/product" class="btn" style="vertical-align: middle;    text-align: center; ">TẤT CẢ
+                            SẢN
                             PHẨM</a>
                     </div>
                 </div>
@@ -975,41 +416,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="logo-bar">
-                            <!-- <th:block th:each="brand : ${brands}"> -->
+                            <th:block th:each="brand : ${brands}" th:if="${brand.photo != 'photo.png'}">
                                 <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
+                                    <a th:href="@{|/product/list?brand-id=${brand.id}|}">
+                                        <img th:src="@{|/images/brand/${brand.photo}|}" th:alt="${brand.name}"
+                                            th:title="${brand.name}" />
+                                    </a>
                                 </div>
-                                <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
-                                </div>
-                                <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
-                                </div>
-                                <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
-                                </div>
-                                <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
-                                </div>
-                                <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
-                                </div>
-                                <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
-                                </div>
-                                <div class="logo-bar__item">
-                                    <!-- <a th:href="@{|/product/list?bid=${brand.id}|}"><img th:src="@{|/images/brand/${brand.image}|}" th:alt="${brand.name}" th:title="${brand.name}" /></a> -->
-                                    <a href="#"><img src="/images/brand/1569d13c.png" alt=""></a>
-                                </div>
-
-                            <!-- </th:block> -->
+                            </th:block>
                         </div>
                     </div>
                 </div>
@@ -1029,34 +443,17 @@
                 </div>
                 <div class="row">
                     <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic1.jpg"
-                                    src="/assets/images/collection/cosmetic1.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
-                    <!--End Featured Item-->
-                    <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic2.jpg"
-                                    src="/assets/images/collection/cosmetic2.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
-                    <!--End Featured Item-->
-                    <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic3.jpg"
-                                    src="/assets/images/collection/cosmetic3.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
+                    <th:block th:each="promotion : ${promotions}">
+                        <div class="col-md-4 text-center">
+                            <p>
+                                <a href="#">
+                                    <img class="blur-up lazyload"
+                                        data-th:src="@{|/images/promotion/${promotion.photo}|}"
+                                        th:src="@{|/images/promotion/${promotion.photo}|}">
+                                </a>
+                            </p>
+                        </div>
+                    </th:block>
                     <!--End Featured Item-->
                 </div>
             </div>

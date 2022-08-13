@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Tìm kiếm %[[${kw}]]%</title>
+</head>
+
+<body>
+	<div id="page-content">
+		<!--Collection Banner-->
+		<div class="collection-header">
+			<div class="collection-hero">
+				<div class="collection-hero__image">
+					<img class="blur-up lazyload" data-src="/assets/images/product-banner.png"
+						src="/assets/images/product-banner.png" alt="Women" title="Women" />
+				</div>
+				<div class="collection-hero__title-wrapper">
+					<h1 class="collection-hero__title page-width">FREESHIP ĐƠN HÀNG TRÊN 200K</h1>
+				</div>
+			</div>
+		</div>
+		<!--End Collection Banner-->
+
+		<div class="container mt-5">
+			<div class="row">
+				<!--Main Content-->
+				<div class="col-md-12 main-col">
+					<div class="productList">
+						<div class="grid-products grid--view-items">
+							<div class="row">
+								<th:block th:if="${lstGoods[0].totalPage > 0}" th:each="goods : ${lstGoods}">
+									<div class="col-md-3 item">
+										<!-- start product image -->
+										<div class="product-image">
+											<!-- start product image -->
+											<a th:href="@{|/product/${goods.goodsId}|}">
+												<!-- product primary blur-up lazyloaded -->
+												<!-- image --> <img
+													class="product grid-view-item__image primary blur-up lazyloaded"
+													data-th:src="@{|/images/product/${goods.photo}|}"
+													th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+													th:title="${goods.name}">
+												<!-- End image -->
+												<!-- Hover image -->
+												<img class="product grid-view-item__image hover blur-up lazyloaded"
+													data-th:src="@{|/images/product/${goods.photo}|}"
+													th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+													th:title="${goods.name}">
+												<!-- End hover image -->
+												<div class="product-labels rectangular">
+													<span th:attr="ng-if=@{|${goods.discount} > 0|}"
+														class="lbl on-sale">-[[${goods.discount}]] %</span>
+													<span th:attr="ng-if=@{|${goods.rx} == true|}"
+														class="lbl pr-label1">Rx</span>
+														<span th:attr="ng-if=@{|${goods.conHang} == false|}"
+														class="lbl bg-warning">Hết hàng</span>
+												</div>
+												<div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop" th:data-countdown="${goods.ngayKetThuc}"></div>
+											</a>
+											<!-- end product image -->
+
+											<!-- Start product button -->
+											<form class="variants add">
+												<button th:if="${goods.conHang == true}"
+													th:attr=" ng-click=@{|cart.add(${goods.goodsId}, ${goods.discount})|}, ng-if=@{|${goods.rx} == false|}"
+													class="btn btn-addto-cart" type="button">Thêm vào giỏ hàng</button>
+												<button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van" disabled>Tư
+													vấn mua hàng</button>
+											</form>
+											<div class="button-set">
+
+												<div class="wishlist-btn">
+													<a class="wishlist add-to-wishlist" href="#"
+														title="Add to Wishlist"> <i class="icon anm anm-heart-l"></i>
+													</a>
+												</div>
+
+											</div>
+											<!-- end product button -->
+										</div>
+										<!-- end product image -->
+
+										<!--start product details -->
+										<div class="product-details text-center">
+											<!-- product name -->
+											<div class="product-name">
+												<a th:href="@{|/product/${goods.goodsId}|}">[[${goods.name}]]</a>
+											</div>
+											<!-- End product name -->
+											<!-- product price -->
+											<div class="product-price">
+												<span th:attr="ng-if=@{|${goods.discount} > 0|}"
+													class="old-price">[[${#numbers.formatDecimal(goods.price,0,'COMMA',0,'POINT')}]]</span>
+												<span class="price">[[${#numbers.formatDecimal(goods.price *(1 -
+													goods.discount/100),0,'COMMA',0,'POINT')}]]</span>
+											</div>
+											<!-- End product price -->
+										</div>
+										<!-- End product details -->
+									</div>
+								</th:block>
+							</div>
+							<!-- <div class="row">
+								<div class="text-center col-md-12">
+									<input type="submit" class="btn mb-3" value="Xem thêm">
+								</div>
+							</div> -->
+						</div>
+					</div>
+					<hr class="clear">
+						<div class="pagination">
+							<ul>
+								<li th:if="${page} == 0" class="disabled mr-2"><a href="">|<</a></li>
+								<li th:if="${page} > 0" class="active mr-2"><a th:href="@{|/product/search?page=0&kw=${kw}|}">|<</a></li>
+								<li th:if="${page-1} < 0" class="disabled mr-2"><a href=""><<</a></li>
+								<li th:if="${page-1} >= 0" class="active mr-2"><a
+									th:href="@{|/product/search?page=${page - 1}&kw=${kw}|}"><<</a></li>
+								<li th:if="${page+1} > ${lstGoods[0].totalPage-1}" class="disabled mr-2"><a href="">>></a></li>
+								<li th:if="${page+1} <= ${lstGoods[0].totalPage-1}" class="active mr-2"><a
+									th:href="@{|/product/search?page=${page + 1}&kw=${kw}|}">>></a></li>
+								<li th:if="${page} == ${lstGoods[0].totalPage -1}" class="disabled mr-2"><a href="">>|</a></li>
+								<li th:if="${page} < ${lstGoods[0].totalPage -1}" class="active mr-2"><a th:href="@{|/product/search?page=${lstGoods[0].totalPage-1}&kw=${kw}|}">>|</a></li>
+							</ul>
+						</div>
+				</div>
+				<!--End Main Content-->
+			</div>
+		</div>
+		<!--Store Feature-->
+		<div class="store-feature section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+						<ul class="display-table store-info">
+							<li class="display-table-cell">
+								<i class="icon anm anm-truck-l"></i>
+								<h5>Miễn phí vận chuyển</h5>
+								<span class="sub-text">
+									Đối với đơn từ 200k trong nội thành TPHCM
+								</span>
+							</li>
+							<li class="display-table-cell">
+								<i class="icon anm anm-money-bill-ar"></i>
+								<h5>Nhiều khuyến mãi hấp dẫn</h5>
+								<span class="sub-text">
+									Hàng ngàn ưu đãi cực sốc được cập nhật mỗi ngày
+								</span>
+							</li>
+							<li class="display-table-cell">
+								<i class="icon anm anm-comments-l"></i>
+								<h5>Sản phẩm chính hãng</h5>
+								<span class="sub-text">
+									Cam kết hoàn tiền 300% giá trị sản phẩm nếu phát hiện hàng không chính hãng
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--End Store Feature-->
+	</div>
+</body>
+
+</html>

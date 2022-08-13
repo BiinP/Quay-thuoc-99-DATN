@@ -14,20 +14,28 @@ app.config(function($routeProvider){
             controller:"subCategory-ctrl"
         })
         .when("/brand",{
-            templateUrl:"/admin/assets/layout/brand.html",
-            controller:"brand-ctrl"
+        	templateUrl:"/admin/assets/layout/brand.html",
+        	controller:"brand-ctrl"
+        })
+        .when("/util",{
+            templateUrl:"/admin/assets/layout/util.html",
+            controller:"util-ctrl"
         })
         .when("/product",{
-            templateUrl:"/admin/assets/layout/product.html",
-            controller:"product-ctrl"
+        	templateUrl:"/admin/assets/layout/product.html",
+        	controller:"product-ctrl"
         })
-        .when("/user",{
-            templateUrl:"/admin/assets/layout/user.html",
-            controller:"user-ctrl"
+        .when("/promotion",{
+        	templateUrl:"/admin/assets/layout/promotion.html",
+        	controller:"promotion-ctrl"
         })
-        .when("/authenticate",{
-            templateUrl:"/admin/assets/layout/authenticate.html",
-            controller:"authenticate-ctrl"
+        .when("/input",{
+            templateUrl:"/admin/assets/layout/input.html",
+            controller:"input-ctrl"
+        })
+        .when("/order",{
+            templateUrl:"/admin/assets/layout/order.html",
+            controller:"order-ctrl"
         })
         .otherwise({
             templateUrl:"/admin/assets/layout/dashboard.html",

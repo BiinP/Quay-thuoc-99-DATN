@@ -1,5 +1,6 @@
 package com.qlnt.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class BrandAPI {
 	public Page<Brand> getAll(@RequestParam("kw") Optional<String> kw, 
 			@RequestParam("currentPage") Optional<Integer> currentPage){
 		return brandService.findAll(kw, currentPage);
+	}
+	@GetMapping("/all")
+	public List<Brand> getAll(){
+		return brandService.findAll();
 	}
 	@GetMapping("/{id}")
 	public ResponseEntity<Brand> getById(@PathVariable("id") String id) {

@@ -31,8 +31,9 @@ public class Product {
 	private String donViGoc;
 	private Boolean rx = false;
 	private Boolean active= true;
-	private String ghiChu;
+	private String moTa;
 	private String photo = "photo.jpg";
+	private Float tonKho = (float) 0;
 	@ManyToOne @JoinColumn(name = "sub_category_id")
 	private SubCategory subCategory;
 	@ManyToOne @JoinColumn(name = "brand_id")
@@ -46,4 +47,5 @@ public class Product {
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<InputDetail> inputDetails;
+	
 }

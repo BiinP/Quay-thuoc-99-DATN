@@ -2,106 +2,143 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Thông tin tài khoản</title>
+	<meta charset="UTF-8">
+	<title>Thông tin tài khoản</title>
 </head>
 
 <body>
 	<div id="page-content">
-    	<!--Page Title-->
-    	<div class="page section-header text-center mt-5">
+		<!--Page Title-->
+		<div class="page section-header text-center mt-5">
 			<div class="page-title">
-        		<div class="wrapper"><h1 class="page-width">Thông tin tài khoản</h1></div>
-      		</div>
+				<div class="wrapper">
+					<h1 class="page-width">Thông tin tài khoản</h1>
+				</div>
+			</div>
 		</div>
-        <!--End Page Title-->
-        
-        <div class="container">
-        	<div class="row">
-        		<!--Sidebar-->
+		<!--End Page Title-->
+
+		<div class="container">
+			<div class="row">
+				<!--Sidebar-->
 				<div th:replace="~{account/_aside ::_aside}"></div>
 				<!--End Sidebar-->
-        		<div class="col-md-9">
-        			<div class="row billing-fields">
-        				<div class="col-md-12 sm-margin-30px-bottom">
-        					<div class="create-ac-content bg-light-gray padding-20px-all row">
-		        				<div class="col-md-3">
-		        					<br />
-		        					<br />
-		        					<label for="">
-		        						<img src="/images/account/95f87bbd.jpg" alt="" />
-		        					</label>
-		        				</div>
-		        				<div class="col-md-9">
-	        						<form name="frmOrder">
-		                                <fieldset>
-		                                    <h2 class="login-title mb-3">Thông tin chung</h2>
-		                                    <div class="row">
-		                                        <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-		                                            <label for="input-email">E-Mail <span class="required-f">*</span></label>
-		                                            <input disabled="disabled" name="email" value="${userDetail.email}" id="input-email" type="email">
-		                                        </div>
+				<div class="col-md-9">
+					<div class="row billing-fields">
+						<div class="col-md-12 sm-margin-30px-bottom">
+							<div class="create-ac-content bg-light-gray padding-20px-all row">
+								<div class="col-md-3">
+									<br />
+									<br />
+									<label for="">
+										<img th:src="@{|/images/account/${profile.avatar}|}" alt="" />
+									</label>
+								</div>
+								<div class="col-md-9">
+									<form action="/account/update" method="POST" name="frmProfile"
+										th:object="${profile}" enctype="multipart/form-data">
+										<div th:if="${success != null}"
+											class="alert alert-primary alert-dismissible fade show font-custom" role="alert">
+											<strong>[[${success}]]</strong>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div th:if="${error != null}"
+											class="alert alert-danger alert-dismissible fade show font-custom"
+											role="alert">
+											<strong>[[${error}]]</strong>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<fieldset>
+											<h2 class="login-title mb-3">Thông tin chung</h2>
+											<div class="row">
+												<div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+													<label for="input-email">E-Mail <span
+															class="required-f">*</span></label>
+													<input disabled="disabled" name="email" th:value="*{email}"
+														id="input-email" type="email">
+												</div>
 												<div class="form-group col-md-6 required">
-		                                            <label for="input-firstname">Họ và tên<span
-		                                                    class="required-f">*</span></label>
-		                                            <input disabled="disabled" name="fullname" value="${userDetail.fullname}" id="input-firstname" type="text">
-		                                        </div>
-		                                    </div>
-		                                </fieldset>
-		                                <fieldset>
-		                                    <div class="row">
-		                                        <div class="form-group col-md-6 required">
-		                                            <label class="mr-2" for="gender">Ngày sinh</label>
-													<input type="date" ng-model="dob" name="dob" required placeholder="" id="dob" autofocus="">
-		                                        </div>
-		                                        <div class="form-group col-md-6 required">
-		                                            <label class="mb-3" for="gender">Giới tính</label><br />
-													<input type="radio" name="gender" id=""> <label class="mr-2" for="gender">Nam</label>
-													<input type="radio" name="gender" id=""> <label for="gender">Nữ</label>
-		                                        </div>
-		                                    </div>
-		                                </fieldset>
-		                                <fieldset>
-		                                    <div class="row">
-		                                        <div class="form-group col-md-6 required">
-		                                            <label for="input-firstname">Sđt<span
-		                                                    class="required-f">*</span></label>
-		                                            <input name="sdt" value="${userDetail.sdt}" id="input-firstname" type="text">
-		                                        </div>
-		                                        <div class="form-group col-md-6">
-		                                            <label for="input-company">Avatar<span
-		                                                    class="required-f">*</span></label>
-		                                            <input type="file" />
-		                                        </div>
-		                                    </div>
-		                                </fieldset>
-		                                <fieldset>
-		                                    <div class="row">
-		                                        <div class="form-group col-md-6 required">
-		                                            <label for="input-address-1">Điểm tích lũy <span
-		                                                    class="required-f">*</span></label>
-		                                            <input name="address" ng-model="order.address" id="input-address-1" required type="text">
-		                                            <div ng-show="frmOrder.address.$invalid" class="badge badge-danger m-2">Vui lòng nhập địa chỉ</div>
-		                                        </div>
-		                                    </div>
-		                                </fieldset>
-		                                <div class="row">
+													<label for="input-firstname">Họ và tên<span
+															class="required-f">*</span></label>
+													<input name="hoTen" th:value="*{hoTen}" id="input-firstname"
+														type="text" required>
+													<div ng-show="frmProfile.hoTen.$invalid"
+														class="badge badge-danger m-2">Vui lòng nhập họ tên</div>
+												</div>
+											</div>
+										</fieldset>
+										<fieldset>
+											<div class="row">
+												<div class="form-group col-md-6 required">
+													<label class="mr-2" for="gender">Ngày sinh</label>
+													<input type="text" name="ngaySinh"
+														th:value="*{#dates.format(ngaySinh, 'yyyy/MM/dd')}" required>
+													<div ng-show="frmProfile.ngaySinh.$invalid"
+														class="badge badge-danger m-2">Vui lòng nhập ngày sinh</div>
+												</div>
+												<div class="form-group col-md-6 required">
+													<label class="mb-3" for="gender">Giới tính</label><br />
+													<input type="radio" name="gioiTinh" value="true"
+														th:checked="*{gioiTinh}" id=""> <label class="mr-2"
+														for="gender">Nam</label>
+													<input type="radio" name="gioiTinh" value="false"
+														th:checked="*{!gioiTinh}" id=""> <label for="gender">Nữ</label>
+												</div>
+											</div>
+										</fieldset>
+										<fieldset>
+											<div class="row">
+												<div class="form-group col-md-6 required">
+													<label for="input-firstname">Sđt<span
+															class="required-f">*</span></label>
+													<input name="sdt" th:value="*{sdt}" id="input-firstname" type="text"
+														required>
+													<div ng-show="frmProfile.sdt.$invalid"
+														class="badge badge-danger m-2">Vui lòng nhập sđt</div>
+												</div>
+												<div class="form-group col-md-6">
+													<label for="input-company">Avatar<span
+															class="required-f">*</span></label>
+													<input name="photo" type="file" />
+												</div>
+											</div>
+										</fieldset>
+										<fieldset>
+											<div class="row">
+												<div class="form-group col-md-6 required">
+													<label for="input-address-1">Địa chỉ</label>
+													<input name="diaChi" th:value="*{diaChi}" id="input-address-1"
+														type="text">
+												</div>
+												<div class="form-group col-md-6 required">
+													<label for="input-address-1">Điểm tích lũy</label>
+													<input name="diem" th:value="*{diem}" id="input-address-1" disabled
+														type="number">
+												</div>
+											</div>
+										</fieldset>
+										<div class="row">
 											<div class="text-center col-md-12">
-												<button ng-disabled="frmregister.$invalid" type="submit" class="btn mb-3">Chỉnh sửa</button>
+												<button ng-disabled="frmregister.$invalid" type="submit"
+													class="btn mb-3">Chỉnh sửa</button>
 											</div>
 										</div>
-	                            	</form>
-		        				
-		        				</div>
-        					</div>
-        				</div>
-        				
-        			</div>
-        		</div>
-            </div>
-        </div>
-        
-    </div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </body>
 
 </html>

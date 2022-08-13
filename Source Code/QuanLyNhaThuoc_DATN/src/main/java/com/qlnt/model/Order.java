@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,15 +37,16 @@ public class Order {
 	private Float tongTien;
 	private Float tongGiamGia;
 	private Float thanhTien;
-	private Boolean doiXacNhan;
-	private Boolean dangGiaoHang;
-	private Boolean thanhCong;
-	private Boolean daHuy;
-	private Boolean daTraHang; 
-	private Boolean taiCuaHang;
-	private String maNV;
+	private Boolean doiXacNhan = true;
+	private Boolean dangGiaoHang = false;
+	private Boolean thanhCong = false;
+	private Boolean daHuy = false;
+	private Boolean daTraHang = false; 
+	private Boolean taiCuaHang = false;
+	private String maNV = null;
 	@ManyToOne @JoinColumn(name = "account_id")
 	private Account account;
+	@JsonIgnore
 	@OneToMany(mappedBy = "order")
 	private List<OrderDetail> orderDetails;
 }

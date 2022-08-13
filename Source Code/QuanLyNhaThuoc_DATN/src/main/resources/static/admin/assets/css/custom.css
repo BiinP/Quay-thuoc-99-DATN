@@ -54,3 +54,17 @@
 .aside-custom, .header-custom {
 	background : #3d7695 !important;
 }
+.modal-footer-product {
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+.modal-second{
+	max-width: 80% !important;
+	min-width: 80% !important;
+	
+}
+.note-editable{
+	min-height: 500px !important;
+	max-height: 500px !important;
+}

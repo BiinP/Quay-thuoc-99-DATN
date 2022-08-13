@@ -46,22 +46,22 @@
                                     <h2 class="login-title mb-3">Chi tiết thanh toán</h2>
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                            <label for="input-firstname">Username<span
+                                            <label for="input-firstname">Email<span
                                                     class="required-f">*</span></label>
-                                            <input disabled="disabled" name="username" th:value="${order.account.username}" id="username" type="text">
+                                            <input disabled="disabled" name="username" th:value="${order.account.email}" id="username" type="text">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                             <label for="input-firstname">Họ và tên<span
                                                     class="required-f">*</span></label>
-                                            <input disabled="disabled" name="fullname" th:value="${order.account.fullname}" id="input-firstname" type="text">
+                                            <input disabled="disabled" name="fullname" th:value="${order.account.hoTen}" id="input-firstname" type="text">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                            <label for="input-email">E-Mail <span class="required-f">*</span></label>
-                                            <input disabled="disabled" name="email" th:value="${order.account.email}" id="input-email" type="email">
+                                            <label for="input-email">Sđt <span class="required-f">*</span></label>
+                                            <input disabled="disabled" name="email" th:value="${order.account.sdt}" id="input-email" type="email">
                                         </div>
 
                                     </div>
@@ -71,16 +71,7 @@
                                         <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                             <label for="input-address-1">Địa chỉ <span
                                                     class="required-f">*</span></label>
-                                            <input disabled="disabled" name="address" th:value="${order.address}" id="input-address-1" required type="text">
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="row">
-                                        <div class="form-group col-md-12 col-lg-12 col-xl-12">
-                                            <label for="input-company">Ghi chú<span
-                                                    class="required-f">*</span></label>
-                                            <textarea disabled="disabled" class="form-control resize-both" rows="3"></textarea>
+                                            <input disabled="disabled" name="address" th:value="${order.diaChi}" id="input-address-1" required type="text">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -99,22 +90,28 @@
                                             <tr>
                                                 <th class="text-left">Sản phẩm</th>
                                                 <th>Giá</th>
+                                                <th>Giảm giá</th>
                                                 <th>Số lượng</th>                                                
                                                 <th>Tổng cộng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="o : ${order.orderDetails}">
-                                                <td class="text-left">[[${o.product.name}]]</td>
+                                            <tr th:each="o : ${orderDetails}">
+                                                <td class="text-left">[[${o.name}]]</td>
                                                 <td>[[${#numbers.formatDecimal(o.price,0,'COMMA',0,'POINT')}]]</td>                                                
-                                                <td>[[${o.quantity}]]</td>
-                                                <td>[[${#numbers.formatDecimal(o.price * o.quantity,0,'COMMA',0,'POINT')}]]</td>
+                                                <td>[[${#numbers.formatDecimal(o.priceSale,0,'COMMA',0,'POINT')}]]</td>                                                
+                                                <td>[[${o.soLuong}]]</td>
+                                                <td>[[${#numbers.formatDecimal((o.price - o.priceSale) * o.soLuong,0,'COMMA',0,'POINT')}]]</td>
                                             </tr>
                                         </tbody>
                                         <tfoot class="font-weight-600">
                                             <tr>
+                                                <td colspan="4" class="text-right font-weight-bold">Phí vận chuyển</td>
+                                                <td class="font-weight-bold">[[${#numbers.formatDecimal(order.phiGiaoHang,0,'COMMA',0,'POINT')}]]</td>
+                                            </tr>
+                                            <tr>
                                                 <td colspan="4" class="text-right font-weight-bold">Thanh toán</td>
-                                                <td class="font-weight-bold">[[${#numbers.formatDecimal(total,0,'COMMA',0,'POINT')}]]</td>
+                                                <td class="font-weight-bold">[[${#numbers.formatDecimal(order.thanhTien,0,'COMMA',0,'POINT')}]]</td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -122,7 +119,11 @@
                             </div>
 
                             <hr />
-
+                            <h5 th:if="${order.doiXacNhan}">Tình trang: Đợi xác nhận</h5>
+                            <h5 th:if="${order.dangGiaoHang}">Tình trang: Đang giao hàng</h5>
+                            <h5 th:if="${order.thanhCong}">Tình trang: Thành công</h5>
+                            <h5 th:if="${order.daHuy}">Tình trang: Đã hủy</h5>
+                            <h5 th:if="${order.daTraHang}">Tình trang: Đã trả hàng</h5>
                         </div>
                     </div>
                 </div>

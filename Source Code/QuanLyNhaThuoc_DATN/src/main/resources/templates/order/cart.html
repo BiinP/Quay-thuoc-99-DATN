@@ -20,7 +20,7 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
+                    <div class="col-md-8 main-col">
                         <form action="#" method="post" class="cart style2">
                             <table>
                                 <thead class="cart__row cart__header">
@@ -35,17 +35,21 @@
                                 <tbody>
                                     <tr ng-repeat="i in cart.items" class="cart__row border-bottom line1 cart-flex border-top">
                                         <td class="cart__image-wrapper cart-flex-item">
-                                            <a href="/product/detail/{{i.id}}"><img class="cart__image"
-                                                    ng-src="/images/product/{{convertImage(i.images)}}"
-                                                    alt="{{i.name}}"></a>
+                                            <a href="/product/{{i.id}}"><img class="cart__image"
+                                                    ng-src="/images/product/{{i.product.photo}}"
+                                                    alt="{{i.product.name}}"></a>
                                         </td>
                                         <td class="cart__meta small--text-left cart-flex-item">
                                             <div class="list-view-item__title">
-                                                <a href="/product/detail/{{i.id}}">{{i.name}}</a>
+                                                <a href="/product/{{i.id}}">{{i.product.name}}</a>
                                             </div>
                                         </td>
-                                        <td class="cart__price-wrapper cart-flex-item">
-                                            <span class="money">{{i.price | number: 0}}</span>
+                                        <td ng-if="i.discount > 0" class="cart__price-wrapper cart-flex-item product-price">
+                                            <span class="money old-price">{{i.giaBan | number: 0}}</span><br>
+                                            <span class="money">{{i.giaBan * (1-i.discount/100) | number: 0}}</span>
+                                        </td>
+                                        <td ng-if="i.discount == 0" class="cart__price-wrapper cart-flex-item product-price">
+                                            <span class="money">{{i.giaBan | number: 0}}</span>
                                         </td>
                                         <td class="cart__update-wrapper cart-flex-item text-right">
                                             <div class="cart__qty text-center">
@@ -69,12 +73,11 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="3" class="text-left"><a href="/product/list"
+                                        <td colspan="3" class="text-left"><a href="/product"
                                                 class="btn--link cart-continue"><i
                                                     class="icon icon-arrow-circle-left"></i> Tiếp tục mua sắm</a></td>
-                                        <td colspan="3" class="text-right"><button ng-click="cart.clear()" type="submit" name="update"
-                                                class="btn--link cart-update"><i class="fa fa-refresh"></i> Cập
-                                                nhật</button></td>
+                                        <td colspan="3" class="text-right"><a href="" ng-click="cart.clear()" name="update"
+                                                class="btn--link cart-update"><i class="fa fa-refresh"></i> Xóa giỏ hàng</a></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -86,14 +89,14 @@
 
                         </form>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                    <div class="col-md-4 cart__footer">
                         <div class="solid-border">
                             <div class="row">
                                 <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng hóa đơn</strong></span>
                                 <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
                                         class="money">{{cart.amount | number: 0}}</span></span>
                             </div>
-                            <form action="/cart/checkout">
+                            <form action="/cart/order/checkout">
                             	<input type="submit" id="cartCheckout" class=" mt-3 btn btn--small-wide checkout"
                                 value="Thanh toán">
                             </form>

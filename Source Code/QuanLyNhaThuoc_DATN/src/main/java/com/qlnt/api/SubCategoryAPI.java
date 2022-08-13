@@ -1,5 +1,6 @@
 package com.qlnt.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class SubCategoryAPI {
 	public Page<SubCategory> getAll(@RequestParam("kw") Optional<String> kw,
 			@RequestParam("currentPage") Optional<Integer> currentPage) {
 		return subCateService.findAll(kw, currentPage);
+	}
+	@GetMapping("/all")
+	public List<SubCategory> getAll(){
+		return subCateService.findAll();
 	}
 
 	@GetMapping("/{id}")

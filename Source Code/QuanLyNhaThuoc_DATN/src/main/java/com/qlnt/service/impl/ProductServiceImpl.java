@@ -1,5 +1,9 @@
 package com.qlnt.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.qlnt.model.Goods;
 import com.qlnt.model.Product;
+import com.qlnt.model.PromotionDetail;
+import com.qlnt.repository.GoodsRepository;
 import com.qlnt.repository.ProductRepository;
 import com.qlnt.service.ProductService;
 
@@ -16,6 +23,8 @@ import com.qlnt.service.ProductService;
 public class ProductServiceImpl implements ProductService{
 	@Autowired 
 	private ProductRepository productRepo;
+	@Autowired
+	private GoodsRepository goodsRepo;
 	
 	@Override
 	public Product save(Product T) {
@@ -58,13 +67,31 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Boolean existInGoodsOrInputDetail(Integer id) {
-		Integer existInGoods = productRepo.existInGoods(id).orElse(0);
+	public Boolean existInputDetail(Integer id) {
 		Integer existInInputDetail = productRepo.existInInputDetail(id).orElse(0);
-		if(existInGoods >= 1 || existInInputDetail >= 1) {
+		if( existInInputDetail >= 1) {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Product> findAll() {
+		// TODO Auto-generated method stub
+		return productRepo.findAll();
+	}
+
+	@Override
+	public List<Product> searchProductInClient() {
+//		// TODO Auto-generated method stub
+//		List<Product> products = productRepo.findAll();
+//		List<Map<String, Object>> db = new ArrayList<Map<String,Object>>();
+//		for(Product product : products) {
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			Goods goods = goodsRepo.findByProdictIdForClient(product.getId());
+//			PromotionDetail = 
+//		}
+		return null;
 	}
 
 }

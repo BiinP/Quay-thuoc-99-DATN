@@ -35,64 +35,16 @@
                 </div>
                 <div class="row">
                     <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic1.jpg"
-                                    src="/assets/images/collection/cosmetic1.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
-                    <!--End Featured Item-->
-                    <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic2.jpg"
-                                    src="/assets/images/collection/cosmetic2.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
-                    <!--End Featured Item-->
-                    <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic3.jpg"
-                                    src="/assets/images/collection/cosmetic3.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
-                    <!--End Featured Item-->
-                    <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic1.jpg"
-                                    src="/assets/images/collection/cosmetic1.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
-                    <!--End Featured Item-->
-                    <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic2.jpg"
-                                    src="/assets/images/collection/cosmetic2.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
-                    <!--End Featured Item-->
-                    <!--Featured Item-->
-                    <div class="col-md-4 text-center">
-                        <p>
-                            <a href="#">
-                                <img class="blur-up lazyload" data-src="/assets/images/collection/cosmetic3.jpg"
-                                    src="/assets/images/collection/cosmetic3.jpg" alt="feature-row__image">
-                            </a>
-                        </p>
-                    </div>
+                    <th:block th:each="p : ${promotions}">
+                        <div class="col-md-4 text-center">
+                            <p>
+                                <a href="#">
+                                    <img class="blur-up lazyload" data-th:src="@{|/images/promotion/${p.photo}|}"
+                                        th:src="@{|/images/promotion/${p.photo}|}" th:alt="${p.id}">
+                                </a>
+                            </p>
+                        </div>
+                    </th:block>
                     <!--End Featured Item-->
                 </div>
             </div>

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
 </head>
+
 <body>
-	<div th:fragment="_header">
-		<!--Search Form Drawer-->
+    <div th:fragment="_header">
+        <!--Search Form Drawer-->
         <div class="search">
             <div class="search__form">
-                <form class="search-bar__form" action="/product/list">
+                <form class="search-bar__form" action="/product/search">
                     <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
-                    <input class="search__input" type="search" name="kw" th:value="${session.keywords}" placeholder="Search entire store..."
-                        aria-label="Search" autocomplete="off">
+                    <input class="search__input" type="search" name="kw" th:value="${kw}"
+                        placeholder="Tìm kiếm..." aria-label="Search" autocomplete="off">
                 </form>
                 <button type="button" class="search-trigger close-btn"><i class="anm anm-times-l"></i></button>
             </div>
@@ -31,17 +33,18 @@
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                 aria-hidden="true"></i></span>
                         <ul class="customer-links list-inline">
-                        <th:block th:if="${#request.remoteUser}">
-                        	<li><a href="#">Welcome [[${#request.remoteUser}]]</a></li>
-                        	<li><a href="/security/logout">Logout</a></li>
-                        	<li><a href="/order/list">Your Order</a></li>
-                            <li><a href="#">Sản phẩm yêu thích</a></li>
-                        </th:block>
-                        <th:block th:unless="${#request.remoteUser}">
-                            <li><a href="/account/login">Login</a></li>
-                            <li><a href="/account/register">Tạo tài khoản</a></li>
-                        </th:block>
-                        	<li th:if="${#request.isUserInRole('director')} OR ${#request.isUserInRole('staff')}"><a href="/admin/index">Admin Tool</a></li>
+                            <th:block th:if="${#request.remoteUser}">
+                                <li><a href="#">Welcome [[${#request.remoteUser}]]</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                                <li><a href="/account">My profile</a></li>
+                                <li><a href="/account/wishlist">Sản phẩm yêu thích</a></li>
+                            </th:block>
+                            <th:block th:unless="${#request.remoteUser}">
+                                <li><a href="/login">Login</a></li>
+                                <li><a href="/register">Tạo tài khoản</a></li>
+                            </th:block>
+                            <li th:if="${#request.isUserInRole('admin')}"><a
+                                    href="/admin">Admin Tool</a></li>
                         </ul>
                     </div>
                 </div>
@@ -78,29 +81,18 @@
                                             class="anm anm-angle-down-l"></i></a>
                                     <div class="megamenu style4">
                                         <ul class="grid grid--uniform mmWrapper">
-                                            <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                                            	<a href="#" class="site-nav lvl-1">Chăm sóc da mặt</a>
-                                               	<ul th:each="cate,state : ${cates}" th:if="${state.index}<5" class="subLinks">
-                                                    <li class="lvl-2">
-                                                    	<a th:text="${cate.name}" th:href="@{|/product/list?cid=${cate.id}|}"
-                                                         class="site-nav lvl-2"></a>
-                                                     </li>
-                                                </ul>
-                                            </li>
-                                            <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                                            	<a href="#" class="site-nav lvl-1"></a>
-                                                <ul class="subLinks">
-                                                	<li class="lvl-2">
-                                                    	<a href="#" class="site-nav lvl-2"></a>
-                                                     </li>
-                                                     <th:block th:each="cate,state : ${cates}" th:if="${state.index}>=5">
-	                                                	<li class="lvl-2">
-	                                                    	<a th:text="${cate.name}" th:href="@{|/product/list?cid=${cate.id}|}"
-	                                                          class="site-nav lvl-2"></a>
-	                                                     </li>
-                                                     </th:block>
-                                                </ul>
-                                            </li>
+                                            <th:block th:each="cate : ${categories}">
+                                                <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                                    <a href="#" class="site-nav lvl-1">[[${cate.category}]]</a>
+                                                    <ul th:each="subCate : ${cate.subCates}" class="subLinks">
+                                                        <li class="lvl-2">
+                                                            <a th:text="${subCate.name}"
+                                                                th:href="@{|/product?subCateId=${subCate.id}|}"
+                                                                class="site-nav lvl-2"></a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </th:block>
                                         </ul>
                                     </div>
                                 </li>
@@ -111,22 +103,26 @@
                                             <li class="grid__item one-whole">
                                                 <ul class="grid">
                                                     <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                                            			<a href="#" class="site-nav lvl-1">Thương hiệu</a>
-                                               			<ul th:each="brand,state : ${brands}" th:if="${state.index}<5" class="subLinks">
-                                                    		<li class="lvl-2">
-                                                    		<a th:text="${brand.name}" th:href="@{|/product/list?bid=${brand.id}|}"
-                                                         		class="site-nav lvl-2"></a>
-                                                     		</li>
-                                                		</ul>
-                                            		</li>
+                                                        <a href="#" class="site-nav lvl-1">Thương hiệu</a>
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index}<=5"
+                                                            class="subLinks">
+                                                            <li class="lvl-2">
+                                                                <a th:text="${brand.name}"
+                                                                    th:href="@{|/product?brandId=${brand.id}|}"
+                                                                    class="site-nav lvl-2"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
                                                     <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                                                    	<a href="#" class="site-nav lvl-1"></a>
-                                               			<ul th:each="brand,state : ${brands}" th:if="${state.index}>=5" class="subLinks">
-                                                    		<li class="lvl-2">
-                                                    		<a th:text="${brand.name}" th:href="@{|/product/list?bid=${brand.id}|}"
-                                                         		class="site-nav lvl-2"></a>
-                                                     		</li>
-                                                		</ul>
+                                                        <a href="#" class="site-nav lvl-1"></a>
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index}>5"
+                                                            class="subLinks">
+                                                            <li class="lvl-2">
+                                                                <a th:text="${brand.name}"
+                                                                    th:href="@{|/product?brandId=${brand.id}|}"
+                                                                    class="site-nav lvl-2"></a>
+                                                            </li>
+                                                        </ul>
                                                     </li>
 
                                                 </ul>
@@ -134,7 +130,8 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="lvl1"><a href="#"><b>KHUYẾN MÃI!</b> <i class="anm anm-angle-down-l"></i></a></li>
+                                <li class="lvl1"><a href="/promotion"><b>KHUYẾN MÃI!</b> <i class="anm anm-angle-down-l"></i></a>
+                                </li>
                             </ul>
                         </nav>
                         <!--End Desktop Menu-->
@@ -149,7 +146,7 @@
                         </div>
                     </div>
                     <!--Mobile Logo-->
-                 	<div th:replace="~{/layout/_cart.html ::_cart}"></div>
+                    <div th:replace="~{/layout/_cart.html ::_cart}"></div>
                 </div>
             </div>
         </div>
@@ -161,20 +158,24 @@
                 <li class="lvl1 parent megamenu"><a href="/home/index">trang chủ </a>
                 </li>
                 <li class="lvl1 parent megamenu">
-                	<a href="#">sản phẩm <i class="anm anm-plus-l"></i></a>
+                    <a href="#">sản phẩm <i class="anm anm-plus-l"></i></a>
                     <ul>
-                        <li><a href="product-layout-1.html" class="site-nav"> </a></li>
                         <th:block th:each="cate : ${categories}">
-                        	<li><a th:text="${cate.name}" th:href="@{|/product/list?cate=${cate.id}|}" class="site-nav"></a></li>
+                            <li><a href="#" class="site-nav">[[${cate.category}]]<i class="anm anm-plus-l"></i></a>
+                                <ul>
+                                    <li th:each="subCate : ${cate.subCates}"><a href="#" class="site-nav">[[${subCate.name}]]</a></li>
+                                </ul>
+                            </li>
                         </th:block>
                     </ul>
                 </li>
                 <li class="lvl1 parent megamenu">
-                	<a href="product-layout-1.html">Thương hiệu <i class="anm anm-plus-l"></i></a>
+                    <a href="product-layout-1.html">Thương hiệu <i class="anm anm-plus-l"></i></a>
                     <ul>
                         <li><a href="product-layout-1.html" class="site-nav"> </a></li>
                         <th:block th:each="brand : ${brands}">
-                        	<li><a th:text="${brand.name}" th:href="@{|/product/list?brand=${brand.id}|}" class="site-nav"></a></li>
+                            <li><a th:text="${brand.name}" th:href="@{|/product/list?brand=${brand.id}|}"
+                                    class="site-nav"></a></li>
                         </th:block>
                     </ul>
                 </li>
@@ -183,6 +184,7 @@
             </ul>
         </div>
         <!--End Mobile Menu-->
-	</div>
+    </div>
 </body>
+
 </html>

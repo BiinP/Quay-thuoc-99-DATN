@@ -17,13 +17,13 @@
                                 <ul class="mini-products-list">
                                     <li ng-repeat="i in cart.items" class="item">
                                         <a class="product-image" href="#">
-                                            <img ng-src="/images/product/{{convertImage(i.images)}}"
-                                                alt="{{i.name}}" title="" />
+                                            <img ng-src="/images/product/{{i.product.photo}}"
+                                                alt="{{i.product.name}}" title="" />
                                         </a>
                                         <div class="product-details">
                                             <a ng-click="cart.remove(i.id)" href="" class="remove"><i class="anm anm-times-l"
                                                     aria-hidden="true"></i></a>
-                                            <a class="pName" ng-href="/product/detail/{{i.id}}">{{i.name}}</a>
+                                            <a class="pName" ng-href="/product/{{i.id}}">{{i.product.name}}</a>
                                             <div class="wrapQtyBtn">
                                                 <div class="qtyField">
                                                     <span class="label">SL:</span>
@@ -50,8 +50,8 @@
                                                 class="money">{{cart.amount | number:0}}</span></span>
                                     </div>
                                     <div class="buttonSet text-center">
-                                        <a href="/order/cart" class="btn btn-secondary btn--small">XEM GIỎ HÀNG</a>
-                                        <a href="/order/checkout" class="btn btn-secondary btn--small">THANH TOÁN</a>
+                                        <a href="/cart/order" class="btn btn-secondary btn--small">XEM GIỎ HÀNG</a>
+                                        <a href="/cart/order/checkout" class="btn btn-secondary btn--small">THANH TOÁN</a>
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,355 @@
+<div class="row">
+	<div class="col-md-12 m-b-30">
+		<!-- begin page title -->
+		<div class="d-block d-lg-flex flex-nowrap align-items-center">
+			<div class="page-title mr-4 pr-4 border-right">
+				<h1>Quản lý hóa đơn</h1>
+			</div>
+
+			<div class="ml-auto d-flex align-items-center secondary-menu text-center">
+				<button type="button" class="btn btn-primary" ng-click="reset()" data-toggle="modal"
+					data-target="#largeModal">Thêm phiếu nhập</button>
+			</div>
+		</div>
+		<!-- end page title -->
+	</div>
+</div>
+<!-- end row -->
+<!-- begin row -->
+<div class="row">
+	<div class="col-md-12 ">
+		<div class="card card-statistics">
+			<div class="card-header">
+				<div class="card-heading">
+					<div class="row">
+						<div class="col-md-6 text-left">
+							<h4 class="card-title">Danh sách hóa đơn</h4>
+						</div>
+						<div class="col-md-6">
+							<form class="justify-content-end">
+								<div class="form-group">
+									<input ng-model="keyword" oninput="angular.element(this).scope().search(this.value)"
+										type="date" class="form-control" placeholder="Search">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="card-body">
+					<div class="tab round">
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active show" data-toggle="tab" role="tab" aria-selected="true"
+									data-target="#all"> <i class="fa fa-home"></i>
+									Tất cả</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+									data-target="#doi-xac-nhan"><i class="fa-solid fa-check-double"></i>Đợi xác nhận
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+									data-target="#dang-giao-hang"><i class="fa-solid fa-truck-fast"></i> Đang giao hàng </a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+									data-target="#giao-thanh-cong"><i class="fa-solid fa-money-bill"></i> Giao thành công
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+									data-target="#da-huy"><i class="fa-solid fa-trash-can"></i> Đã hủy </a>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade py-3 active show" id="all" role="tabpanel">
+								<div class="table-responsive mt-2">
+									<table class="table table-hover table-bordered ">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Mã DH</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Tên KH</th>
+												<th scope="col">Sđt KH</th>
+												<th scope="col">Ngày tạo</th>
+												<th scope="col">Địa chỉ</th>
+												<th scope="col">Tổng tiền</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in orders">
+												<th scope="row">{{order.id}}</th>
+												<th ng-if="order.doiXacNhan">Đợi xác nhận</th>
+												<th ng-if="order.dangGiaoHang">Đang giao hàng</th>
+												<th ng-if="order.thanhCong">Thành công</th>
+												<th ng-if="order.daHuy">Đã hủy</th>
+												<td>{{order.account.hoTen}}</td>
+												<td>{{order.account.sdt}}</td>
+												<td>{{order.ngayTao}}</td>
+												<td>{{order.diaChi}}</td>
+												<td>{{order.thanhTien | number: 0}}</td>
+												<td class="text-right">
+													<button ng-click="edit(order.id)" class="btn btn-primary" data-toggle="modal"
+														data-target="#largeModal">
+														<i class="fa-solid fa-pen"></i>
+													</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tab-pane fade py-3" id="doi-xac-nhan" role="tabpanel">
+								<div class="table-responsive mt-2">
+									<table class="table table-hover table-bordered ">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Mã DH</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Tên KH</th>
+												<th scope="col">Sđt KH</th>
+												<th scope="col">Ngày tạo</th>
+												<th scope="col">Địa chỉ</th>
+												<th scope="col">Tổng tiền</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in orders" ng-if="order.doiXacNhan">
+												<th scope="row">{{order.id}}</th>
+												<th ng-if="order.doiXacNhan">Đợi xác nhận</th>
+												<th ng-if="order.dangGiaoHang">Đang giao hàng</th>
+												<th ng-if="order.thanhCong">Thành công</th>
+												<th ng-if="order.daHuy">Đã hủy</th>
+												<td>{{order.account.hoTen}}</td>
+												<td>{{order.account.sdt}}</td>
+												<td>{{order.ngayTao}}</td>
+												<td>{{order.diaChi}}</td>
+												<td>{{order.thanhTien | number: 0}}</td>
+												<td class="text-right">
+													<button ng-click="edit(i.id)" class="btn btn-primary" data-toggle="modal"
+														data-target="#largeModal">
+														<i class="fa-solid fa-pen"></i>
+													</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tab-pane fade py-3" id="dang-giao-hang" role="tabpanel">
+								<div class="table-responsive mt-2">
+									<table class="table table-hover table-bordered ">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Mã DH</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Tên KH</th>
+												<th scope="col">Sđt KH</th>
+												<th scope="col">Ngày tạo</th>
+												<th scope="col">Địa chỉ</th>
+												<th scope="col">Tổng tiền</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in orders" ng-if="order.dangGiaoHang">
+												<th scope="row">{{order.id}}</th>
+												<th ng-if="order.doiXacNhan">Đợi xác nhận</th>
+												<th ng-if="order.dangGiaoHang">Đang giao hàng</th>
+												<th ng-if="order.thanhCong">Thành công</th>
+												<th ng-if="order.daHuy">Đã hủy</th>
+												<td>{{order.account.hoTen}}</td>
+												<td>{{order.account.sdt}}</td>
+												<td>{{order.ngayTao}}</td>
+												<td>{{order.diaChi}}</td>
+												<td>{{order.thanhTien | number: 0}}</td>
+												<td class="text-right">
+													<button ng-click="edit(i.id)" class="btn btn-primary" data-toggle="modal"
+														data-target="#largeModal">
+														<i class="fa-solid fa-pen"></i>
+													</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tab-pane fade py-3" id="giao-thanh-cong" role="tabpanel">
+								<div class="table-responsive mt-2">
+									<table class="table table-hover table-bordered ">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Mã DH</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Tên KH</th>
+												<th scope="col">Sđt KH</th>
+												<th scope="col">Ngày tạo</th>
+												<th scope="col">Địa chỉ</th>
+												<th scope="col">Tổng tiền</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in orders" ng-if="order.thanhCong">
+												<th scope="row">{{order.id}}</th>
+												<th ng-if="order.doiXacNhan">Đợi xác nhận</th>
+												<th ng-if="order.dangGiaoHang">Đang giao hàng</th>
+												<th ng-if="order.thanhCong">Thành công</th>
+												<th ng-if="order.daHuy">Đã hủy</th>
+												<td>{{order.account.hoTen}}</td>
+												<td>{{order.account.sdt}}</td>
+												<td>{{order.ngayTao}}</td>
+												<td>{{order.diaChi}}</td>
+												<td>{{order.thanhTien | number: 0}}</td>
+												<td class="text-right">
+													<button ng-click="edit(i.id)" class="btn btn-primary" data-toggle="modal"
+														data-target="#largeModal">
+														<i class="fa-solid fa-pen"></i>
+													</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tab-pane fade py-3" id="da-huy" role="tabpanel">
+								<div class="table-responsive mt-2">
+									<table class="table table-hover table-bordered ">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Mã DH</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Tên KH</th>
+												<th scope="col">Sđt KH</th>
+												<th scope="col">Ngày tạo</th>
+												<th scope="col">Địa chỉ</th>
+												<th scope="col">Tổng tiền</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in orders" ng-if="order.daHuy">
+												<th scope="row">{{order.id}}</th>
+												<th ng-if="order.doiXacNhan">Đợi xác nhận</th>
+												<th ng-if="order.dangGiaoHang">Đang giao hàng</th>
+												<th ng-if="order.thanhCong">Thành công</th>
+												<th ng-if="order.daHuy">Đã hủy</th>
+												<td>{{order.account.hoTen}}</td>
+												<td>{{order.account.sdt}}</td>
+												<td>{{order.ngayTao}}</td>
+												<td>{{order.diaChi}}</td>
+												<td>{{order.thanhTien | number: 0}}</td>
+												<td class="text-right">
+													<button ng-click="edit(order.id)" class="btn btn-primary" data-toggle="modal"
+														data-target="#largeModal">
+														<i class="fa-solid fa-pen"></i>
+													</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-second" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin hóa đơn {{order.id}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<form name="frmOrder">
+							<div class="row mt-2">
+								<div class="col">
+									<label>Mã hóa đơn</label> <input name="id" ng-model="order.order.id" required
+										type="text" disabled placeholder="Mã tự động" class="form-control">
+								</div>
+								<div class="col">
+									<label>Mã khách hàng</label> <input name="email"
+										ng-model="order.order.account.email" required type="text"
+										class="form-control" disabled>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Tên khách hàng</label>
+									<input name="tenKH" disabled ng-model="order.order.account.hoTen" type="text"
+										class="form-control">
+								</div>
+								<div class="col">
+									<label>Sđt</label>
+									<input name="sdt" disabled ng-model="order.order.sdt" type="text"
+										class="form-control">
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<label>Địa chỉ</label>
+									<input name="diaChi" disabled ng-model="order.order.diaChi" type="text"
+										class="form-control">
+								</div>
+								<div class="col">
+									<label>Ngày tạo</label>
+									<input name="ngayTao" disabled ng-model="order.order.ngayTao" type="text"
+										class="form-control">
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer-product">
+				<h5 class="mt-2 text-uppercase">DANH SÁCH HÀNG HÓA</h5>
+				<div class="table-responsive mt-2">
+					<table class="table table-hover table-bordered ">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Mã HH</th>
+								<th scope="col">Tên HH</th>
+								<th scope="col">Đơn giá</th>
+								<th scope="col">Giảm giá</th>
+								<th scope="col">Số lượng</th>
+								<th scope="col">Tổng tiền</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="order in order.orderDetails">
+								<th scope="row">{{order.goodsId}}</th>
+								<td>{{order.name}}</td>
+								<td>{{order.donGia}}</td>
+								<td>{{order.giamGia}}</td>
+								<td>{{order.soLuong}}</td>
+								<td>{{order.tongTien}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- <div class="form-group mt-2 text-right">
+					<button ng-disabled="frmOrder.$invalid || frmOrderDetail.$invalid " ng-click="create()"
+						class="btn btn-primary">Lưu phiếu nhập</button>
+					 <button ng-click="delete(input.id)"
+						class="btn btn-dark">Xóa phiếu nhập</button> 
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>

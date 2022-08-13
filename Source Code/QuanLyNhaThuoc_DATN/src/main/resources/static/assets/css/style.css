@@ -1139,7 +1139,7 @@ table { margin-bottom:15px; width:100%; border-collapse:collapse; border-spacing
 .cart .cart__meta { padding-right:15px; }
 .cart th.cart__meta, .cart td.cart__meta { text-align:left; }
 .cart__image-wrapper a { display:block; }
-.cart .list-view-item__title { color:#000; font-size:1.15385em; min-width:100px; }
+.cart .list-view-item__title { color:#000; font-size:1.15385em; max-width:250px; }
 .cart__image-wrapper { width:120px; }
 .cart .qtyField a { height:36px; line-height:34px; padding:0; }
 .cart .qtyField .cart__qty-input { height:36px; width:40px; float:left; }

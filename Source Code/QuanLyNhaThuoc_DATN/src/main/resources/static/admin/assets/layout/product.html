@@ -52,13 +52,11 @@
 								<th scope="col">Đơn vị</th>
 								<th scope="col">Rx</th>
 								<th scope="col">Hoạt động</th>
-								<th scope="col">Ghi chú</th>
 								<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr
-								ng-repeat="p in products">
+							<tr ng-repeat="p in products">
 								<th scope="row">{{p.id}}</th>
 								<td>{{p.name}}</td>
 								<td>{{p.soDangKy}}</td>
@@ -67,10 +65,14 @@
 								<td>{{p.donViGoc}}</td>
 								<td>{{p.rx?'Yes':'No'}}</td>
 								<td>{{p.active?'Yes':'No'}}</td>
-								<td>{{p.ghiChu}}</td>
 								<td class="text-right">
-									<button ng-click="edit(p.id)" class="btn btn-primary" data-toggle="modal" data-target="#largeModal"><i class="fa-solid fa-pen"></i></button>
-									<button ng-click="delete(p.id)" class="btn btn-dark"><i class="fa-solid fa-circle-xmark"></i></button>
+									<button ng-click="edit(p.id)" class="btn btn-primary"
+										data-toggle="modal" data-target="#largeModal">
+										<i class="fa-solid fa-pen"></i>
+									</button>
+									<button ng-click="delete(p.id)" class="btn btn-dark">
+										<i class="fa-solid fa-circle-xmark"></i>
+									</button>
 								</td>
 							</tr>
 						</tbody>
@@ -97,7 +99,7 @@
 <!-- Modal -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
 	aria-labelledby="largeModal" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog modal-lg modal-second" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Thông tin sản phẩm {{product.name}}</h5>
@@ -118,48 +120,65 @@
 							<div class="row mt-2">
 								<div class="col">
 									<label>Mã sản phẩm</label> <input name="id"
-										ng-model="product.id" required type="text"
-										ng-disabled="true" placeholder="Mã tự động" class="form-control">
+										ng-model="product.id" required type="text" ng-disabled="true"
+										placeholder="Mã tự động" class="form-control">
 								</div>
 								<div class="col">
 									<label>Tên sản phẩm</label> <input name="name"
 										ng-model="product.name" required type="text"
 										class="form-control">
 									<div ng-show="frmProduct.name.$invalid"
-										class="badge badge-danger m-2">Tên sản phẩm không được để
-										trống</div>
+										class="badge badge-danger m-2">Tên sản phẩm không được
+										để trống</div>
 								</div>
 							</div>
 							<div class="row mt-2">
 								<div class="col">
 									<label>Số đăng ký</label> <input name="soDangKy"
-										ng-model="product.soDangKy" required type="text"
-										class="form-control">
-									<div ng-show="frmProduct.soDangKy.$invalid"
-										class="badge badge-danger m-2">Số đăng ký không được để trống</div>
+										ng-model="product.soDangKy" type="text" class="form-control">
 								</div>
 								<div class="col">
-									<label>Đơn vị gốc</label>
-									 <input name="donViGoc" ng-model="product.donViGoc" required type="text" class="form-control">
-									<div ng-show="frmProduct.donViGoc.$invalid"
-										class="badge badge-danger m-2">Đơn vị không được để trống</div>
-									
+									<label>Đơn vị gốc</label> <select ng-model="product.donViGoc"
+										class="form-control">
+										<option ng-repeat="u in utils" ng-value="u.name">{{u.name}}
+										</option>
+									</select>
+									<div ng-show="product.donViGoc == null"
+										class="badge badge-danger m-2">Đơn vị gốc không được để
+										trống</div>
+									<button class="btn btn-link" data-dismiss="modal"
+										aria-label="Close" ng-click="redirectTo('util')">+
+										Thêm đơn vị</button>
 								</div>
 							</div>
 							<div class="row mt-2">
 								<div class="col">
-									<label>Thương hiệu</label> <select ng-model="product.brand.id"
-										class="form-control">
-										<option ng-repeat="b in brands" ng-value="b.id">{{b.name}}
-										</option>
-									</select>
+									<label>Thương hiệu</label> <input class="form-control"
+										type="text" list="lstBrand" name="brand" required
+										ng-model="product.brand.id">
+									<div ng-show="frmProduct.brand.$invalid"
+										class="badge badge-danger m-2">Thương hiệu không được để
+										trống</div>
+									<datalist id="lstBrand">
+										<option ng-repeat="b in brands" ng-value="b.id">{{b.name}}</option>
+									</datalist>
+									<button class="btn btn-link" data-dismiss="modal"
+										aria-label="Close" ng-click="redirectTo('brand')">+
+										Thêm thương hiệu</button>
 								</div>
 								<div class="col">
-									<label>Loại sản phẩm</label> <select ng-model="product.subCategory.id"
-										class="form-control">
-										<option ng-repeat="s in subCates" ng-value="s.id">{{s.name}}
-										</option>
-									</select>
+									<label>Loại sản phẩm</label> <input class="form-control"
+										type="text" list="lstSubCate" name="subCate" required
+										ng-model="product.subCategory.id">
+									<div ng-show="frmProduct.subCate.$invalid"
+										class="badge badge-danger m-2">Loại sản phẩm không được
+										để trống</div>
+									<datalist id="lstSubCate">
+										<option ng-repeat="s in subCates" ng-value="s.id">{{s.name}}</option>
+									</datalist>
+									<button class="btn btn-link" data-dismiss="modal"
+										aria-label="Close" ng-click="redirectTo('sub-category')">+
+										Thêm loại sản phẩm</button>
 								</div>
 							</div>
 							<div class="row mt-2">
@@ -199,21 +218,192 @@
 								</div>
 							</div>
 							<div class="form-group mt-2">
-								<label>Ghi chú</label>
-								<textarea ng-model="product.ghiChu" class="form-control" rows="3"></textarea>
+								<label>Mô tả</label>
+								<button ng-click="loadMoTa()" class="btn btn-primary mr-2" data-dismiss="modal"
+									data-toggle="modal" data-target="#largeModal1">Thêm mô
+									tả</button>
+							</div>
+							<div class="form-group mt-2">
+								<button ng-disabled="frmProduct.$invalid || chon == true"
+									ng-click="create()" class="btn btn-primary">Create</button>
+								<button ng-disabled="frmProduct.$invalid || chon == false"
+									ng-click="update(product.id)" class="btn btn-info">Update</button>
+								<button ng-click="reset()" class="btn btn-secondary">Reset</button>
+								<button ng-disabled="chon == false"
+									ng-click="delete(product.id)" class="btn btn-dark">Delete</button>
 							</div>
 						</form>
+
 					</div>
 				</div>
+
 			</div>
-			<div class="modal-footer">
-				<button ng-disabled="frmProduct.$invalid || chon == true"
-					ng-click="create()" class="btn btn-primary">Create</button>
-				<button ng-disabled="frmProduct.$invalid || chon == false"
-					ng-click="update(product.id)" class="btn btn-info">Update</button>
-				<button ng-click="reset()" class="btn btn-secondary">Reset</button>
-				<button ng-disabled="chon == false" ng-click="delete(product.id)"
-					class="btn btn-dark">Delete</button>
+			<div class="modal-footer-product">
+				<form name="frmGoods" id="formDonVi">
+					<h5 class="mt-2">THÔNG TIN HÀNG HÓA</h5>
+					<div class="row mt-2">
+						<div class="col">
+							<label>Mã HH</label> <input ng-model="goods.id" disabled required
+								type="text" placeholder="Đơn vị qui đổi" class="form-control">
+						</div>
+						<div class="col">
+							<label>Đơn vị</label>
+							<!-- <select ng-model="goods.util.id" ng-disabled="chon == false"
+								class="form-control" onchange="angular.element(this).scope().validExistUtil(this.value)">
+								<option ng-repeat="u in utils" ng-value="u.id">{{u.name}}
+								</option>
+							</select> -->
+							<input class="form-control" ng-disabled="chon == false"
+								type="text" list="lstUtil" name="util" required
+								ng-model="goods.util.id"
+								oninput="angular.element(this).scope().validExistUtil(this.value)">
+							<div ng-show="frmGoods.util.$invalid"
+								class="badge badge-danger m-2">Đơn vị không được để trống</div>
+							<div ng-show="existUtil == true" class="badge badge-danger m-2">Đơn
+								vị tồn tại</div>
+							<datalist id="lstUtil">
+								<option ng-repeat="u in utils" ng-value="u.id">{{u.name}}</option>
+							</datalist>
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col">
+							<label>Số lượng quy đổi</label> <input ng-model="goods.quiDoi"
+								ng-disabled="chon == false" ng-min="1" name="quiDoi" required
+								type="number" class="form-control">
+							<div ng-show="frmGoods.quiDoi.$invalid"
+								class="badge badge-danger m-2">Số lượng qui đổi không được
+								để trống</div>
+						</div>
+						<div class="col">
+							<label>Giá bán</label> <input ng-model="goods.giaBan"
+								ng-disabled="chon == false" ng-min="0" name="giaBan" required
+								type="number" placeholder="Đơn vị qui đổi" class="form-control">
+							<div ng-show="frmGoods.giaBan.$invalid"
+								class="badge badge-danger m-2">Giá bán không được để trống</div>
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col">
+							<div class="col mt-2">
+								<label>Bán online</label>
+								<div class="form-check-inline">
+									<input ng-model="goods.banOnline" ng-disabled="chon == false"
+										class="form-check-input" type="radio" name="banOnline"
+										ng-value="true"> <label class="form-check-label">
+										Yes </label>
+								</div>
+								<div class="form-check-inline">
+									<input ng-model="goods.banOnline" class="form-check-input"
+										type="radio" name="banOnline" ng-value="false"> <label
+										class="form-check-label">No </label>
+								</div>
+							</div>
+							<div class="col">
+								<label>Hoạt động</label>
+								<div class="form-check-inline">
+									<input ng-model="goods.active" ng-disabled="chon == false"
+										class="form-check-input" type="radio" name="active"
+										ng-value="true"> <label class="form-check-label">
+										Yes </label>
+								</div>
+								<div class="form-check-inline">
+									<input ng-model="goods.active" class="form-check-input"
+										type="radio" name="active" ng-value="false"> <label
+										class="form-check-label">No </label>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<label>Ghi chú</label> <input ng-model="goods.ghiChu"
+								ng-disabled="chon == false" type="text" class="form-control">
+						</div>
+					</div>
+				</form>
+				<div class="text-right mt-2">
+					<button
+						ng-disabled="frmGoods.$invalid || chonGoods == true || chon == false || existUtil == true"
+						ng-click="createGoods()" class="btn btn-primary">Create</button>
+					<button
+						ng-disabled="frmGoods.$invalid || chonGoods == false || chon == false || existUtil == true"
+						ng-click="updateGoods(goods.id)" class="btn btn-info">Update</button>
+					<button ng-click="resetGoods()" class="btn btn-secondary">Reset</button>
+					<button ng-disabled="chonGoods == false || chon == false"
+						ng-click="deleteGoods(goods.id)" class="btn btn-dark">Delete</button>
+				</div>
+				<h5 class="mt-2 text-uppercase">DANH SÁCH HÀNG HÓA</h5>
+				<div class="table-responsive mt-2">
+					<table class="table table-hover table-bordered ">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Mã HH</th>
+								<th scope="col">Đơn vị</th>
+								<th scope="col">Số lượng qui đổi</th>
+								<th scope="col">Giá bán</th>
+								<th scope="col">Bán online</th>
+								<th scope="col">Hoạt động</th>
+								<th scope="col">Ghi chú</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="g in lstGoods">
+								<th scope="row">{{g.id}}</th>
+								<td>{{g.util.name}}</td>
+								<td>{{g.quiDoi}}</td>
+								<td>{{g.giaBan | number}}</td>
+								<td>{{g.banOnline?'Yes':'No'}}</td>
+								<td>{{g.active?'Yes':'No'}}</td>
+								<td>{{g.ghiCHu}}</td>
+								<td class="text-right">
+									<button ng-click="editGoods(g.id)" class="btn btn-primary">
+										<i class="fa-solid fa-pen"></i>
+									</button>
+									<button ng-click="deleteGoods(g.id)" class="btn btn-dark">
+										<i class="fa-solid fa-circle-xmark"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="largeModal1" tabindex="-1" role="dialog"
+	aria-labelledby="largeModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Mô tả sản phẩm {{product.name}}</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					data-toggle="modal" data-target="#largeModal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<form>
+							<div class="form-group mt-2">
+								<textarea id="summernote" class="summernote form-control"
+									rows="3"></textarea>
+							</div>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer-product">
+				<div class="form-group mt-2">
+					<button ng-click="saveMoTa()" class="btn btn-primary"
+						data-dismiss="modal" data-toggle="modal" data-target="#largeModal"
+						aria-label="Close">Save</button>
+				</div>
+
 			</div>
 		</div>
 	</div>
