@@ -84,6 +84,14 @@
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
+										<label for="sdt">Địa chỉ</label> <input type="text" th:field="*{diaChi}" name="diaChi" ng-model="diaChi" required placeholder=""
+											id="sdt" autofocus="">
+										<div ng-show="frmregister.diaChi.$invalid"
+											class="badge badge-danger m-2">Vui lòng nhập địa chỉ</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
 										<label for="CustomerPassword">Mật khẩu</label> <input
 											type="password" th:field="*{matKhau}" required
 											name="matKhau" ng-model="matKhau" placeholder="" id="CustomerPassword" class="">

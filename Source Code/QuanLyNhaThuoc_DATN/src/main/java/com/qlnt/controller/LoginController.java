@@ -60,6 +60,7 @@ public class LoginController {
 			Role role = new Role();
 			role.setId("customer");
 			account.setRole(role);
+//			account.setDiaChi("");
 			accountService.save(account);
 			model.addAttribute("success", "Đăng ký tài khoản thành công");
 			return "account/register";
