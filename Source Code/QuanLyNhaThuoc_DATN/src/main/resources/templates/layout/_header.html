@@ -104,7 +104,7 @@
                                                 <ul class="grid">
                                                     <li class="grid__item lvl-1 col-md-3 col-lg-3">
                                                         <a href="#" class="site-nav lvl-1">Thương hiệu</a>
-                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index}<=5"
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index}<5"
                                                             class="subLinks">
                                                             <li class="lvl-2">
                                                                 <a th:text="${brand.name}"
@@ -114,8 +114,52 @@
                                                         </ul>
                                                     </li>
                                                     <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                                                        <a href="#" class="site-nav lvl-1"></a>
-                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index}>5"
+                                                        <a href="#" class="site-nav lvl-1"></a><br>
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index > 4 && state.index <10}"
+                                                            class="subLinks">
+                                                            <li class="lvl-2">
+                                                                <a th:text="${brand.name}"
+                                                                    th:href="@{|/product?brandId=${brand.id}|}"
+                                                                    class="site-nav lvl-2"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                                        <a href="#" class="site-nav lvl-1"></a><br>
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index > 9 && state.index <15}"
+                                                            class="subLinks">
+                                                            <li class="lvl-2">
+                                                                <a th:text="${brand.name}"
+                                                                    th:href="@{|/product?brandId=${brand.id}|}"
+                                                                    class="site-nav lvl-2"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                                        <a href="#" class="site-nav lvl-1"></a><br>
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index > 14 && state.index <20}"
+                                                            class="subLinks">
+                                                            <li class="lvl-2">
+                                                                <a th:text="${brand.name}"
+                                                                    th:href="@{|/product?brandId=${brand.id}|}"
+                                                                    class="site-nav lvl-2"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                                        <a href="#" class="site-nav lvl-1"></a><br>
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index > 19 && state.index <25}"
+                                                            class="subLinks">
+                                                            <li class="lvl-2">
+                                                                <a th:text="${brand.name}"
+                                                                    th:href="@{|/product?brandId=${brand.id}|}"
+                                                                    class="site-nav lvl-2"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                                                        <a href="#" class="site-nav lvl-1"></a><br>
+                                                        <ul th:each="brand,state : ${brands}" th:if="${state.index > 24 && state.index <30}"
                                                             class="subLinks">
                                                             <li class="lvl-2">
                                                                 <a th:text="${brand.name}"
@@ -140,7 +184,7 @@
                     <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="/assets/images/logo1.png" alt="Belle Multipurpose Html Template"
+                                <img src="assets/images/logo.svg" alt="Belle Multipurpose Html Template"
                                     title="Belle Multipurpose Html Template" />
                             </a>
                         </div>

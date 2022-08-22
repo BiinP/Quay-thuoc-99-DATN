@@ -108,6 +108,12 @@ app.controller("product-ctrl", function ($scope, $http, $window) {
 				});
 			}else{
 				$scope.product.moTa = moTa;
+				$('#largeModal').modal({
+					focus: true
+				})
+				$('#largeModal1').modal({
+					focus: false
+				})
 				swal({
 					position: 'top-end',
 					type: 'success',

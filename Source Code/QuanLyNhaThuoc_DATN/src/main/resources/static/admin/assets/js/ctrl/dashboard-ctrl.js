@@ -1,110 +1,171 @@
-const numberFormat = new Intl.NumberFormat('vi-VN', {
-  style: 'currency',
-  currency: 'VND',
-});
 app.controller("dashboard-ctrl", function ($scope, $http) {
-  $scope.total = [];
-  $scope.costInMonth = [];
-  $scope.costDate = [];
-  $scope.costData = [];
-  $scope.orderData = [];
-
-  $scope.productInMonth = [];
-  $scope.productName = [];
-  $scope.productCount = [];
-
-  $http.get('/admin/rest/report/total').then(resp => {
-    $scope.total = resp.data;
-  }).catch(error => {
-    alert("Load total data fail");
-    console.log(error);
-  });
-
-  $http.get('/admin/rest/report/reportcost').then(resp => {
-    $scope.costInMonth = resp.data;
-    $scope.costInMonth.forEach(c => c.date = new Date(c.date));
-    for (var i = 0; i < $scope.costInMonth.length; i++) {
-      $scope.costDate.push($scope.costInMonth[i].date.getDate());
-      $scope.costData.push($scope.costInMonth[i].cost);
-      $scope.orderData.push($scope.costInMonth[i].sumOrder);
-      if($scope.costInMonth[i].date.getDate() == (new Date()).getDate()){
-        $scope.costToday = $scope.costInMonth[i].cost;
-        $scope.orderToday = $scope.costInMonth[i].sumOrder;
-      }else{
-        $scope.costToday = 0;
-        $scope.orderToday = 0;
-      }
-    }
-    console.log( (new Date()).getDate())
-  }).catch(error => {
-    alert("Load cost data fail");
-    console.log(error);
-  });
-
-  $http.get('/admin/rest/report/bestSellerInMonth').then(resp => {
-    $scope.productInMonth = resp.data;
-    for(var i = 0; i < 5; i++){
-      $scope.productName.push($scope.productInMonth[i].name);
-      $scope.productCount.push($scope.productInMonth[i].count);
-    }
-  });
-
-  $scope.reportCost = function () {
-    let date = (new Date()).toLocaleString('default', { month: 'short' });
-
-    const data = {
-      labels: $scope.costDate,
-      datasets: [
-        {
-        label: 'Cost in '+date,
-        data: $scope.costData,
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      }
-    ]
-    };
-
-    const config = {
-      type: 'line',
-      data: data,
-    };
-    const myChart = new Chart(
-      document.getElementById('costChart'),
-      config
-    );
+  $scope.dataBestSeller = [];
+  $scope.getInformation = function () {
+    $http.get('/api/report/information').then(resp => {
+      $scope.information = resp.data;
+    })
   }
-  $scope.reportProduct = function(){
-    let date = (new Date()).toLocaleString('default', { month: 'short' });
-    const data = {
-      labels: $scope.productName,
-      datasets: [
-        {
-        label: 'Best seller in '+date,
-        data: $scope.productCount,
-        fill: false,
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(4, 76, 153 )',
-          'rgb(181, 216, 253 )',
-        ],
-        hoverOffset: 4
-      }
-    ]
-    };
-
-    const config = {
-      type: 'pie',
-      data: data,
-    };
-    const bestSeller = new Chart(
-      document.getElementById('bestSeller'),
-      config
-    );
+  async function getCostInMonth () {
+    $http.get('/api/report/cost-today').then(resp => {
+      $scope.costToday = resp.data;
+      $scope.inMonth = (new Date()).getMonth();
+    })
+    const { data } = await $http.get('/api/report/cost-today');
+    return data.costInMonth;
   }
-  $scope.reportProduct();
-   $scope.reportCost();
+  $scope.loadBieuDoCostInMonth = async function() {
+    let inMonth = (new Date()).getMonth()+1;
+    let lastMonth = (new Date()).getMonth();
+    const data = await getCostInMonth();
+    var morrisdemo3 = jQuery("#morrisdemo3");
+    if (morrisdemo3.length > 0) {
+      Morris.Bar({
+        element: morrisdemo3,
+        data: data,
+        xkey: 'd',
+        ykeys: ['lastMonth', 'inMonth'],
+        labels: [`Tháng ${lastMonth}`, `Tháng ${inMonth}`],
+        barColors: ['#4776E6', '#8E54E9'],
+        resize: true,
+        fillOpacity: 0.4,
+        padding: 15,
+        grid: true,
+        gridTextFamily: 'Roboto',
+        gridTextSize: 10
+      });
+    }
+  }
+  // const days = getDaysInMonth(7,2022)
+  async function getDataForBestSeller() {
+    const { data } = await $http.get("/api/report/best-seller");
+    return data;
+  }
+  $scope.loadBieuDoBestSeller = async function () {
+    const data = await getDataForBestSeller();
+    var apexdemo8 = jQuery('#apexdemo8')
+    if (apexdemo8.length > 0) {
+      var optionDonut = {
+        chart: {
+
+          type: 'pie',
+          height: '350'
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '75%',
+            },
+            offsetY: 0,
+          },
+          stroke: {
+            colors: undefined
+          },
+
+        },
+        colors: ['#8E54E9', '#2bcbba', '#f7b731', '#45aaf2', '#e3324c'],
+
+        series: data.lstQuantity,
+        labels: data.lstProductName,
+      }
+
+      var donut = new ApexCharts(
+        document.querySelector("#apexdemo8"),
+        optionDonut
+      )
+      donut.render();
+
+    }
+  }
+  async function getDataForCustomerVip() {
+    const { data } = await $http.get("/api/report/customer-vip");
+    return data;
+  }
+  $scope.loadBieuDoCustomerVip = async function () {
+    const data = await getDataForCustomerVip();
+
+    var apexdemo5 = jQuery('#apexdemo5')
+    if (apexdemo5.length > 0) {
+      var options = {
+        chart: {
+          height: 420,
+          type: 'bar',
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          }
+        },
+        colors: ['#8E54E9'],
+        dataLabels: {
+          enabled: false
+        },
+        series: [{
+          data: data.lstDiem
+        }],
+        xaxis: {
+          categories: data.lstAccountName,
+        }
+      }
+
+      var chart = new ApexCharts(
+        document.querySelector("#apexdemo5"),
+        options
+      );
+
+      chart.render();
+
+    }
+  }
+  async function getDataForCustomerVipInMonth() {
+    const { data } = await $http.get("/api/report/customer-vip-inmonth");
+    return data;
+  }
+  $scope.loadBieuDoCustomerVipInMonth = async function () {
+    const data = await getDataForCustomerVipInMonth();
+
+    var apexdemo5 = jQuery('#apexdemo51')
+    if (apexdemo5.length > 0) {
+      var options = {
+        chart: {
+          height: 420,
+          type: 'bar',
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          }
+        },
+        colors: ['#8E54E9'],
+        dataLabels: {
+          enabled: false
+        },
+        series: [{
+          data: data.lstDiem
+        }],
+        xaxis: {
+          categories: data.lstAccountName,
+        }
+      }
+
+      var chart = new ApexCharts(
+        document.querySelector("#apexdemo51"),
+        options
+      );
+
+      chart.render();
+
+    }
+  }
+
+  $scope.getInformation();
+  $scope.loadBieuDoBestSeller();
+  $scope.loadBieuDoCustomerVip();
+  $scope.loadBieuDoCustomerVipInMonth();
+  $scope.loadBieuDoCostInMonth();
+
+
 });
 

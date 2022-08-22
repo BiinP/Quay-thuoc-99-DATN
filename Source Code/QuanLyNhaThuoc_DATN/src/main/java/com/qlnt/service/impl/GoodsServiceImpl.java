@@ -20,12 +20,14 @@ import org.springframework.stereotype.Service;
 import com.qlnt.model.Favorite;
 import com.qlnt.model.Goods;
 import com.qlnt.model.InputDetail;
+import com.qlnt.model.OrderDetail;
 import com.qlnt.model.Product;
 import com.qlnt.model.Promotion;
 import com.qlnt.model.PromotionDetail;
 import com.qlnt.repository.FavoriteRepository;
 import com.qlnt.repository.GoodsRepository;
 import com.qlnt.repository.InputDetailRepository;
+import com.qlnt.repository.OrderDetailRepository;
 import com.qlnt.repository.PromotionDetailRepository;
 import com.qlnt.service.GoodsService;
 import com.qlnt.service.InputDetailService;
@@ -40,6 +42,8 @@ public class GoodsServiceImpl implements GoodsService {
 	private InputDetailRepository inputDetailRepo;
 	@Autowired
 	private FavoriteRepository favRepo;
+	@Autowired
+	private OrderDetailRepository orderDetailRepo;
 
 	@Override
 	public Goods save(Goods T) {
@@ -364,6 +368,38 @@ public class GoodsServiceImpl implements GoodsService {
 				map.put("discount", 0);
 				map.put("ngayKetThuc", null);
 			}
+			db.add(map);
+		}
+		return db;
+	}
+
+	@Override
+	public List<Map<String, Object>> findGoodsForBestSeller() {
+		List<OrderDetail> lstOrderDetails = orderDetailRepo.findBestSeller();
+		List<Map<String, Object>> db = new ArrayList<Map<String, Object>>();
+		for (OrderDetail od : lstOrderDetails) {
+			Goods goods = this.findById(od.getGoodsId());
+			Map<String, Object> map = new HashMap<String, Object>();
+			Product product = goods.getProduct();
+			map.put("goodsId", goods.getId());
+			map.put("name", product.getName());
+			map.put("price", goods.getGiaBan());
+			map.put("rx", product.getRx());
+			map.put("photo", product.getPhoto());
+			map.put("util", goods.getUtil().getName());
+			PromotionDetail promotionDetail = promoRepo.findByProductIdForListProduct(product.getId());
+			if (promotionDetail != null) {
+				Promotion promotion = promotionDetail.getPromotion();
+				Integer discount = Math.round(promotionDetail.getDiscount());
+				map.put("discount", discount);
+				Date ngayKetThuc = promotion.getNgayKetThuc();
+				String ngayKetThucString = ngayKetThuc.toString();
+				map.put("ngayKetThuc", ngayKetThucString);
+			} else {
+				map.put("discount", 0);
+				map.put("ngayKetThuc", null);
+			}
+			map.put("conHang", product.getTonKho() > 0 ? true : false);
 			db.add(map);
 		}
 		return db;

@@ -58,7 +58,7 @@
 						<tbody>
 							<tr ng-repeat="p in products">
 								<th scope="row">{{p.id}}</th>
-								<td>{{p.name}}</td>
+								<td class="un-white-space" style="word-wrap: break-all;min-width: 160px;max-width: 160px; vertical-align: middle">{{p.name}}</td>
 								<td>{{p.soDangKy}}</td>
 								<td>{{p.brand.name}}</td>
 								<td>{{p.subCategory.name}}</td>
@@ -99,7 +99,7 @@
 <!-- Modal -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
 	aria-labelledby="largeModal" aria-hidden="true">
-	<div class="modal-dialog modal-lg modal-second" role="document">
+	<div class="modal-dialog modal-lg modal-second " role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Thông tin sản phẩm {{product.name}}</h5>

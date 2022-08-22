@@ -53,7 +53,9 @@
                                                                 class="lbl bg-warning">Hết hàng</span>
                                                         </div>
                                                         <!-- End product label -->
-                                                        <div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop" th:data-countdown="${goods.ngayKetThuc}"></div>
+                                                        <div th:if="${goods.ngayKetThuc != null}"
+                                                            class="saleTime desktop"
+                                                            th:data-countdown="${goods.ngayKetThuc}"></div>
                                                     </a>
                                                     <!-- end product image -->
 
@@ -67,8 +69,8 @@
                                                             th:attr=" ng-click=@{|cart.add(${goods.goodsId}, ${goods.discount})|}, ng-if=@{|${goods.rx} == false|}"
                                                             class="btn btn-addto-cart" type="button">Thêm vào giỏ
                                                             hàng</button>
-                                                        <button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van"
-                                                            disabled>Tư
+                                                        <button th:attr="ng-if=@{|${goods.rx} == true|}"
+                                                            class="btn btn-tu-van" disabled>Tư
                                                             vấn mua hàng</button>
                                                     </form>
                                                     <!-- end product button -->
@@ -86,7 +88,9 @@
                                                     <div class="product-price">
                                                         <span th:attr="ng-if=@{|${goods.discount} > 0|}"
                                                             class="old-price">[[${#numbers.formatDecimal(goods.price,0,'COMMA',0,'POINT')}]]</span>
-                                                        <span class="price">[[${#numbers.formatDecimal(goods.price - (goods.price * goods.discount/100),0,'COMMA',0,'POINT')}]]/[[${goods.util}]]</span>
+                                                        <span class="price">[[${#numbers.formatDecimal(goods.price -
+                                                            (goods.price *
+                                                            goods.discount/100),0,'COMMA',0,'POINT')}]]/[[${goods.util}]]</span>
                                                     </div>
                                                     <!-- End product price -->
                                                 </div>
@@ -111,202 +115,71 @@
                     <div class="container">
                         <div class="wrap-text center text-large font-bold">
                             <h2 class="h2 mega-title"><a href="#">Sản phẩm bán chạy</a></h2>
-                            <!-- <div class="rte-setting mega-subtitle">Nhận biết loại da qua bộ câu hỏi của </br> Dr.
-                                Leslie Baumann</div>
-                                <a href="#" class="btn">Làm Skin Test ngay</a> -->
                         </div>
                         <div class="row mt-5">
-                            <div class="col-md-3 item grid-view-item style2">
-                                <div class="grid-view_image">
+                            <th:block th:each="goods, state : ${bestSeller}" th:if="${state.index}<4">
+                                <div class="col-md-3 item grid-view-item style2">
+                                    <div class="grid-view_image">
 
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="product grid-view-item__image primary blur-up lazyload "
-                                            src="/images/product/7202c86a.png" alt=" " title="">
-                                        <!-- End image -->
+                                        <!-- start product image -->
+                                        <a th:href="@{|/product/${goods.goodsId}|}" class="grid-view-item__link">
+                                            <!-- image -->
+                                            <img class="product grid-view-item__image primary blur-up lazyload "
+                                                th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+                                                th:title="${goods.name}">
+                                            <!-- End image -->
 
-                                        <!-- Hover image -->
-                                        <img class="product grid-view-item__image hover blur-up lazyload"
-                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
-                                            alt="" title="">
-                                        <!-- End hover image  -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!--start product details -->
-                                    <div class="product-details hoverDetails text-center mobile">
-                                        <!-- product name -->
-                                        <div class="product-name bg-white">
-                                            <a href="#">BHA Obagi</a>
-                                        </div>
-                                        <!-- End product name -->
-
-                                        <!-- product price -->
-                                        <div class="product-price bg-white">
-                                            <span class="price">550000</span>
-                                        </div>
-                                        <!-- End product price -->
-
-                                        <!-- product button -->
-                                        <div class="button-set">
-                                            <form class="variants add" action="#" method="post">
-                                                <button class="btn cartIcon btn-addto-cart" type="button"
-                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                            </form>
-                                            <div class="wishlist-btn">
-                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                    <i class="icon anm anm-heart-l"></i>
-                                                </a>
+                                            <!-- Hover image -->
+                                            <img class="product grid-view-item__image hover blur-up lazyload"
+                                                data-th:src="@{|/images/product/${goods.photo}|}"
+                                                th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+                                                th:title="${goods.name}">
+                                            <!-- End hover image  -->
+                                            <div class="product-labels rectangular">
+                                                <span th:attr="ng-if=@{|${goods.discount} > 0|}"
+                                                    class="lbl on-sale">-[[${goods.discount}]] %</span>
+                                                <span th:attr="ng-if=@{|${goods.rx} == true|}"
+                                                    class="lbl pr-label1">Rx</span>
+                                                <span th:attr="ng-if=@{|${goods.conHang} == false|}"
+                                                    class="lbl bg-warning">Hết hàng</span>
                                             </div>
-                                        </div>
-                                        <!-- end product button -->
-                                    </div>
+                                            <div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop"
+                                                th:data-countdown="${goods.ngayKetThuc}"></div>
+                                        </a>
+                                        <!-- end product image -->
 
-                                </div>
-                            </div>
-                            <div class="col-md-3 item grid-view-item style2">
-                                <div class="grid-view_image">
+                                        <!--start product details -->
+                                        <div class="product-details hoverDetails text-center mobile">
+                                            <!-- product name -->
+                                            <a th:href="@{|/product/${goods.goodsId}|}">[[${goods.name}]]</a>
+                                            <!-- End product name -->
 
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="product grid-view-item__image primary blur-up lazyload "
-                                            src="/images/product/7202c86a.png" alt=" " title="">
-                                        <!-- End image -->
-
-                                        <!-- Hover image -->
-                                        <img class="product grid-view-item__image hover blur-up lazyload"
-                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
-                                            alt="" title="">
-                                        <!-- End hover image  -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!--start product details -->
-                                    <div class="product-details hoverDetails text-center mobile">
-                                        <!-- product name -->
-                                        <div class="product-name bg-white">
-                                            <a href="#">BHA Obagi</a>
-                                        </div>
-                                        <!-- End product name -->
-
-                                        <!-- product price -->
-                                        <div class="product-price bg-white">
-                                            <span class="price">550000</span>
-                                        </div>
-                                        <!-- End product price -->
-
-                                        <!-- product button -->
-                                        <div class="button-set">
-                                            <form class="variants add" action="#" method="post">
-                                                <button class="btn cartIcon btn-addto-cart" type="button"
-                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                            </form>
-                                        </div>
-                                        <!-- end product button -->
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3 item grid-view-item style2">
-                                <div class="grid-view_image">
-
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="product grid-view-item__image primary blur-up lazyload "
-                                            src="/images/product/7202c86a.png" alt=" " title="">
-                                        <!-- End image -->
-
-                                        <!-- Hover image -->
-                                        <img class="product grid-view-item__image hover blur-up lazyload"
-                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
-                                            alt="" title="">
-                                        <!-- End hover image  -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!--start product details -->
-                                    <div class="product-details hoverDetails text-center mobile">
-                                        <!-- product name -->
-                                        <div class="product-name bg-white">
-                                            <a href="#">BHA Obagi</a>
-                                        </div>
-                                        <!-- End product name -->
-
-                                        <!-- product price -->
-                                        <div class="product-price bg-white">
-                                            <span class="price">550000</span>
-                                        </div>
-                                        <!-- End product price -->
-
-                                        <!-- product button -->
-                                        <div class="button-set">
-                                            <form class="variants add" action="#" method="post">
-                                                <button class="btn cartIcon btn-addto-cart" type="button"
-                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                            </form>
-                                            <div class="wishlist-btn">
-                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                    <i class="icon anm anm-heart-l"></i>
-                                                </a>
+                                            <!-- product price -->
+                                            <div class="product-price">
+                                                <span th:attr="ng-if=@{|${goods.discount} > 0|}"
+                                                    class="old-price">[[${#numbers.formatDecimal(goods.price,0,'COMMA',0,'POINT')}]]</span>
+                                                <span class="price">[[${#numbers.formatDecimal(goods.price - (goods.price *
+                                                    goods.discount/100),0,'COMMA',0,'POINT')}]]/[[${goods.util}]]</span>
                                             </div>
-                                        </div>
-                                        <!-- end product button -->
-                                    </div>
+                                            <!-- End product price -->
 
-                                </div>
-                            </div>
-                            <div class="col-md-3 item grid-view-item style2">
-                                <div class="grid-view_image">
-
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="product grid-view-item__image primary blur-up lazyload "
-                                            src="/images/product/7202c86a.png" alt=" " title="">
-                                        <!-- End image -->
-
-                                        <!-- Hover image -->
-                                        <img class="product grid-view-item__image hover blur-up lazyload"
-                                            data-src="/images/product/d14d6f27.png" src="/images/product/d14d6f27.png"
-                                            alt="" title="">
-                                        <!-- End hover image  -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!--start product details -->
-                                    <div class="product-details hoverDetails text-center mobile">
-                                        <!-- product name -->
-                                        <div class="product-name bg-white">
-                                            <a href="#">BHA Obagi</a>
-                                        </div>
-                                        <!-- End product name -->
-
-                                        <!-- product price -->
-                                        <div class="product-price bg-white">
-                                            <span class="price">550000</span>
-                                        </div>
-                                        <!-- End product price -->
-
-                                        <!-- product button -->
-                                        <div class="button-set">
-                                            <form class="variants add" action="#" method="post">
-                                                <button class="btn cartIcon btn-addto-cart" type="button"
-                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
-                                            </form>
-                                            <div class="wishlist-btn">
-                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                    <i class="icon anm anm-heart-l"></i>
-                                                </a>
+                                            <!-- product button -->
+                                            <div class="button-set">
+                                                <form class="variants add" action="#" method="post">
+                                                    <button th:if="${goods.conHang == true}"
+                                                        th:attr=" ng-click=@{|cart.add(${goods.goodsId}, ${goods.discount})|}, ng-if=@{|${goods.rx} == false|}"
+                                                        class="btn cartIcon btn-addto-cart" type="button" tabindex="0"><i
+                                                            class="icon anm anm-bag-l"></i></button>
+                                                    <button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van"
+                                                        disabled><i class="fa-regular fa-comment"></i></button>
+                                                </form>
                                             </div>
+                                            <!-- end product button -->
                                         </div>
-                                        <!-- end product button -->
-                                    </div>
 
+                                    </div>
                                 </div>
-                            </div>
+                            </th:block>
                         </div>
                     </div>
                 </div>
@@ -350,10 +223,11 @@
                                                 class="lbl on-sale">-[[${goods.discount}]] %</span>
                                             <span th:attr="ng-if=@{|${goods.rx} == true|}"
                                                 class="lbl pr-label1">Rx</span>
-                                                <span th:attr="ng-if=@{|${goods.conHang} == false|}"
+                                            <span th:attr="ng-if=@{|${goods.conHang} == false|}"
                                                 class="lbl bg-warning">Hết hàng</span>
                                         </div>
-                                        <div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop" th:data-countdown="${goods.ngayKetThuc}"></div>
+                                        <div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop"
+                                            th:data-countdown="${goods.ngayKetThuc}"></div>
                                     </a>
                                     <!-- end product image -->
 
@@ -369,7 +243,8 @@
                                         <div class="product-price">
                                             <span th:attr="ng-if=@{|${goods.discount} > 0|}"
                                                 class="old-price">[[${#numbers.formatDecimal(goods.price,0,'COMMA',0,'POINT')}]]</span>
-                                            <span class="price">[[${#numbers.formatDecimal(goods.price - (goods.price * goods.discount/100),0,'COMMA',0,'POINT')}]]/[[${goods.util}]]</span>
+                                            <span class="price">[[${#numbers.formatDecimal(goods.price - (goods.price *
+                                                goods.discount/100),0,'COMMA',0,'POINT')}]]/[[${goods.util}]]</span>
                                         </div>
                                         <!-- End product price -->
 
@@ -380,8 +255,8 @@
                                                     th:attr=" ng-click=@{|cart.add(${goods.goodsId}, ${goods.discount})|}, ng-if=@{|${goods.rx} == false|}"
                                                     class="btn cartIcon btn-addto-cart" type="button" tabindex="0"><i
                                                         class="icon anm anm-bag-l"></i></button>
-                                                <button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van" disabled><i
-                                                        class="fa-regular fa-comment"></i></button>
+                                                <button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van"
+                                                    disabled><i class="fa-regular fa-comment"></i></button>
                                             </form>
                                         </div>
                                         <!-- end product button -->

@@ -28,4 +28,8 @@ public interface AccountRepository extends JpaRepository<Account, String>{
 			+ "GROUP BY a.email "
 			+ "HAVING a.email = ?1")
 	public Optional<Integer> existInInput (String id);
+	@Query("SELECT COUNT(o.email) FROM Account o WHERE o.role.id = 'customer'")
+	Integer countCustomer();
+	@Query("SELECT COUNT(o.email) FROM Account o WHERE o.role.id = 'customer' AND o.ngayTao = CURRENT_DATE")
+	Integer countCustomerInMonth();
 }

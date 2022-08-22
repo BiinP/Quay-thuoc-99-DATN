@@ -13,5 +13,8 @@ public interface OrderService extends BaseService<Order, Integer>{
 	Order create(JsonNode orderData);
 	List<Order> findByAccount(String email);
 	Map<String, Object> findDetailForOrderMgmt(Integer id);
+	Order confirmOrder(Integer id);
+	Order successOrder(Integer id);
+	Order cancelOrder(Integer id);
 //	Page<Order> findForDoiXacNhan(Optional<Integer> )
 }

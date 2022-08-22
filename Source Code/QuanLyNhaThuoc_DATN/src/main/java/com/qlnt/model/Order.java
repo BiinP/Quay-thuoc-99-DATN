@@ -31,6 +31,8 @@ public class Order {
 	private Integer id;
 	@Temporal(TemporalType.DATE)
 	private Date ngayTao = new Date();
+	@Temporal(TemporalType.DATE)
+	private Date ngayThanhCong = null;
 	private String sdt;
 	private String diaChi;
 	private Float phiGiaoHang;

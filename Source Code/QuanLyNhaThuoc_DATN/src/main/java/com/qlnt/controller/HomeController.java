@@ -30,6 +30,8 @@ public class HomeController {
 		List<Map<String, Object>> goodsNewest = goodsServie.findGoodsForNewest();
 		model.addAttribute("goodsNewest", goodsNewest);
 		model.addAttribute("promotions", promoService.findPromotionAvailble());
+		List<Map<String, Object>> bestSeller = goodsServie.findGoodsForBestSeller();
+		model.addAttribute("bestSeller", bestSeller);
 //		List<Brand> brands = brandService.findAll();
 //		model.addAttribute("brands", brands);
 		return "home/index";

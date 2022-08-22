@@ -20,4 +20,6 @@ public interface GoodsService extends BaseService<Goods, Integer>{
 	Map<String, Object> findDetailGoods (Integer id, Principal principal);
 	List<Map<String, Object>> findRelatedGoodsBySubCate (String id);
 	List<Map<String, Object>> findGoodsForSearch(String kw, Integer page);
+	List<Map<String, Object>> findGoodsForBestSeller();
+	
 }

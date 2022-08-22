@@ -1,6 +1,10 @@
 const app = angular.module("admin-app",["ngRoute"]);
 app.config(function($routeProvider){
     $routeProvider
+        .when("/sell",{
+            templateUrl:"/admin/assets/layout/sell.html",
+            controller:"sell-ctrl"
+        })
         .when("/account",{
             templateUrl:"/admin/assets/layout/account.html",
             controller:"account-ctrl"

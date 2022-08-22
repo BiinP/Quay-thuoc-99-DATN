@@ -131,7 +131,7 @@
 												<td>{{order.diaChi}}</td>
 												<td>{{order.thanhTien | number: 0}}</td>
 												<td class="text-right">
-													<button ng-click="edit(i.id)" class="btn btn-primary" data-toggle="modal"
+													<button ng-click="edit(order.id)" class="btn btn-primary" data-toggle="modal"
 														data-target="#largeModal">
 														<i class="fa-solid fa-pen"></i>
 													</button>
@@ -169,7 +169,7 @@
 												<td>{{order.diaChi}}</td>
 												<td>{{order.thanhTien | number: 0}}</td>
 												<td class="text-right">
-													<button ng-click="edit(i.id)" class="btn btn-primary" data-toggle="modal"
+													<button ng-click="edit(order.id)" class="btn btn-primary" data-toggle="modal"
 														data-target="#largeModal">
 														<i class="fa-solid fa-pen"></i>
 													</button>
@@ -207,7 +207,7 @@
 												<td>{{order.diaChi}}</td>
 												<td>{{order.thanhTien | number: 0}}</td>
 												<td class="text-right">
-													<button ng-click="edit(i.id)" class="btn btn-primary" data-toggle="modal"
+													<button ng-click="edit(order.id)" class="btn btn-primary" data-toggle="modal"
 														data-target="#largeModal">
 														<i class="fa-solid fa-pen"></i>
 													</button>
@@ -305,9 +305,18 @@
 										class="form-control">
 								</div>
 								<div class="col">
-									<label>Ngày tạo</label>
-									<input name="ngayTao" disabled ng-model="order.order.ngayTao" type="text"
-										class="form-control">
+									<div class="row">
+										<div class="col">
+											<label>Ngày tạo</label>
+											<input name="ngayTao" disabled ng-model="order.order.ngayTao" type="text"
+												class="form-control">
+										</div>
+										<div ng-if="order.order.ngayThanhCong" class="col">
+											<label>Ngày giao hàng thành công</label>
+											<input name="ngayThanhCong" disabled ng-model="order.order.ngayThanhCong" type="text"
+												class="form-control">
+										</div>
+									</div>
 								</div>
 							</div>
 
@@ -335,20 +344,40 @@
 							<tr ng-repeat="order in order.orderDetails">
 								<th scope="row">{{order.goodsId}}</th>
 								<td>{{order.name}}</td>
-								<td>{{order.donGia}}</td>
-								<td>{{order.giamGia}}</td>
+								<td>{{order.donGia | number: 0}}</td>
+								<td>{{order.giamGia | number: 0}}</td>
 								<td>{{order.soLuong}}</td>
-								<td>{{order.tongTien}}</td>
+								<td>{{order.tongTien | number: 0}}</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<!-- <div class="form-group mt-2 text-right">
-					<button ng-disabled="frmOrder.$invalid || frmOrderDetail.$invalid " ng-click="create()"
-						class="btn btn-primary">Lưu phiếu nhập</button>
-					 <button ng-click="delete(input.id)"
-						class="btn btn-dark">Xóa phiếu nhập</button> 
-				</div> -->
+				<div class="form-group mt-2 text-right">
+					<div class="form-group">
+						<label for="">Tổng tiền:</label>
+						<label class="font-weight-bold text-body">{{order.order.tongTien | number: 0}}</label>
+					</div>
+					<div class="form-group">
+						<label for="">Tổng giảm giá:</label>
+						<label class="font-weight-bold text-body">{{order.order.tongGiamGia | number: 0}}</label>
+					</div>
+					<div class="form-group">
+						<label for="">Phí vận chuyển:</label>
+						<label class="font-weight-bold text-body">15,000</label>
+					</div>
+					<div class="form-group">
+						<label for="">Thành tiền:</label>
+						<label class="font-weight-bold text-body">{{order.order.thanhTien | number: 0}}</label>
+					</div>
+					<button ng-if="order.order.doiXacNhan == true" ng-click="confirm(order.order.id)"
+						class="btn btn-primary">Xác nhận</button>
+					<button ng-if="order.order.dangGiaoHang == true" ng-click="success(order.order.id)"
+						class="btn btn-primary">Giao thành công</button>
+					 <button ng-if="order.order.doiXacNhan == true" ng-click="cancel(order.order.id)"
+						class="btn btn-dark">Hủy</button> 
+					 <button ng-if="order.order.dangGiaoHang == true" ng-click="cancel(order.order.id)"
+						class="btn btn-dark">Giao không thành công</button> 
+				</div>
 			</div>
 		</div>
 	</div>

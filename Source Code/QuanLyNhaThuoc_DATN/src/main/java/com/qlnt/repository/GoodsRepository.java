@@ -30,12 +30,4 @@ public interface GoodsRepository extends JpaRepository<Goods, Integer>{
 	Page<Goods> findRelatedGoodsBySubCate (String id, Pageable pageable);
 	@Query("SELECT o FROM Goods o WHERE o.product.name LIKE ?1")
 	Page<Goods> findForSearch (String kw, Pageable pageable);
-	
-//	@Query("SELECT TOP ?1 FROM Goods o WHERE ")
-//	@Query("SELECT COUNT(o) "true
-//			+ "FROM Goods o INNER JOIN Product a"
-//			+ "	ON o.product.id = a.id "
-//			+ "GROUP BY a.id "
-//			+ "HAVING a.id = ?1")
-//	public Optional<Integer> existInGoods (Integer id);
 }

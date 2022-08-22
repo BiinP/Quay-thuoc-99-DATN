@@ -1,6 +1,7 @@
 package com.qlnt.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qlnt.model.Account;
 import com.qlnt.model.Goods;
 import com.qlnt.model.InputDetail;
 import com.qlnt.model.Order;
@@ -23,6 +25,7 @@ import com.qlnt.model.Product;
 import com.qlnt.repository.OrderDetailRepository;
 import com.qlnt.repository.OrderRepository;
 import com.qlnt.repository.ProductRepository;
+import com.qlnt.service.AccountService;
 import com.qlnt.service.GoodsService;
 import com.qlnt.service.InputDetailService;
 import com.qlnt.service.OrderService;
@@ -39,6 +42,8 @@ public class OrderServiceImpl implements OrderService{
 	private GoodsService goodsService;
 	@Autowired
 	private InputDetailService inputDetailService;
+	@Autowired
+	private AccountService accountService;
 	
 	@Override
 	public Order create(JsonNode orderData) {
@@ -80,7 +85,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Order save(Order T) {
 		// TODO Auto-generated method stub
-		return null;
+		return orderRepo.save(T);
 	}
 
 	@Override
@@ -123,6 +128,42 @@ public class OrderServiceImpl implements OrderService{
 		}
 		db.put("orderDetails", orderDetails);
 		return db;
+	}
+
+	@Override
+	public Order confirmOrder(Integer id) {
+		// TODO Auto-generated method stub
+		Order order = this.findById(id);
+		order.setDoiXacNhan(false);
+		order.setDangGiaoHang(true);
+		return this.save(order);
+	}
+
+	@Override
+	public Order successOrder(Integer id) {
+		// TODO Auto-generated method stub
+		Order order = this.findById(id);
+		order.setDangGiaoHang(false);
+		order.setThanhCong(true);
+		order.setNgayThanhCong(new Date());
+		
+		Float diem = (order.getThanhTien()- 15000 )/1000;
+		Account account = order.getAccount();
+		Float diemTichLuy = account.getDiem() + diem;
+		account.setDiem(diemTichLuy);
+		accountService.save(account);
+		
+		return this.save(order);
+	}
+	@Override
+	public Order cancelOrder(Integer id) {
+		// TODO Auto-generated method stub
+		Order order = this.findById(id);
+		order.setThanhCong(false);
+		order.setDangGiaoHang(false);
+		order.setDoiXacNhan(false);
+		order.setDaHuy(true);
+		return this.save(order);
 	}
 
 }

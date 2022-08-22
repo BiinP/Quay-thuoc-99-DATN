@@ -62,9 +62,70 @@
 .modal-second{
 	max-width: 80% !important;
 	min-width: 80% !important;
-	
 }
 .note-editable{
-	min-height: 500px !important;
-	max-height: 500px !important;
+	min-height: 300px !important;
+	max-height: 300px !important;
+}
+.sum-cost {
+  min-width: fit-content !important
+}
+/* .apexcharts-legend-text{
+  word-wrap: break-word !important;
+}
+.apexcharts-legend-series{
+  max-width: 100px !important;
+} */
+.card-body-custom{
+  min-height: 543px !important;
+}
+.apexcharts-graphical{
+  max-width: 70% !important;
+}
+.apexcharts-legend{
+  max-width: 30% !important;
+}
+.apexcharts-canvas{
+  margin: 2px !important;
+}
+.product-labels {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+.product-labels.rectangular .lbl {
+  border-radius: 0;
+}
+.product-labels .on-sale {
+  right: 5px;
+  background: #f54337;
+}
+.product-labels .lbl {
+  display: block;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 5px;
+  height: 20px;
+  width: 40px;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+.product-price {
+  margin: 5px 0;
+  color: #000000;
+  font-weight: 600;
+}
+.product-price .old-price {
+  color: #555;
+  font-size: 12px;
+  opacity: 0.8;
+  text-decoration: line-through;
+}
+.product-price .new-price {
+  padding-left: 5px;
+  color: #e95144 !important;
 }

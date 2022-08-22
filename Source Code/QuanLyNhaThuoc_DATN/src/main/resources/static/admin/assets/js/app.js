@@ -280,38 +280,7 @@
                           
                 }
 
-                var apexdemo5 = jQuery('#apexdemo5')
-                if (apexdemo5.length > 0) {
-                  var options = {
-                    chart: {
-                        height:420,
-                        type: 'bar',
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: true,
-                        }
-                    },
-                    colors: ['#8E54E9'],
-                    dataLabels: {
-                        enabled: false
-                    },
-                    series: [{
-                        data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
-                    }],
-                    xaxis: {
-                        categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan', 'United States', 'China', 'Germany'],
-                    }
-                }
-        
-               var chart = new ApexCharts(
-                    document.querySelector("#apexdemo5"),
-                    options
-                );
                 
-                chart.render();
-
-                }
 
                 var apexdemo6 = jQuery('#apexdemo6')
                 if (apexdemo6.length > 0) {
@@ -428,41 +397,7 @@
 
                 }
 
-                var apexdemo8 = jQuery('#apexdemo8')
-                if (apexdemo8.length > 0) {
-                  var optionDonut = {
-                    chart: {
-
-                        type: 'pie',
-                        height: '350'
-                    },
-                    dataLabels: {
-                      enabled: false,
-                    },
-                    plotOptions: {
-                      pie: {
-                        donut: {
-                          size: '75%',
-                        },
-                        offsetY: 0,
-                      },
-                      stroke: {
-                        colors: undefined
-                      }
-                    },
-                    colors: ['#8E54E9','#2bcbba','#f7b731','#45aaf2','#e3324c'],
-
-                    series: [21, 23, 19, 14, 6],
-                    labels: ['Clothing', 'Food Products', 'Electronics', 'Kitchen Utility', 'Gardening'],
-                  }
-                  
-                  var donut = new ApexCharts(
-                    document.querySelector("#apexdemo8"),
-                    optionDonut
-                  )
-                  donut.render();
-
-                }
+                
                 
             // analytics1
             var analytics1 = jQuery('#analytics1')
@@ -12920,31 +12855,7 @@ var checkin = $('.range-from').datepicker({
                         });
                     }
                     // morris bar chart
-                    var morrisdemo3 = jQuery("#morrisdemo3");
-                    if (morrisdemo3.length > 0) {
-                        Morris.Bar({
-                            element: morrisdemo3,
-                            data: [
-                                { y: '2006', a: 100, b: 90 },
-                                { y: '2007', a: 75, b: 65 },
-                                { y: '2008', a: 50, b: 40 },
-                                { y: '2009', a: 75, b: 65 },
-                                { y: '2010', a: 50, b: 40 },
-                                { y: '2011', a: 75, b: 65 },
-                                { y: '2012', a: 100, b: 90 }
-                            ],
-                            xkey: 'y',
-                            ykeys: ['a', 'b'],
-                            labels: ['Series A', 'Series B'],
-                            barColors: ['#4776E6', '#8E54E9'],
-                            resize: true,
-                            fillOpacity: 0.4,
-                            padding: 15,
-                            grid: false,
-                            gridTextFamily: 'Roboto',
-                            gridTextSize: 10
-                        });
-                    }
+                    
                     // morris donut chart
                     var morrisdemo4 = jQuery("#morrisdemo4");
                     if (morrisdemo4.length > 0) {
