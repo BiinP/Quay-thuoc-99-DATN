@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="_aside" class="col-md-3 sidebar filterbar">
+		<div class="closeFilter d-block d-md-none d-lg-none">
+			<i class="icon icon anm anm-times-l"></i>
+		</div>
+		<div class="sidebar_tags">
+			<div class="sidebar_widget categories filter-widget">
+				<div class="widget-title">
+					<h2>Thông tin tài khoản</h2>
+				</div>
+				<div class="widget-content">
+					<ul class="sidebar_categories">
+						<li class="lvl-1"><a href="/account" class="site-nav">Thông tin chung</a></li>
+
+					</ul>
+					<ul class="sidebar_categories">
+						<li class="lvl-1"><a href="/account/change-password" class="site-nav">Đổi mật khẩu</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="sidebar_widget categories filter-widget">
+				<div class="widget-title">
+					<h2><a href="/account/order">Đơn hàng của tôi</a></h2>
+				</div>
+			</div>
+			<div class="sidebar_widget categories filter-widget">
+				<div class="widget-title">
+					<h2><a href="/account/wishlist">Danh sách yêu thích</a></h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

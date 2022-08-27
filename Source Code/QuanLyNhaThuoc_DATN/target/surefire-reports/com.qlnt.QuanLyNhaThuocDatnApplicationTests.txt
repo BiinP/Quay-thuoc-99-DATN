@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.qlnt.QuanLyNhaThuocDatnApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 69.04 s - in com.qlnt.QuanLyNhaThuocDatnApplicationTests

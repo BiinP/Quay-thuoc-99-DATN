@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đơn hàng của tôi</title>
+</head>
+
+<body>
+    <!--Body Content-->
+    <div id="page-content">
+        <!--Page Title-->
+        <div class="page section-header text-center mt-5">
+            <div class="page-title">
+                <div class="wrapper">
+                    <h1 class="page-width">Đơn hàng của tôi</h1>
+                </div>
+            </div>
+        </div>
+        <!--End Page Title-->
+
+        <div class="container">
+            <div class="row">
+                <!--Sidebar-->
+                <div th:replace="~{account/_aside ::_aside}"></div>
+                <!--End Sidebar-->
+                <div class="col-md-9 main-col">
+                    <div class="tab round">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-toggle="tab" role="tab" aria-selected="true"
+                                    data-target="#all"> <i class="fa fa-home"></i>
+                                    Tất cả</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                                    data-target="#doi-xac-nhan"><i class="fa-solid fa-check-double"></i>Đợi xác nhận
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                                    data-target="#dang-giao-hang"><i class="fa-solid fa-truck-fast"></i> Đang giao hàng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                                    data-target="#giao-thanh-cong"><i class="fa-solid fa-money-bill"></i> Giao thành
+                                    công
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                                    data-target="#da-huy"><i class="fa-solid fa-trash-can"></i> Đã hủy </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade py-3 active show" id="all" role="tabpanel">
+                                <form action="#">
+                                    <div class="wishlist-table table-content table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name text-center alt-font">Mã đơn hàng</th>
+                                                    <th class="product-name alt-font">Trạng thái</th>
+                                                    <th class="product-name alt-font">Ngày mua</th>
+                                                    <th class="product-price text-center alt-font">Tổng tiền</th>
+                                                    <th class="product-subtotal text-center alt-font"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="o : ${orders}">
+                                                    <tr>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a
+                                                                    th:href="@{|/account/order/detail/${o.id}|}">[[${o.id}]]
+                                                                </a>
+                                                            </h4>
+                                                        </td>
+                                                        <td th:if="${o.doiXacNhan}" class="product-name">
+                                                            <h4 class="no-margin">Đợi xác nhận</h4>
+                                                        </td>
+                                                        <td th:if="${o.dangGiaoHang}" class="product-name">
+                                                            <h4 class="no-margin">Đang giao hàng</h4>
+                                                        </td>
+                                                        <td th:if="${o.thanhCong}" class="product-name">
+                                                            <h4 class="no-margin">Thành công</h4>
+                                                        </td>
+                                                        <td th:if="${o.daHuy}" class="product-name">
+                                                            <h4 class="no-margin">Đã hủy</h4>
+                                                        </td>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a href="">[[${o.ngayTao}]] </a></h4>
+                                                        </td>
+                                                        <td class="product-price text-center"><span
+                                                                class="amount">[[${#numbers.formatDecimal(o.thanhTien,0,'COMMA',0,'POINT')}]]</span>
+                                                        </td>
+                                                        <td class="product-subtotal text-center"><a
+                                                                th:href="@{|/account/order/detail/${o.id}|}"
+                                                                class="btn btn-small text-white">Xem chi tiết</a></td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade py-3" id="doi-xac-nhan" role="tabpanel">
+                                <form action="#">
+                                    <div class="wishlist-table table-content table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name text-center alt-font">Mã đơn hàng</th>
+                                                    <th class="product-name alt-font">Trạng thái</th>
+                                                    <th class="product-name alt-font">Ngày mua</th>
+                                                    <th class="product-price text-center alt-font">Tổng tiền</th>
+                                                    <th class="product-subtotal text-center alt-font"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="o : ${orders}" th:if="${o.doiXacNhan == true}">
+                                                    <tr>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a
+                                                                    th:href="@{|/account/order/detail/${o.id}|}">[[${o.id}]]
+                                                                </a>
+                                                            </h4>
+                                                        </td>
+                                                        <td th:if="${o.doiXacNhan}" class="product-name">
+                                                            <h4 class="no-margin">Đợi xác nhận</h4>
+                                                        </td>
+                                                        <td th:if="${o.dangGiaoHang}" class="product-name">
+                                                            <h4 class="no-margin">Đang giao hàng</h4>
+                                                        </td>
+                                                        <td th:if="${o.thanhCong}" class="product-name">
+                                                            <h4 class="no-margin">Thành công</h4>
+                                                        </td>
+                                                        <td th:if="${o.daHuy}" class="product-name">
+                                                            <h4 class="no-margin">Đã hủy</h4>
+                                                        </td>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a href="">[[${o.ngayTao}]] </a></h4>
+                                                        </td>
+                                                        <td class="product-price text-center"><span
+                                                                class="amount">[[${#numbers.formatDecimal(o.thanhTien,0,'COMMA',0,'POINT')}]]</span>
+                                                        </td>
+                                                        <td class="product-subtotal text-center"><a
+                                                                th:href="@{|/account/order/detail/${o.id}|}"
+                                                                class="btn btn-small text-white">Xem chi tiết</a></td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade py-3" id="dang-giao-hang" role="tabpanel">
+                                <form action="#">
+                                    <div class="wishlist-table table-content table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name text-center alt-font">Mã đơn hàng</th>
+                                                    <th class="product-name alt-font">Trạng thái</th>
+                                                    <th class="product-name alt-font">Ngày mua</th>
+                                                    <th class="product-price text-center alt-font">Tổng tiền</th>
+                                                    <th class="product-subtotal text-center alt-font"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="o : ${orders}" th:if="${o.dangGiaoHang == true}">
+                                                    <tr>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a
+                                                                    th:href="@{|/account/order/detail/${o.id}|}">[[${o.id}]]
+                                                                </a>
+                                                            </h4>
+                                                        </td>
+                                                        <td th:if="${o.doiXacNhan}" class="product-name">
+                                                            <h4 class="no-margin">Đợi xác nhận</h4>
+                                                        </td>
+                                                        <td th:if="${o.dangGiaoHang}" class="product-name">
+                                                            <h4 class="no-margin">Đang giao hàng</h4>
+                                                        </td>
+                                                        <td th:if="${o.thanhCong}" class="product-name">
+                                                            <h4 class="no-margin">Thành công</h4>
+                                                        </td>
+                                                        <td th:if="${o.daHuy}" class="product-name">
+                                                            <h4 class="no-margin">Đã hủy</h4>
+                                                        </td>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a href="">[[${o.ngayTao}]] </a></h4>
+                                                        </td>
+                                                        <td class="product-price text-center"><span
+                                                                class="amount">[[${#numbers.formatDecimal(o.thanhTien,0,'COMMA',0,'POINT')}]]</span>
+                                                        </td>
+                                                        <td class="product-subtotal text-center"><a
+                                                                th:href="@{|/account/order/detail/${o.id}|}"
+                                                                class="btn btn-small text-white">Xem chi tiết</a></td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade py-3" id="giao-thanh-cong" role="tabpanel">
+                                <form action="#">
+                                    <div class="wishlist-table table-content table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name text-center alt-font">Mã đơn hàng</th>
+                                                    <th class="product-name alt-font">Trạng thái</th>
+                                                    <th class="product-name alt-font">Ngày mua</th>
+                                                    <th class="product-price text-center alt-font">Tổng tiền</th>
+                                                    <th class="product-subtotal text-center alt-font"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="o : ${orders}" th:if="${o.thanhCong}">
+                                                    <tr>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a
+                                                                    th:href="@{|/account/order/detail/${o.id}|}">[[${o.id}]]
+                                                                </a>
+                                                            </h4>
+                                                        </td>
+                                                        <td th:if="${o.doiXacNhan}" class="product-name">
+                                                            <h4 class="no-margin">Đợi xác nhận</h4>
+                                                        </td>
+                                                        <td th:if="${o.dangGiaoHang}" class="product-name">
+                                                            <h4 class="no-margin">Đang giao hàng</h4>
+                                                        </td>
+                                                        <td th:if="${o.thanhCong}" class="product-name">
+                                                            <h4 class="no-margin">Thành công</h4>
+                                                        </td>
+                                                        <td th:if="${o.daHuy}" class="product-name">
+                                                            <h4 class="no-margin">Đã hủy</h4>
+                                                        </td>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a href="">[[${o.ngayTao}]] </a></h4>
+                                                        </td>
+                                                        <td class="product-price text-center"><span
+                                                                class="amount">[[${#numbers.formatDecimal(o.thanhTien,0,'COMMA',0,'POINT')}]]</span>
+                                                        </td>
+                                                        <td class="product-subtotal text-center"><a
+                                                                th:href="@{|/account/order/detail/${o.id}|}"
+                                                                class="btn btn-small text-white">Xem chi tiết</a></td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade py-3" id="da-huy" role="tabpanel">
+                                <form action="#">
+                                    <div class="wishlist-table table-content table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name text-center alt-font">Mã đơn hàng</th>
+                                                    <th class="product-name alt-font">Trạng thái</th>
+                                                    <th class="product-name alt-font">Ngày mua</th>
+                                                    <th class="product-price text-center alt-font">Tổng tiền</th>
+                                                    <th class="product-subtotal text-center alt-font"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="o : ${orders}" th:if="${o.daHuy}">
+                                                    <tr>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a
+                                                                    th:href="@{|/account/order/detail/${o.id}|}">[[${o.id}]]
+                                                                </a>
+                                                            </h4>
+                                                        </td>
+                                                        <td th:if="${o.doiXacNhan}" class="product-name">
+                                                            <h4 class="no-margin">Đợi xác nhận</h4>
+                                                        </td>
+                                                        <td th:if="${o.dangGiaoHang}" class="product-name">
+                                                            <h4 class="no-margin">Đang giao hàng</h4>
+                                                        </td>
+                                                        <td th:if="${o.thanhCong}" class="product-name">
+                                                            <h4 class="no-margin">Thành công</h4>
+                                                        </td>
+                                                        <td th:if="${o.daHuy}" class="product-name">
+                                                            <h4 class="no-margin">Đã hủy</h4>
+                                                        </td>
+                                                        <td class="product-name">
+                                                            <h4 class="no-margin"><a href="">[[${o.ngayTao}]] </a></h4>
+                                                        </td>
+                                                        <td class="product-price text-center"><span
+                                                                class="amount">[[${#numbers.formatDecimal(o.thanhTien,0,'COMMA',0,'POINT')}]]</span>
+                                                        </td>
+                                                        <td class="product-subtotal text-center"><a
+                                                                th:href="@{|/account/order/detail/${o.id}|}"
+                                                                class="btn btn-small text-white">Xem chi tiết</a></td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--End Body Content-->
+</body>
+
+</html>

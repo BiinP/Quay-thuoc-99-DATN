@@ -1,5 +1,6 @@
 package com.qlnt.api;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,10 @@ public class AccountAPI {
 	@Autowired
 	private UploadService uploadService;
 
+	@GetMapping("/current")
+	public Account accountCurrent(Principal principal) {
+		return accountService.findById(principal.getName());
+	}
 	@GetMapping
 	public Page<Account> getAll(@RequestParam("kw") Optional<String> kw,
 			@RequestParam("currentPage") Optional<Integer> currentPage) {

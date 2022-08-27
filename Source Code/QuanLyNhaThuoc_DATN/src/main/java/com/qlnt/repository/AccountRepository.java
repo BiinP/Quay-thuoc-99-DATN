@@ -15,7 +15,7 @@ import com.qlnt.model.Role;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, String>{
 	@Query("SELECT o FROM Account o WHERE o.email LIKE ?1 OR o.hoTen LIKE ?1 ORDER BY o.hoTen ASC")
-	public Page<Account> findAll(String kw, Pageable currentPage);
+	public Page<Account> findAll(String kw, Pageable currentPage);	
 	@Query("SELECT COUNT(o) "
 			+ "FROM Order o INNER JOIN Account a"
 			+ "	ON o.account.email = a.email "

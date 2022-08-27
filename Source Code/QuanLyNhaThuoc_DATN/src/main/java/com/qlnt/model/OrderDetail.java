@@ -24,7 +24,6 @@ public class OrderDetail {
 	private Float soLuong;
 	private Float donGia;
 	private Float giamGia;
-	private String ghiChu = null;
 	private Integer goodsId;
 	@ManyToOne @JoinColumn(name = "order_id")
 	private Order order;

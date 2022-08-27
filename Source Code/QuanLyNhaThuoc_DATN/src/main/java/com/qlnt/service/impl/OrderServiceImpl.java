@@ -166,4 +166,38 @@ public class OrderServiceImpl implements OrderService{
 		return this.save(order);
 	}
 
+	@Override
+	public Order sellInStore(JsonNode orderData) {
+		ObjectMapper mapper = new ObjectMapper();
+		Order order = mapper.convertValue(orderData, Order.class);
+		order.setDoiXacNhan(false);
+		if(order.getTaiCuaHang()) {
+			order.setDangGiaoHang(false);
+			order.setThanhCong(true);
+			order.setNgayThanhCong(new Date());
+		}else {
+			order.setDangGiaoHang(true);
+			order.setThanhCong(false);
+		}
+		Order orderSaved = orderRepo.save(order);
+		TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {
+		};
+		List<OrderDetail> orderDetails = mapper.convertValue(orderData.get("orderDetails"), type);
+		for(OrderDetail o : orderDetails) {
+			o.setOrder(orderSaved);
+			Goods goods = goodsService.findById(o.getGoodsId());
+			Product product = goods.getProduct();
+			
+			product.setTonKho(product.getTonKho()- (o.getSoLuong() / goods.getQuiDoi()));
+			productRepo.save(product);
+			
+			Integer id = product.getId();
+			InputDetail inputDetail = inputDetailService.findByProductId(id).get(0);
+			o.setInputDetail(inputDetail);
+		}
+		
+		orderDetailRepo.saveAll(orderDetails);
+		return orderSaved;
+	}
+
 }

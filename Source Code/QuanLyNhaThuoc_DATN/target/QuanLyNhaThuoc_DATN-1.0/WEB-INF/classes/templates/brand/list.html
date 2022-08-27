@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Brand List</title>
+</head>
+
+<body>
+    <div id="page-content">
+        <!--Home slider-->
+        <!--Collection Banner-->
+        <div class="collection-header">
+            <div class="collection-hero">
+                <div class="collection-hero__image"><img class="blur-up lazyload"
+                        data-src="/assets/images/brand-banner.png" src="/assets/images/brand-banner.png" alt="Women"
+                        title="Women" /></div>
+                <div class="collection-hero__title-wrapper">
+                    <h1 class="collection-hero__title page-width">CAM KẾT CHÍNH HÃNG </h1>
+                </div>
+            </div>
+        </div>
+        <!--End Collection Banner-->
+        <!--End Home slider-->
+
+        <!--Image Banners-->
+        <div class="section imgBanners pb-0">
+            <div class="imgBnrOuter">
+                <div class="container-fluid">
+                    <br><br><br>
+                        <div class="row">
+                            <th:block th:each="b : ${map.brands}">
+                                <div class="col-md-2 mt-3 image-banner-3">
+                                    <div class="inner topright">
+                                        <a th:href="@{|/product?brandId=${b.id}|}">
+                                            <img data-th:src="@{|/images/brand/${b.photo}|}"
+                                                th:src="@{|/images/brand/${b.photo}|}"
+                                                th:alt="${b.name}" th:title="${b.name}" class="blur-up lazyload" />
+                                            <div class="ttl">
+                                                <h5>[[${b.name}]]</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Image Banners-->
+    </div>
+</body>
+
+</html>

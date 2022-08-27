@@ -1,0 +1,131 @@
+.logo{
+	object-fit: cover;
+	width: 100%;
+	height: 250px;	
+}
+.imgProduct{
+	object-fit: cover;
+	width: 100%;
+	height: 400px;	
+}
+.btn.disabled, .btn:disabled {
+    opacity: 0.2;
+}
+.img-thumbnail{
+    height: 70px;
+    max-width: 95%;
+}
+.table-scroll{
+  display: block;
+}
+
+.table-scroll thead{
+  position:relative;
+  display: block;
+}
+
+.table-scroll tbody{
+  /* Position */
+  display: block; 
+  position:relative;
+  overflow-y:scroll;
+}
+
+.table-scroll tr{
+  display:flex;
+}
+
+.table-scroll td,.table-scroll th{
+  flex-basis:50%;
+  display: block;
+}
+
+/* Other options */
+
+.body-half-screen{
+  max-height: 40vh;
+}
+.max-lines {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 600px;
+}
+.aside-custom, .header-custom {
+	background : #3d7695 !important;
+}
+.modal-footer-product {
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+.modal-second{
+	max-width: 80% !important;
+	min-width: 80% !important;
+}
+.note-editable{
+	min-height: 300px !important;
+	max-height: 300px !important;
+}
+.sum-cost {
+  min-width: fit-content !important
+}
+/* .apexcharts-legend-text{
+  word-wrap: break-word !important;
+}
+.apexcharts-legend-series{
+  max-width: 100px !important;
+} */
+.card-body-custom{
+  min-height: 543px !important;
+}
+.apexcharts-graphical{
+  max-width: 70% !important;
+}
+.apexcharts-legend{
+  max-width: 30% !important;
+}
+.apexcharts-canvas{
+  margin: 2px !important;
+}
+.product-labels {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+.product-labels.rectangular .lbl {
+  border-radius: 0;
+}
+.product-labels .on-sale {
+  right: 5px;
+  background: #f54337;
+}
+.product-labels .lbl {
+  display: block;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 5px;
+  height: 20px;
+  width: 40px;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+.product-price {
+  margin: 5px 0;
+  color: #000000;
+  font-weight: 600;
+}
+.product-price .old-price {
+  color: #555;
+  font-size: 12px;
+  opacity: 0.8;
+  text-decoration: line-through;
+}
+.product-price .new-price {
+  padding-left: 5px;
+  color: #e95144 !important;
+}

@@ -1,0 +1,63 @@
+<th:block th:each="d,state : ${db}" th:if="${state.index}<15">
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 item grid-view-item style2">
+                                <div class="grid-view_image">
+
+                                    <!-- start product image -->
+                                    <a th:href="@{|/product/detail/${d.product.id}|}" class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="product grid-view-item__image primary blur-up lazyload "
+                                            th:src="@{|/images/product/${d.images[0]}|}" th:alt="${d.product.name}" th:title="${d.product.name}">
+                                        <!-- End image -->
+
+                                        <!-- Hover image -->
+                                        <img class="product grid-view-item__image hover blur-up lazyload"
+                                            data-th:src="@{|/images/product/${d.images[1]}|}"
+                                            th:src="@{|/images/product/${d.images[1]}|}" th:alt="${d.product.name}" th:title="${d.product.name}">
+                                        <!-- End hover image  -->
+                                    </a>
+                                    <!-- end product image -->
+
+                                    <!--start product details -->
+                                    <div class="product-details hoverDetails text-center mobile">
+                                        <!-- product name -->
+                                        <div class="product-name">
+                                            <a th:text="${d.product.name}"
+                                                th:href="@{|/product/detail/${d.product.id}|}"></a>
+                                        </div>
+                                        <!-- End product name -->
+
+                                        <!-- product price -->
+                                        <div class="product-price">
+                                            <span th:text="${d.product.price}" class="price"></span>
+                                        </div>
+                                        <!-- End product price -->
+
+                                        <!-- product button -->
+                                        <div class="button-set">
+                                            <form class="variants add" action="#" method="post">
+                                                <button th:attr=" ng-click=@{|cart.add(${d.product.id})|} " class="btn cartIcon btn-addto-cart" type="button"
+                                                    tabindex="0"><i class="icon anm anm-bag-l"></i></button>
+                                            </form>
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                    <i class="icon anm anm-heart-l"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- end product button -->
+                                    </div>
+
+                                    <!--end product details -->
+
+                                    <!-- Variant -->
+                                    <ul class="swatches text-center">
+                                        <li th:each="i : ${d.images}" class="swatch medium rounded"><img
+                                            th:src="@{|/images/product/${i}|}" alt="image" /></li>
+                                    </ul>
+                                    <!-- End Variant -->
+
+                                    <!-- End product details -->
+                                    
+                                </div>
+                            </div>
+                        </th:block>

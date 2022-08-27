@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar target/QuanLyNhaThuoc_DATN-1.0.war

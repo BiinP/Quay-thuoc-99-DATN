@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic( ~{::title},~{::#page-content} )}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Product List</title>
+</head>
+
+<body>
+	<div id="page-content">
+		<!--Collection Banner-->
+		<div class="collection-header">
+			<div class="collection-hero">
+				<div class="collection-hero__image">
+					<img class="blur-up lazyload" data-src="/assets/images/product-banner.png"
+						src="/assets/images/product-banner.png" alt="Women" title="Women" />
+				</div>
+				<div class="collection-hero__title-wrapper">
+					<h1 class="collection-hero__title page-width">FREESHIP ĐƠN HÀNG TRÊN 200K</h1>
+				</div>
+			</div>
+		</div>
+		<!--End Collection Banner-->
+
+		<div class="container mt-5">
+			<div class="row">
+				<!--Sidebar-->
+				<div class="col-md-3 sidebar filterbar">
+					<div class="closeFilter d-block d-md-none d-lg-none">
+						<i class="icon icon anm anm-times-l"></i>
+					</div>
+					<div class="sidebar_tags">
+						<!--Categories-->
+						<div class="sidebar_widget categories filter-widget">
+							<th:block th:each="cate : ${categories}">
+								<div class="widget-title">
+									<h2>[[${cate.category}]]</h2>
+								</div>
+								<div class="widget-content">
+									<ul class="sidebar_categories">
+										<li th:each="subCate : ${cate.subCates}" class="lvl-1 checked">
+											<a th:if="${subCateId} == ${subCate.id}"
+												th:href="@{|/product?page=&brandId=${brandId}&subCateId=&range=${range}|}"
+												class="site-nav cusstom-checked">[[${subCate.name}]]</a>
+											<a th:if="${subCateId} != ${subCate.id}"
+												th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCate.id}&range=${range}|}"
+												class="site-nav">[[${subCate.name}]]</a>
+										</li>
+
+									</ul>
+								</div>
+							</th:block>
+						</div>
+						<!--Categories-->
+						<!--Price Filter-->
+						<div class="sidebar_widget filterBox filter-widget">
+							<div class="widget-title">
+								<h2>Giá</h2>
+							</div>
+							<form action="" method="GET">
+								<a th:if="${range} == 0"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=0|}"
+									class="btn mb-2 btn--secondary cusstom-checked">Tất cả giá</a>
+								<a th:if="${range} != 0"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=0|}"
+									class="btn mb-2 btn--secondary">Tất cả giá</a>
+								<a th:if="${range} == 100"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=100|}"
+									class="btn mb-2 btn--secondary cusstom-checked">Dưới
+									100K</a>
+								<a th:if="${range} != 100"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=100|}"
+									class="btn mb-2 btn--secondary">Dưới
+									100K</a>
+								<a th:if="${range} == 300"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=300|}"
+									class="btn mb-2 btn--secondary cusstom-checked">Từ 100K
+									- 300K</a>
+								<a th:if="${range} != 300"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=300|}"
+									class="btn mb-2 btn--secondary">Từ 100K
+									- 300K</a>
+								<a th:if="${range} == 900"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=900|}"
+									class="btn mb-2 btn--secondary cusstom-checked">Từ 300K
+									- 900K</a>
+								<a th:if="${range} != 900"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=900|}"
+									class="btn mb-2 btn--secondary">Từ 300K
+									- 900K</a>
+								<a th:if="${range} == 1000"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=1000|}"
+									class="btn mb-2 btn--secondary cusstom-checked">Trên
+									900K</a>
+								<a th:if="${range} != 1000"
+									th:href="@{|/product?page=&brandId=${brandId}&subCateId=${subCateId}&range=1000|}"
+									class="btn mb-2 btn--secondary">Trên
+									900K</a>
+							</form>
+						</div>
+						<!--End Price Filter-->
+
+						<!--Brand-->
+						<div class="sidebar_widget filterBox filter-widget">
+							<div class="widget-title">
+								<h2>Brands</h2>
+							</div>
+							<ul>
+								<form th:action="@{|/product?page=&brandId=&subCateId=${subCateId}&range=|}"
+									method="GET">
+									<li th:each="b : ${brands}">
+										<th:block th:if="${#lists.contains(brandIdAsList, b.id)}">
+											<input type="checkbox" name="brandId" th:value="${b.id}" checked>
+											<label class="cusstom-checked">
+												<span><span></span></span>[[${b.name}]]
+											</label>
+										</th:block>
+										<th:block th:unless="${#lists.contains(brandIdAsList, b.id)}">
+											<input type="checkbox" name="brandId" th:value="${b.id}">
+											<label>
+												<span><span></span></span>[[${b.name}]]
+											</label>
+										</th:block>
+									</li>
+									<input type="checkbox" name="subCateId" th:value="${subCateId}" hidden checked>
+									<input type="checkbox" name="range" th:value="${range}" hidden checked>
+									<button class="btn mt-2">Lọc</button>
+								</form>
+							</ul>
+						</div>
+						<!--End Brand-->
+
+					</div>
+				</div>
+				<!--End Sidebar-->
+				<!--Main Content-->
+				<div class="col-md-9 main-col">
+					<div class="productList">
+						<!--Toolbar-->
+						<button type="button" class="btn btn-filter d-block d-md-none d-lg-none">
+							Product Filters</button>
+						<div class="toolbar">
+							<div class="filters-toolbar-wrapper">
+								<div class="row">
+
+
+									<div class="col-4 col-md-4 col-lg-4 text-left">
+										<div class="filters-toolbar__item">
+											<label for="SortBy" class="hidden">Lọc</label>
+											<select th:attr=" onchange=@{|angular.element(this).scope().sortProduct(this.value, '${brandId != ''}?${brandId}:null', '${subCateId != ''}?${subCateId}:null', ${range})|} " name="sortBy"
+												id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort custom-sort">
+												<option th:if="${sort =='default'}" value="default" selected="selected">Sort</option>
+												<option th:if="${sort !='default'}" value="default">Sort</option>
+												<option th:if="${sort =='lowPrice'}" value="lowPrice" selected="selected">Giá thấp</option>
+												<option th:if="${sort !='lowPrice'}" value="lowPrice">Giá thấp</option>
+												<option th:if="${sort =='highPrice'}" value="highPrice" selected="selected">Giá cao</option>
+												<option th:if="${sort !='highPrice'}" value="highPrice">Giá cao</option>
+											</select> <input class="collection-header__default-sort" type="hidden"
+												value="manual">
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!--End Toolbar-->
+						<div class="grid-products grid--view-items">
+							<div class="row">
+								<th:block th:if="${lstGoods[0].totalPage > 0}" th:each="goods : ${lstGoods}">
+									<div class="col-md-3 item">
+										<!-- start product image -->
+										<div class="product-image">
+											<!-- start product image -->
+											<a th:href="@{|/product/${goods.goodsId}|}">
+												<!-- product primary blur-up lazyloaded -->
+												<!-- image --> <img
+													class="product grid-view-item__image primary blur-up lazyloaded"
+													data-th:src="@{|/images/product/${goods.photo}|}"
+													th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+													th:title="${goods.name}">
+												<!-- End image -->
+												<!-- Hover image -->
+												<img class="product grid-view-item__image hover blur-up lazyloaded"
+													data-th:src="@{|/images/product/${goods.photo}|}"
+													th:src="@{|/images/product/${goods.photo}|}" th:alt="${goods.name}"
+													th:title="${goods.name}">
+												<!-- End hover image -->
+												<div class="product-labels rectangular">
+													<span th:attr="ng-if=@{|${goods.discount} > 0|}"
+														class="lbl on-sale">-[[${goods.discount}]] %</span>
+													<span th:attr="ng-if=@{|${goods.rx} == true|}"
+														class="lbl pr-label1">Rx</span>
+													<span th:attr="ng-if=@{|${goods.conHang} == false|}"
+														class="lbl bg-warning">Hết hàng</span>
+													
+												</div>
+												<div th:if="${goods.ngayKetThuc != null}" class="saleTime desktop" th:data-countdown="${goods.ngayKetThuc}"></div>
+											</a>
+											<!-- end product image -->
+
+											<!-- Start product button -->
+											<form class="variants add">
+												<button th:if="${goods.conHang == true}"
+													th:attr=" ng-click=@{|cart.add(${goods.goodsId}, ${goods.discount})|}, ng-if=@{|${goods.rx} == false|}"
+													class="btn btn-addto-cart" type="button">Thêm vào giỏ hàng</button>
+												<button th:attr="ng-if=@{|${goods.rx} == true|}" class="btn btn-tu-van" disabled>Tư
+													vấn mua hàng</button>
+											</form>
+											<!-- end product button -->
+										</div>
+										<!-- end product image -->
+
+										<!--start product details -->
+										<div class="product-details text-center">
+											<!-- product name -->
+											<div class="product-name">
+												<a th:href="@{|/product/${goods.goodsId}|}">[[${goods.name}]]</a>
+											</div>
+											<!-- End product name -->
+											<!-- product price -->
+											<div class="product-price">
+												<span th:attr="ng-if=@{|${goods.discount} > 0|}"
+													class="old-price">[[${#numbers.formatDecimal(goods.price,0,'COMMA',0,'POINT')}]]</span>
+												<span class="price">[[${#numbers.formatDecimal( goods.price - (goods.price * goods.discount/100) ,0,'COMMA',0,'POINT')}]]/[[${goods.util}]] </span>
+											</div>
+											<!-- End product price -->
+										</div>
+										<!-- End product details -->
+									</div>
+								</th:block>
+							</div>
+							<!-- <div class="row">
+								<div class="text-center col-md-12">
+									<input type="submit" class="btn mb-3" value="Xem thêm">
+								</div>
+							</div> -->
+						</div>
+					</div>
+					<hr class="clear">
+						<div class="pagination">
+							<ul>
+								<li th:if="${page} == 0" class="disabled mr-2"><a href="">|<</a></li>
+								<li th:if="${page} > 0" class="active mr-2"><a th:href="@{|/product?page=0&brandId=${brandId}&subCateId=&range=${range}&sort=${sort}|}">|<</a></li>
+								<li th:if="${page-1} < 0" class="disabled mr-2"><a href=""><<</a></li>
+								<li th:if="${page-1} >= 0" class="active mr-2"><a
+									th:href="@{|/product?page=${page - 1}&brandId=${brandId}&subCateId=&range=${range}&sort=${sort}|}"><<</a></li>
+								<li th:if="${page+1} > ${lstGoods[0].totalPage-1}" class="disabled mr-2"><a href="">>></a></li>
+								<li th:if="${page+1} <= ${lstGoods[0].totalPage-1}" class="active mr-2"><a
+									th:href="@{|/product?page=${page + 1}&brandId=${brandId}&subCateId=&range=${range}&sort=${sort}|}">>></a></li>
+								<li th:if="${page} == ${lstGoods[0].totalPage -1}" class="disabled mr-2"><a href="">>|</a></li>
+								<li th:if="${page} < ${lstGoods[0].totalPage -1}" class="active mr-2"><a th:href="@{|/product?page=${lstGoods[0].totalPage-1}&brandId=${brandId}&subCateId=&range=${range}&sort=${sort}|}">>|</a></li>
+							</ul>
+						</div>
+				</div>
+				<!--End Main Content-->
+			</div>
+		</div>
+		<!--Store Feature-->
+		<div class="store-feature section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+						<ul class="display-table store-info">
+							<li class="display-table-cell">
+								<i class="icon anm anm-truck-l"></i>
+								<h5>Miễn phí vận chuyển</h5>
+								<span class="sub-text">
+									Đối với đơn từ 200k trong nội thành TPHCM
+								</span>
+							</li>
+							<li class="display-table-cell">
+								<i class="icon anm anm-money-bill-ar"></i>
+								<h5>Nhiều khuyến mãi hấp dẫn</h5>
+								<span class="sub-text">
+									Hàng ngàn ưu đãi cực sốc được cập nhật mỗi ngày
+								</span>
+							</li>
+							<li class="display-table-cell">
+								<i class="icon anm anm-comments-l"></i>
+								<h5>Sản phẩm chính hãng</h5>
+								<span class="sub-text">
+									Cam kết hoàn tiền 300% giá trị sản phẩm nếu phát hiện hàng không chính hãng
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--End Store Feature-->
+	</div>
+</body>
+
+</html>

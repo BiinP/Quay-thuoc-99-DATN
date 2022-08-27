@@ -1,0 +1,171 @@
+<div class="row">
+	<div class="col-md-12 m-b-30">
+		<!-- begin page title -->
+		<div class="d-block d-lg-flex flex-nowrap align-items-center">
+			<div class="page-title mr-4 pr-4 border-right">
+				<h1>Quản lý danh mục con</h1>
+			</div>
+
+			<div
+				class="ml-auto d-flex align-items-center secondary-menu text-center">
+				<button type="button" class="btn btn-primary" ng-click="reset()"
+					data-toggle="modal" data-target="#largeModal">Thêm danh
+					mục con</button>
+			</div>
+		</div>
+		<!-- end page title -->
+	</div>
+</div>
+<!-- end row -->
+<!-- begin row -->
+<div class="row">
+	<div class="col-md-12 ">
+		<div class="card card-statistics">
+			<div class="card-header">
+				<div class="card-heading">
+					<div class="row">
+						<div class="col-md-6 text-left">
+							<h4 class="card-title">Danh sách danh mục con</h4>
+						</div>
+						<div class="col-md-6">
+							<form class="justify-content-end">
+								<div class="form-group">
+									<input ng-model="keyword"
+										oninput="angular.element(this).scope().search(this.value)"
+										type="text" class="form-control" placeholder="Search">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Id</th>
+								<th scope="col">Tên danh mục con</th>
+								<th scope="col">Danh mục</th>
+								<th scope="col">Hoạt động</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="c in subCategories">
+								<th scope="row">{{$index +1}}</th>
+								<td>{{c.id}}</td>
+								<td>{{c.name}}</td>
+								<td>{{c.category.name}}</td>
+								<td>{{c.active?'Yes':'No'}}</td>
+								<td class="text-right">
+									<button ng-click="edit(c.id)" class="btn btn-primary"
+										data-toggle="modal" data-target="#largeModal">
+										<i class="fa-solid fa-pen"></i>
+									</button>
+									<button ng-click="delete(c.id)" class="btn btn-dark"><i class="fa-solid fa-circle-xmark"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<nav aria-label="...">
+					<ul class="mt-2 pagination justify-content-center">
+						<li id="first" ng-click="first()" class="page-item disabled"><a
+							class="page-link" href=""><i
+								class="fa-solid fa-backward-step"></i></a></li>
+						<li id="prev" ng-click="prev()" class="page-item disabled"><a
+							class="page-link" href=""><i class="fa-solid fa-angles-left"></i></a></li>
+						<li class="page-item"><a class="page-link" href="">{{start+1}}/{{totalPage}}</a></li>
+						<li id="next" ng-click="next()" class="page-item"><a
+							class="page-link" href=""><i class="fa-solid fa-angles-right"></i></a></li>
+						<li id="last" ng-click="last()" class="page-item"><a
+							class="page-link" href=""><i class="fa-solid fa-forward-step"></i></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Large Modal -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
+	aria-labelledby="largeModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin danh mục {{category.name}}</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4 text-center">
+						<label> <img
+							ng-src="/images/sub-category/{{subCategory.photo}}" class="logo"
+							alt="">
+						</label>
+					</div>
+					<div class="col-md-8">
+						<form name="frmCategory">
+							<div class="form-group">
+								<label>Mã danh mục</label> <input ng-disabled="chon == true" name="id"
+									ng-model="subCategory.id" required type="text"
+									class="form-control">
+								<div ng-show="frmCategory.id.$invalid"
+									class="badge badge-danger m-2">Mã không được để trống</div>
+							</div>
+							<div class="form-group">
+								<label>Tên danh mục</label> <input name="name"
+									ng-model="subCategory.name" required type="text"
+									class="form-control">
+								<div ng-show="frmCategory.name.$invalid"
+									class="badge badge-danger m-2">Tên không được để trống</div>
+							</div>
+							<div class="form-group">
+								<label>Danh mục</label> <select ng-model="subCategory.category.id"
+										class="form-control">
+										<option ng-repeat="cate in categories" ng-value="cate.id">{{cate.name}}
+										</option>
+									</select>
+							</div>
+							
+							<div class="form-group">
+								<label>Logo</label>
+								<div class="custom-file">
+									<input type="file" accept="image/*" class="custom-file-input"
+										onchange="angular.element(this).scope().imageChanged(this.files)" />
+									<label class="custom-file-label">Choose file</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="mr-2">Hoạt động</label> <br>
+								<div class="form-check-inline">
+									<input ng-model="subCategory.active" class="form-check-input"
+										type="radio" name="active" ng-value="true"> <label
+										class="form-check-label"> Yes </label>
+								</div>
+								<div class="form-check-inline">
+									<input ng-model="subCategory.active" class="form-check-input"
+										type="radio" name="active" ng-value="false"> <label
+										class="form-check-label">No </label>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button ng-disabled="frmCategory.$invalid || chon == true"
+					ng-click="create()" class="btn btn-primary">Create</button>
+				<button ng-disabled="frmCategory.$invalid || chon == false"
+					ng-click="update(subCategory.id)" class="btn btn-info">Update</button>
+				<button ng-click="reset()" class="btn btn-default">Reset</button>
+				<button ng-disabled="chon == false"
+					ng-click="delete(subCategory.id)" class="btn btn-dark">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>

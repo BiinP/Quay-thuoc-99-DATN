@@ -1,0 +1,148 @@
+<div class="row">
+	<div class="col-md-12 m-b-30">
+		<!-- begin page title -->
+		<div class="d-block d-lg-flex flex-nowrap align-items-center">
+			<div class="page-title mr-4 pr-4 border-right">
+				<h1>Quản lý đơn vị</h1>
+			</div>
+
+			<div
+				class="ml-auto d-flex align-items-center secondary-menu text-center">
+				<button type="button" class="btn btn-primary" ng-click="reset()"
+					data-toggle="modal" data-target="#largeModal">Thêm đơn vị</button>
+			</div>
+		</div>
+		<!-- end page title -->
+	</div>
+</div>
+<!-- end row -->
+<!-- begin row -->
+<div class="row">
+	<div class="col-md-12 ">
+		<div class="card card-statistics">
+			<div class="card-header">
+				<div class="card-heading">
+					<div class="row">
+						<div class="col-md-6 text-left">
+							<h4 class="card-title">Danh sách đơn vị</h4>
+						</div>
+						<div class="col-md-6">
+							<form class="justify-content-end">
+								<div class="form-group">
+									<input ng-model="keyword"
+										oninput="angular.element(this).scope().search(this.value)"
+										type="text" class="form-control" placeholder="Search">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Mã đơn vị</th>
+								<th scope="col">Đơn vị</th>
+								<th scope="col">Ghi chú</th>
+								<th scope="col">Hoạt động</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="u in utils">
+								<th scope="row">{{$index +1}}</th>
+								<td>{{u.id}}</td>
+								<td>{{u.name}}</td>
+								<td>{{u.ghiChu}}</td>
+								<td>{{u.active?'Yes':'No'}}</td>
+								<td class="text-right">
+									<button ng-click="edit(u.id)" class="btn btn-primary"
+										data-toggle="modal" data-target="#largeModal">
+										<i class="fa-solid fa-pen"></i>
+									</button>
+									<button ng-click="delete(u.id)" class="btn btn-dark"><i class="fa-solid fa-circle-xmark"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<nav aria-label="...">
+					<ul class="mt-2 pagination justify-content-center">
+						<li id="first" ng-click="first()" class="page-item disabled"><a
+							class="page-link" href=""><i
+								class="fa-solid fa-backward-step"></i></a></li>
+						<li id="prev" ng-click="prev()" class="page-item disabled"><a
+							class="page-link" href=""><i class="fa-solid fa-angles-left"></i></a></li>
+						<li class="page-item"><a class="page-link" href="">{{start+1}}/{{totalPage}}</a></li>
+						<li id="next" ng-click="next()" class="page-item"><a
+							class="page-link" href=""><i class="fa-solid fa-angles-right"></i></a></li>
+						<li id="last" ng-click="last()" class="page-item"><a
+							class="page-link" href=""><i class="fa-solid fa-forward-step"></i></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Large Modal -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
+	aria-labelledby="largeModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin đơn vị {{util.name}}</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<form name="frmUtil">
+							<div class="form-group">
+								<label>Mã đơn vị</label> <input ng-disabled="chon == true" name="id"
+									ng-model="util.id" required type="text"
+									class="form-control">
+								<div ng-show="frmUtil.id.$invalid"
+									class="badge badge-danger m-2">Mã không được để trống</div>
+							</div>
+							<div class="form-group">
+								<label>Đơn vị</label> <input name="name"
+									ng-model="util.name" required type="text"
+									class="form-control">
+								<div ng-show="frmUtil.name.$invalid"
+									class="badge badge-danger m-2">Tên không được để trống</div>
+							</div>
+							<div class="form-group">
+								<label class="mr-2">Hoạt động</label> <br>
+								<div class="form-check-inline">
+									<input ng-model="util.active" class="form-check-input"
+										type="radio" name="active" ng-value="true"> <label
+										class="form-check-label"> Yes </label>
+								</div>
+								<div class="form-check-inline">
+									<input ng-model="util.active" class="form-check-input"
+										type="radio" name="active" ng-value="false"> <label
+										class="form-check-label">No </label>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button ng-disabled="frmCategory.$invalid || chon == true"
+					ng-click="create()" class="btn btn-primary">Create</button>
+				<button ng-disabled="frmCategory.$invalid || chon == false"
+					ng-click="update(util.id)" class="btn btn-info">Update</button>
+				<button ng-click="reset()" class="btn btn-default">Reset</button>
+				<button ng-disabled="chon == false"
+					ng-click="delete(util.id)" class="btn btn-dark">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>

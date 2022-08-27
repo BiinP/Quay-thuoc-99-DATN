@@ -16,5 +16,6 @@ public interface OrderService extends BaseService<Order, Integer>{
 	Order confirmOrder(Integer id);
 	Order successOrder(Integer id);
 	Order cancelOrder(Integer id);
+	Order sellInStore(JsonNode orderData);
 //	Page<Order> findForDoiXacNhan(Optional<Integer> )
 }

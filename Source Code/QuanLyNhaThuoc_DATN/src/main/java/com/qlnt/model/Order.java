@@ -35,6 +35,7 @@ public class Order {
 	private Date ngayThanhCong = null;
 	private String sdt;
 	private String diaChi;
+	private String ghiChu;
 	private Float phiGiaoHang;
 	private Float tongTien;
 	private Float tongGiamGia;

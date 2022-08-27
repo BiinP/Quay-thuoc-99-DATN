@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:fragment="_header" class="app-header top-bar" ng-controller="header-ctrl">
+                <!-- begin navbar -->
+                <nav class="navbar navbar-expand-md">
+
+                    <!-- begin navbar-header -->
+                    <div class="navbar-header d-flex align-items-center header-custom">
+                        <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
+                        <a class="navbar-brand" href="/">
+                            <img src="/assets/images/logo1.png" class="img-fluid logo-desktop" alt="logo" />
+                            <img src="/assets/images/favicon.png" class="img-fluid logo-mobile" alt="logo" />
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti ti-align-left"></i>
+                    </button>
+                    <!-- end navbar-header -->
+                    <!-- begin navigation -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="navigation d-flex">
+                            <ul class="navbar-nav nav-left">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" class="nav-link sidebar-toggle">
+                                        <i class="ti ti-align-right"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item full-screen d-none d-lg-block" id="btnFullscreen">
+                                    <a href="javascript:void(0)" class="nav-link expand">
+                                        <i class="icon-size-fullscreen"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav nav-right ml-auto">
+                                <li class="nav-item dropdown show">
+                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <i class="fe fe-bell"></i>
+                                        <span ng-if="orders.length > 0" class="notify">
+                                                    <span class="blink"></span>
+                                        <span ng-if="orders.length > 0" class="dot"></span>
+                                        </span>
+                                    </a>
+                                    <div class="dropdown-menu extended animated fadeIn show" aria-labelledby="navbarDropdown">
+                                        <ul>
+                                            <li class="dropdown-body min-h-240 nicescroll">
+                                                <ul class="scrollbar scroll_dark max-h-240 mCustomScrollbar _mCS_2 mCS-autoHide" style="position: relative; overflow: visible;"><div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: 240px;"><div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                                                    <li ng-repeat="order in orders" ng-if="order.doiXacNhan">
+                                                        <a href="#!order">
+                                                            <div class="notification d-flex flex-row align-items-center">
+                                                                <div class="notify-icon bg-img align-self-center">
+                                                                    <div class="bg-type bg-type-md">
+                                                                        <span>NW</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="notify-message">
+                                                                    <p class="font-weight-bold">Đơn hàng {{order.id}} cần được xác nhận</p>
+                                                                    <small>Ngày tạo: {{order.ngayTao}}</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </div></div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; display: block; height: 166px; max-height: 206px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div></ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropdown user-profile">
+                                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="/images/account/95f87bbd.jpg" alt="avtar-img">
+                                        <span class="bg-success user-status"></span>
+                                    </a>
+                                    <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+                                        <div class="bg-gradient px-4 py-3">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="mr-1">
+                                                    <h4 class="text-white mb-0">Nguyễn Hoàng Phúc</h4>
+                                                    <small class="text-white">Staff</small>
+                                                </div>
+                                                <a href="/logout" class="text-white font-20 tooltip-wrapper"
+                                                    data-toggle="tooltip" data-placement="top" title=""
+                                                    data-original-title="Logout"> <i class="zmdi zmdi-power"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end navigation -->
+                </nav>
+                <!-- end navbar -->
+            </header>
+</body>
+</html>
